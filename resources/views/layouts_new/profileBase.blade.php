@@ -41,7 +41,7 @@
             <div class="list-group account-settings">
               <p class="list-group-item"><strong>{{ Lang::get('messages.profile.menu.contribute') }}</strong></p>
 <!--               <a href="#" class="list-group-item">{{ Lang::get('messages.profile.menu.translate') }} <i class="fa fa-external-link"></i></a> -->
-              <a href="https://github.com/pavril/directdemocracy" target="_blank" class="list-group-item">{{ Lang::get('messages.profile.menu.github') }} <i class="fa fa-external-link"></i></a>
+              <a href="https://github.com/pavril/onlinedemocracy" target="_blank" class="list-group-item">{{ Lang::get('messages.profile.menu.github') }} <i class="fa fa-external-link"></i></a>
               <a href="{{ route('feedback') }}" class="list-group-item @if(Route::current()->getName() == 'feedback') active @endif">{{ Lang::get('messages.profile.menu.feedback') }}</a>
             </div>
             
