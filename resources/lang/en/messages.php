@@ -225,9 +225,9 @@ return [
 				"reset" => [
 						'reset' => "Reset password",
 						'new_pass' => "New password",
-						'new_pass_placeholder' => "Enter your new password",
-						'new_pass_confirm' => "New password",
-						'new_pass_placeholder_confirm' => "Enter your new password",
+						'new_pass_placeholder' => "Enter a new password",
+						'new_pass_confirm' => "Confirm password",
+						'new_pass_confirm_placeholder' => "Enter your new password again",
 						'submit' => "Reset password",
 				],
 				'return_to_login' => "Return to the login screen",

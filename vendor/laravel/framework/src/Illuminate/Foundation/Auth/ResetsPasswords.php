@@ -19,7 +19,7 @@ trait ResetsPasswords
      */
     public function getEmail()
     {
-        return view('auth.password');
+        return view('session_new.forgot');
     }
 
     /**
@@ -34,6 +34,7 @@ trait ResetsPasswords
 
         $response = Password::sendResetLink($request->only('email'), function (Message $message) {
             $message->subject($this->getEmailSubject());
+            $message->from('no-reply@directdemocracy.online', 'DirectDemocracy');
         });
 
         switch ($response) {
@@ -67,7 +68,7 @@ trait ResetsPasswords
             throw new NotFoundHttpException;
         }
 
-        return view('auth.reset')->with('token', $token);
+        return view('session_new.reset')->with('token', $token);
     }
 
     /**

@@ -32,8 +32,8 @@
 							
 							<div class="form-group @if ($errors->has('password_confirmation')) has-error @endif">
 								@if ($errors->has('password_confirmation')) <small class="text-danger pull-right">{{ $errors->first('password_confirmation') }}</small>@endif
-								<label for="password_confirmation">{{Lang::get('messages.session.reset.new_pass_confirm_placeholder')}}</label>
-								<input type="password" name="password_confirmation" class="form-control" id="password_confirmation" placeholder="Enter your new again" value="{{ old('password_confirmation') }}">
+								<label for="password_confirmation">{{Lang::get('messages.session.reset.new_pass_confirm')}}</label>
+								<input type="password" name="password_confirmation" class="form-control" id="password_confirmation" placeholder="{{Lang::get('messages.session.reset.new_pass_confirm_placeholder')}}" value="{{ old('password_confirmation') }}">
 							</div>
 							
 							{!! csrf_field() !!}
