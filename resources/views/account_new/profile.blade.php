@@ -71,7 +71,7 @@
        
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
-			<button type="submit" class="btn btn-default">{{ Lang::get('messages.profile.account.save') }}</button>
+			<button type="submit" class="btn btn-primary">{{ Lang::get('messages.profile.account.save') }}</button>
 		</div>
 	</div>
 </form>
