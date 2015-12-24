@@ -5,7 +5,7 @@ return [
 		'website' => [
 				'home' => [
 						'title' => "You finally got the power to change things!",
-						'subtitle' => "Take part in your school's descission making in less than 5 seconds. Join DirectDemocracy.",
+						'subtitle' => "Take part in your school's decision making in less than 5 seconds. Join DirectDemocracy.",
 
 						'able_to' => "You are able to",
 						'vote' => "Vote",
