@@ -131,14 +131,8 @@
                 	<div class="comment">
 <!--                     	<img src="{{ $comment['commenter']['avatar'] }}" class="profile-picture"> -->
                         <small class="name"><strong>{{ $comment['commenter']['fullName'] }}</strong></small>
-                        <small class="pull-right text-muted">{{ $comment['date_created'] }}</small>
+                        <small class="pull-right text-muted">@if ($comment['commenter']['id'] == $user['userId']) <a href="{{ route('comment.delete', ['comment' => $comment['commentId']]) }}" class="text-muted">{{ Lang::get('messages.proposition.comments.delete') }}</a> - @endif {{ $comment['date_created'] }}</small>
                         <p>{{ $comment['commentBody'] }}</p>
-                        <p>
-<!-- <!--                         Show only if comment user id = authenticated user -->
-<!--                         <a href="#" class="btn btn-default btn-xs">Delete</a> -->
-<!-- <!--                         Show all the time -->
-<!--                         <a href="#" class="btn btn-default btn-xs">Flag</a> -->
-                        </p>
                     </div>
                 	@endforeach
                 @else

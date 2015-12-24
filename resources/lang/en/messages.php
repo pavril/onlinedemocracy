@@ -46,6 +46,7 @@ return [
 						'no_comments_part2' => "yet, be the first to",
 						'add' => "add a comment",
 						'cancel' => "Cancel",
+						'delete' => "Delete",
 				],
 				'voting' => [
 						'expired' => "You can't vote anymore, this proposition has expired",

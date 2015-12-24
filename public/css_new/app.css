@@ -269,7 +269,7 @@ textarea.input-proposition {
     	white-space: nowrap; 
 	    width: auto; 
 	    display: block;
-	    overflow: mhidden;
+	    overflow: hidden;
     	text-overflow:ellipsis;
     }
     

@@ -19,6 +19,7 @@ use App\Proposition;
 use App\PropositionFactory;
 use App\Votes;
 use App\Comments;
+use App\CommentFactory;
 use App\Flags;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
@@ -307,6 +308,20 @@ class PropositionsController extends Controller
 	    		abort(403, trans('messages.unauthorized'));
 	    	}
     	
+    	}
+    }
+    
+    public function delete_comment($commentId) {
+    	$user = Auth::user();
+    	
+    	$commentsFactory = new commentFactory();
+    	$comment = $commentsFactory->getComment($commentId);
+    	
+    	if ($comment->commenterId() == $user->userId()) {
+    		$commentsFactory->deleteComment($commentId);
+    		return redirect()->back();
+    	} else {
+    		abort(403, trans('messages.unauthorized'));
     	}
     }
     
