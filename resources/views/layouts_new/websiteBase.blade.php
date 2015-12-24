@@ -109,7 +109,6 @@
   	</div>
 
 	@yield('content')
-	use_fb
 	<div class="footer">
   	<div class="container">
         <p><small class="text-muted"><a href="{{ route('terms') }}" class="text-muted">{{Lang::get('messages.website.terms')}}</a> | <a href="https://github.com/pavril/onlinedemocracy" target="_blank" class="text-muted">GitHub</a></small></p>
