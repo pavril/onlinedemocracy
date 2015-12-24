@@ -42,7 +42,7 @@
 							</div>
 							
 							{!! csrf_field() !!}
-							<p class="text-center"><small class="text-muted">By signing up you agree the the <a href="{{ route('terms') }}" target="_blank">Terms of service</a></small></p>
+							<p class="text-center"><small class="text-muted">{{Lang::get('messages.session.sign_up.accept_terms')}} <a href="{{ route('terms') }}" target="_blank">{{Lang::get('messages.website.terms')}}</a></small></p>
 							
 							
 							<button type="submit" class="btn btn-default btn-block">{{Lang::get('messages.session.sign_up.sign_up')}}</button>

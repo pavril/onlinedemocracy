@@ -98,8 +98,8 @@
 	        <div class="collapse navbar-collapse" id="topFixedNavbar1">
 	          
 	          <ul class="nav navbar-nav navbar-right">
-				<li><a href="{{ route('login') }}">Sign in</a></li>
-				<li><a href="{{ route('auth.getSocialAuth', ['provider' => 'facebook']) }}" class="btn btn-primary">Login with Facebook</a></li>
+				<li><a href="{{ route('login') }}">{{Lang::get('messages.session.login.submit')}}</a></li>
+				<li><a href="{{ route('auth.getSocialAuth', ['provider' => 'facebook']) }}" class="btn btn-primary">{{Lang::get('messages.session.login.use_fb_login')}}</a></li>
 	          </ul>
 	        </div>
 	        <!-- /.navbar-collapse -->
@@ -109,11 +109,11 @@
   	</div>
 
 	@yield('content')
-	
+	use_fb
 	<div class="footer">
   	<div class="container">
-        <p><small class="text-muted"><a href="{{ route('terms') }}" class="text-muted">Terms of service</a> | <a href="https://github.com/pavril/onlinedemocracy" target="_blank" class="text-muted">GitHub</a></small></p>
-        <p><small class="text-muted">DirectDemocracy is developped and mantained by Photis Avrilionis. Copyright &copy; 2015 - 2016 Photis Avrilionis.</small></p>
+        <p><small class="text-muted"><a href="{{ route('terms') }}" class="text-muted">{{Lang::get('messages.website.terms')}}</a> | <a href="https://github.com/pavril/onlinedemocracy" target="_blank" class="text-muted">GitHub</a></small></p>
+        <p><small class="text-muted">{{Lang::get('messages.website.footer')}}</small></p>
 	</div>
   </div>
 @stop()

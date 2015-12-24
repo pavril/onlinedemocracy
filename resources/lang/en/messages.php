@@ -1,6 +1,23 @@
 <?php
 
 return [
+		
+		'website' => [
+				'home' => [
+						'title' => "You finally got the power to change things!",
+						'subtitle' => "Take part in your school's descission making in less than 5 seconds. Join DirectDemocracy.",
+
+						'able_to' => "You are able to",
+						'vote' => "Vote",
+						'vote_text' => "With DirectDemocracy, you are able to vote on suggestions made by other pupils concerning the school life.",
+						'suggest' => "Suggest",
+						'suggest_text' => "With DirectDemocracy, you can make your own suggestions for everything concerning the school life. Everyone can vote on your propositions.",
+						'comment' => "Comment",
+						'comment_text' => "With DirectDemocracy, you can comment on suggestions made by other pupils and help improve your school life.",
+				],
+				'terms' => "Terms of service",
+				'footer' => "DirectDemocracy is developped and mantained by Photis Avrilionis. Copyright © 2015 - 2016 Photis Avrilionis.",
+		],
 
 		'proposition' => [
 				'back' => "Back",
@@ -202,6 +219,7 @@ return [
 						'password_placeholder' => "Enter password",
 						'submit' => "Sign in",
 						'use_fb' => "Sign in with Facebook",
+						'use_fb_login' => "Login with Facebook",
 						'sign_up' => "Sign up",
 				],
 				"sign_up" => [
@@ -215,6 +233,7 @@ return [
 						'password_placeholder' => "Enter a password",
 						'password_confirm' => "Type your password again",
 						'use_fb' => "Register with Facebook",
+						'accept_terms' => "By signing up you agree the the",
 				],
 				"forgot" => [
 						'reset' => "Reset password",

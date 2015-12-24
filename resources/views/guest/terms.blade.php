@@ -6,7 +6,7 @@
 <div class="section terms">
   	<div class="container">
        	<h1>Terms of service</h1>
-        <p class="lead">December 2015 Version</p>
+        <p class="lead text-muted">December 2015 Version</p>
         
         <p>By using the DirectDemocracy Software Application ("Service”) you are agreeing to be bound by the following terms and conditions ("Terms of Service").</p>
         <p>If DirectDemocracy makes material changes to these Terms, we will notify you by email or by posting a notice on our site before the changes are effective. Any new features that augment or enhance the current Service, including the release of new tools and resources, shall be subject to the Terms of Service. Continued use of the Service after any such changes shall constitute your consent to such changes. You can review the most current version of the Terms of Service at any time at: <a href="http://directdemocracy.online/terms">http://directdemocracy.online/terms</a></p>
@@ -25,7 +25,6 @@
 You may not use the Service for any illegal or unauthorized purpose. You must not, in the use of the Service, violate any laws in its jurisdiction (including but not limited to copyright or trademark laws).</p>
 
 		<h2>2. Cancellation, deletion and termination</h2>
-      	<p>You are solely responsible for properly cancelling your subscription to the Service. An email request to cancel your account is not considered cancellation.</p>
 		<p>You may delete your account at any moment. In case of deletion of your Content will be immediately removed from the Service. <strong>This information cannot be recovered once your account is deleted.</strong></p>
 		<p><strong>DirectDemocracy in its sole discretion has the right to suspend or terminate your account and refuse any and all current or future use of the Service in case of non-respect of the present agreement at any time. Such termination of the Service will result in the deactivation or deletion of your account or access to your account, and the forfeiture and relinquishment of all Content in your account. DirectDemocracy reserves the right to refuse service to anyone for any reason at any time.</strong></p>
         

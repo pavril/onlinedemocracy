@@ -100,7 +100,7 @@
           </div>
         </div>
         
-        <small class="text-muted">{{Lang::get('messages.profile.create_proposition.agree')}} <a href="#">{{Lang::get('messages.profile.create_proposition.more')}}</a>.</small>
+        <small class="text-muted">{{Lang::get('messages.profile.create_proposition.agree')}} <a href="{{ route('terms') }}" target="_blank">{{Lang::get('messages.profile.create_proposition.more')}}</a>.</small>
       </div>
       {!! csrf_field() !!}
       </form>
