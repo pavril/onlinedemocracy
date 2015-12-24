@@ -16,6 +16,18 @@ use Illuminate\Support\Facades\Lang;
 class MainController extends Controller
 {
 	
+	public function home() {
+		if (Auth::check()) { 
+			return redirect()->route('propositions');
+		} else {
+			return view('guest.home');
+		}
+		
+	}
+	public function terms() {
+		return view('guest.terms');
+	}
+	
 	public function feedback() {
 		
 		$user = Auth::user();

@@ -11,18 +11,22 @@
 |
 */
 
-Route::get('/', ['uses' => 'SessionController@landing']);
+// Route::get('/', ['uses' => 'SessionController@landing']);
+
+//Website routes
+Route::get('/', ['as' => 'home', 'uses' => 'MainController@home']);
+Route::get('/terms', ['as' => 'terms', 'uses' => 'MainController@terms']);
 
 //Session routes
 Route::get('/login', ['as' => 'login', 'uses' => 'SessionController@index']);
 Route::post('/login', ['as' => 'authenticate', 'uses' => 'SessionController@login']);
+Route::get('/register', ['as' => 'register', 'uses' => 'SessionController@create']);
+Route::post('/register', ['as' => 'registrate', 'uses' => 'SessionController@registrate']);
+Route::get('/logout', ['as' => 'logout', 'uses' => 'SessionController@logout']);
 
 //Social Login
 Route::get('/login/{provider?}',['uses' => 'SessionController@getSocialAuth','as'   => 'auth.getSocialAuth']);
 Route::get('/login/callback/{provider?}',['uses' => 'SessionController@getSocialAuthCallback','as'   => 'auth.getSocialAuthCallback']);
-Route::get('/register', ['as' => 'register', 'uses' => 'SessionController@create']);
-Route::post('/register', ['as' => 'registrate', 'uses' => 'SessionController@registrate']);
-Route::get('/logout', ['as' => 'logout', 'uses' => 'SessionController@logout']);
 
 //Auth pages
 Route::get('/account/profile', ['middleware' => 'auth', 'as' => 'profile.main', 'uses' => 'ProfileController@index']);

@@ -1,13 +1,14 @@
 @extends('layouts_new.main')
 
 @section('content_base')
+<div class="container-fluid">
 	<style>body {padding-top: 90px}</style>
 	<div class="container-fluid" id="navigation">
     	<nav class="navbar navbar-inverse navbar-fixed-top">
       		<div class="container">
         		<!-- Brand and toggle get grouped for better mobile display -->
         		<div class="navbar-header">
-          			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topFixedNavbar1"><span class="sr-only">Lang::get('messages.navigation.nav_toggle')</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+          			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topFixedNavbar1"><span class="sr-only">{{ Lang::get('messages.navigation.nav_toggle') }}</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
           			<a class="navbar-brand" href="{{ route('propositions') }}">DirectDemocracy</a>
           		</div>
 
@@ -37,4 +38,5 @@
   	</div>
 
 	@yield('content')
+</div>
 @stop()

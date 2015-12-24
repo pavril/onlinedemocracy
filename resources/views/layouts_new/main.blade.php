@@ -24,11 +24,7 @@
  	</head>
 	<body>
 	
-  		<div class="container-fluid">
-        
         @yield('content_base')
-        
-        </div>
 
 	    <script src="{{ asset('js/jquery.js') }}" type="text/javascript"></script>
 	    <script src="{{ asset('js/jquery-ui.js') }}" type="text/javascript"></script>
