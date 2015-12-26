@@ -5,14 +5,14 @@ return [
 		'website' => [
 				'home' => [
 						'title' => "You finally got the power to change things!",
-						'subtitle' => "Take part in your school's decision making in less than 5 seconds. Join DirectDemocracy.",
+						'subtitle' => "Take part in your school's decision making in less than 5 seconds. Join DirectDemocracy!",
 
 						'able_to' => "You can",
 						'vote' => "Vote",
-						'vote_text' => "With DirectDemocracy, you are able to vote on suggestions made by other pupils concerning the school life.",
+						'vote_text' => "With DirectDemocracy, you are able to vote on petitions made by other pupils concerning the school life.",
 						'suggest' => "Suggest",
-						'suggest_text' => "With DirectDemocracy, you can make your own suggestions for everything concerning the school life. Everyone can vote on your propositions.",
-						'comment' => "Comment",
+						'suggest_text' => "With DirectDemocracy, you can propose your own petitions for everything concerning the school life. Everyone can vote on your propositions.",
+						'comment' => "Commenter",
 						'comment_text' => "With DirectDemocracy, you can comment on suggestions made by other pupils and help improve your school life.",
 				],
 				'terms' => "Terms of service",
