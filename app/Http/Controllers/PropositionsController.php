@@ -382,7 +382,7 @@ class PropositionsController extends Controller
      */
     public function flag($id, $flag_type)
     {
-        if ($flag_type == 1 OR $flag_type == 2 OR $flag_type == 3) {
+        if ($flag_type == 1 OR $flag_type == 3) {
         	Flags::create([
         			"type" => $flag_type,
         			"proposition" => $id,

@@ -7,7 +7,7 @@ return [
 						'title' => "You finally got the power to change things!",
 						'subtitle' => "Take part in your school's decision making in less than 5 seconds. Join DirectDemocracy.",
 
-						'able_to' => "You are able to",
+						'able_to' => "You can",
 						'vote' => "Vote",
 						'vote_text' => "With DirectDemocracy, you are able to vote on suggestions made by other pupils concerning the school life.",
 						'suggest' => "Suggest",
@@ -146,15 +146,6 @@ return [
 				],
 				'propositions' => [
 						'go_to' => "Go to proposition",
-						'sort' => [
-								'sort_by' => "Sort by",
-								'alphabetical' => "Alphabetical order",
-								'creation_date' => "Creation date",
-								'ending_soon' => "Ending soon",
-								'upvotes' => "Upvotes",
-								'downvotes' => "Downvotes",
-								'status' => "Status",
-						],
 						'status' => [
 								'ending_in' => "{1} Ending in :daysleft day|{0} Ending in :daysleft days|[2,Inf] Ending in :daysleft days",
 								'2' => "Waiting for approval",

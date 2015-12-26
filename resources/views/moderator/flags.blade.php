@@ -22,7 +22,7 @@
 					<p style="font-size: 15px;">{{{ $proposition['propositionSort'] }}}</p>
 					<p style="font-size: 11px;">{{{ $proposition['propositionLong'] }}}</p>
 					
-					<p class="text-muted"><span class="label label-warning">{{ Lang::choice('messages.moderator.flags.offensive_count', $proposition['offensiveCount'], ['flags' => $proposition['offensiveCount']]) }}</span> <span class="label label-warning">{{ Lang::choice('messages.moderator.flags.inappropriate_count', $proposition['inappropriateCount'], ['flags' => $proposition['inappropriateCount']]) }}</span> <span class="label label-info">{{ Lang::choice('messages.moderator.flags.incomprehensible_count', $proposition['incomprehensibleCount'], ['flags' => $proposition['incomprehensibleCount']]) }}</span></p>
+					<p class="text-muted"><span class="label label-warning">{{ Lang::choice('messages.moderator.flags.offensive_count', $proposition['offensiveCount'], ['flags' => $proposition['offensiveCount']]) }}</span> <span class="label label-info">{{ Lang::choice('messages.moderator.flags.incomprehensible_count', $proposition['incomprehensibleCount'], ['flags' => $proposition['incomprehensibleCount']]) }}</span></p>
 					
 					<p><a class="btn btn-sm btn-danger" data-toggle="collapse" href="#proposition{{$proposition['id']}}" aria-expanded="false" aria-controls="proposition{{$proposition['id']}}">{{Lang::get('messages.moderator.block')}}</a></p>
 					

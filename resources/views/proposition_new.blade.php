@@ -53,7 +53,6 @@
 				  </button>
 				  <ul class="dropdown-menu">
 				    <li><a href="{{ route('flag', [$proposition['propositionId'], 1]) }}">{{Lang::get('messages.proposition.flagging.offensive')}}</a></li>
-				    <li><a href="{{ route('flag', [$proposition['propositionId'], 2]) }}">{{Lang::get('messages.proposition.flagging.inappropriate')}}</a></li>
 				    <li><a href="{{ route('flag', [$proposition['propositionId'], 3]) }}">{{Lang::get('messages.proposition.flagging.incomprehensible')}}</a></li>
 				  </ul>
 				</div>
