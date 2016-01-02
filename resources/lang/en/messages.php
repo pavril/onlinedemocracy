@@ -12,7 +12,7 @@ return [
 						'vote_text' => "With DirectDemocracy, you are able to vote on petitions made by other pupils concerning the school life.",
 						'suggest' => "Suggest",
 						'suggest_text' => "With DirectDemocracy, you can propose your own petitions for everything concerning the school life. Everyone can vote on your propositions.",
-						'comment' => "Commenter",
+						'comment' => "Comment",
 						'comment_text' => "With DirectDemocracy, you can comment on suggestions made by other pupils and help improve your school life.",
 				],
 				'terms' => "Terms of service",
