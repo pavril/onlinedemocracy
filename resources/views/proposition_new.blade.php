@@ -80,8 +80,9 @@
           <a href="{{ route('downvote', $proposition['propositionId']) }}" class="btn btn-danger"><i class="fa fa-thumbs-o-down"></i> {{ Lang::get('messages.proposition.voting.actions.downvote') }}</a>
         </div>
 		@else
+		<p class="text-primary text-center"><small>Link your school account in order to vote and comment</small></p>
 		<div class="btn-group btn-group-justified section">
-			<a href="{{ route('getLinkAuth') }}" class="btn btn-primary">{{ Lang::get('messages.proposition.voting.link') }}</a>
+			<a href="{{ route('getLinkAuth') }}" class="btn btn-info">{{ Lang::get('messages.profile.account.school_link_actions.link_now') }}</a>
 		</div>
 		@endif
 					
