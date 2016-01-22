@@ -1,9 +1,9 @@
-@import url(https://fonts.googleapis.com/css?family=Asap:400,700|Didact+Gothic&subset=latin,greek);
+@import url(https://fonts.googleapis.com/css?family=Asap:400,700);
 /* CSS Document */
 
 body {
 	position: relative;
-	font-family: 'Asap', "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-family: "soleil", 'Asap', "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 a.thumbnail:hover, a.thumbnail:focus, a.thumbnail:active {
@@ -53,6 +53,7 @@ a.thumbnail:hover .caption {
 }
 .section {
 	margin-bottom: 15px;
+	font-weight: 300;
 }
 
 .btn-white {
@@ -72,16 +73,23 @@ a.thumbnail:hover .caption {
 }
 .label-btn {
 	font-size: 11px;
-    line-height: 21px;
+    line-height: 32px;
     font-weight: 500;
     text-transform: uppercase;
-    padding: 5px 10px;
+    padding: 0 10px;
     display: inline-block;
-    border-radius: 2px;
+    margin: 0;
+    border-radius: 3px;
+}
+.pull-right-left-margin {
+	margin-left: 3px;
 }
 .comment {
 	padding: 13px;
     border-bottom: 1px solid #E3E3E3;
+}
+.comment:last-child {
+    border-bottom: none;
 }
 .comment p {
 	margin-bottom: 0;

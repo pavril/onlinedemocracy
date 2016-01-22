@@ -11,8 +11,6 @@
 |
 */
 
-// Route::get('/', ['uses' => 'SessionController@landing']);
-
 //Website routes
 Route::get('/', ['as' => 'home', 'uses' => 'MainController@home']);
 Route::get('/terms', ['as' => 'terms', 'uses' => 'MainController@terms']);
@@ -48,7 +46,7 @@ Route::get('/profile/unlink',['middleware' => 'auth','uses' => 'ProfileControlle
 
 //Propositions routes
 Route::get('/home', ['middleware' => 'auth','as' => 'propositions','uses' => 'PropositionsController@index']);
-Route::get('/proposition/{id}', ['middleware' => 'auth','as' => 'proposition','uses' => 'PropositionsController@show']);
+Route::get('/proposition/{id}', ['as' => 'proposition','uses' => 'PropositionsController@show']);
 Route::post('/proposition/comment', ['middleware' => 'auth', 'as' => 'comment', 'uses' => 'PropositionsController@comment']);
 Route::get('/proposition/comment/delete/{commentId}', ['middleware' => 'auth', 'as' => 'comment.delete', 'uses' => 'PropositionsController@delete_comment']);
 Route::get('/proposition/{id}/upvote', ['middleware' => 'auth', 'as' => 'upvote', 'uses' => 'PropositionsController@upvote']);

@@ -217,7 +217,6 @@ class PropositionsController extends Controller
      */
     public function show($id)
     {
-    	$user = Auth::user();
     	$propositionFactory = new PropositionFactory();
     	$userFactory = new UserFactory();
     	
@@ -226,7 +225,7 @@ class PropositionsController extends Controller
     	if ($proposition->status() !== Proposition::ACCEPTED) {
     		abort(404);
     	}
-    	
+
     	$proposer = $userFactory->getUser($proposition->proposerId());
     	
     	$viewProposition = [
@@ -246,15 +245,21 @@ class PropositionsController extends Controller
     	$viewVotes = [
     			'upvotes' => $propositionFactory->getUpvotes($id),
     			'downvotes' => $propositionFactory->getDownvotes($id),
-    			'userHasVoted' => $propositionFactory->getUserVoteStatus($id, $user->userId()),
+    	];
+    	
+    	$viewShareLinks = [
+    			'facebook' => Share::load(route('proposition', [$viewProposition['propositionId']]), $viewProposition['propositionSort'])->facebook(),
+    			'twitter' => Share::load(route('proposition', [$viewProposition['propositionId']]), $viewProposition['propositionSort'])->twitter(),
+    			'plus' => Share::load(route('proposition', [$viewProposition['propositionId']]), $viewProposition['propositionSort'])->gplus(),
+    			'pinterest' => Share::load(route('proposition', [$viewProposition['propositionId']]), $viewProposition['propositionSort'])->pinterest(),
     	];
     	
     	$viewComments = array();
     	
     	foreach ($propositionFactory->getComments($id) as $comment) {
-    		
+    		 
     		$commentUser = $userFactory->getUser($comment->commenterId());
-    		
+    		 
     		$viewComments[$comment->commentId()] = [
     				'commentId' => $comment->commentId(),
     				'commentBody' => $comment->body(),
@@ -265,20 +270,25 @@ class PropositionsController extends Controller
     				],
     				'date_created' => Carbon::createFromTimestamp(strtotime($comment->created_at()))->diffForHumans(),
     		];
-
+    	
     	}
     	
     	$viewProposition['commentsCount'] = count($viewComments);
     	
-    	$viewShareLinks = [
-    			'facebook' => Share::load(route('proposition', [$viewProposition['propositionId']]), $viewProposition['propositionSort'])->facebook(),
-    			'twitter' => Share::load(route('proposition', [$viewProposition['propositionId']]), $viewProposition['propositionSort'])->twitter(),
-    			'plus' => Share::load(route('proposition', [$viewProposition['propositionId']]), $viewProposition['propositionSort'])->gplus(),
-    			'pinterest' => Share::load(route('proposition', [$viewProposition['propositionId']]), $viewProposition['propositionSort'])->pinterest(),
-    	];
-    	
-    	$viewUser = ['userId' => $user->userId(), 'fullName' => $user->firstName() . " " . $user->lastName(),'firstName' => $user->firstName(),'lastName' => $user->lastName(),'contactEmail' => $user->contactEmail(),'email' => $user->email(),'avatar' => $user->avatar(),'belongsToSchool' => $user->belongsToSchool(),'schoolEmail' => $user->googleEmail(),'role' => $user->role(),];
-        return view('proposition_new', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser, 'proposition' => $viewProposition, 'votes' => $viewVotes, 'comments' => $viewComments,'shareLinks' => $viewShareLinks]);
+    	if (Auth::check()) {
+	    	$user = Auth::user();
+	    	$viewUser = ['userId' => $user->userId(), 'fullName' => $user->firstName() . " " . $user->lastName(),'firstName' => $user->firstName(),'lastName' => $user->lastName(),'contactEmail' => $user->contactEmail(),'email' => $user->email(),'avatar' => $user->avatar(),'belongsToSchool' => $user->belongsToSchool(),'schoolEmail' => $user->googleEmail(),'role' => $user->role(),];
+	        
+	    	$viewVotes = [
+	    			'upvotes' => $propositionFactory->getUpvotes($id),
+	    			'downvotes' => $propositionFactory->getDownvotes($id),
+	    			'userHasVoted' => $propositionFactory->getUserVoteStatus($id, $user->userId()),
+	    	];
+	    	
+	    	return view('proposition_new', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser, 'proposition' => $viewProposition, 'votes' => $viewVotes, 'comments' => $viewComments,'shareLinks' => $viewShareLinks]);
+    	} else {
+    		return view('proposition_public', ['proposition' => $viewProposition, 'votes' => $viewVotes, 'comments' => $viewComments,'shareLinks' => $viewShareLinks]);
+    	}
     }
     
     public function comment(Request $request) {
@@ -374,7 +384,7 @@ class PropositionsController extends Controller
     }
     
     /**
-     * Flag a proposition as offensive/inappropriate/incomprehensible.
+     * Flag a proposition as offensive/incomprehensible.
      *
      * @param  int  $id
      * @param  int  $flag_type
@@ -392,4 +402,5 @@ class PropositionsController extends Controller
         	abort(404);
         }
     }
+    
 }

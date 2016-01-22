@@ -1,4 +1,4 @@
-@extends('layouts_new.authBase')
+@extends('layouts_new.websiteBase')
 
 @section('header_scripts')
 <meta property="og:url" content="{{ route('proposition', [$proposition['propositionId']]) }}" />
@@ -6,6 +6,23 @@
 <meta property="og:title" content="{{{ $proposition['propositionSort'] }}}" />
 <meta property="og:description" content="How about voting for this proposition?" />
 <meta property="fb:app_id" content="1653131541598762" />
+<style>
+	body {
+		padding-top: 90px;
+	}
+	.navbar .btn {
+		color: #eee !important;
+		padding: 10px;
+		margin: 10px;
+	}
+	.navbar .btn:hover, .navbar .btn:active, .navbar .btn:focus {
+		color: #fff !important;
+		background: #4283C5 !important;
+	}
+	.footer {
+		display: none;
+	}
+</style>
 @stop
 
 @section('title', $proposition['propositionSort'])
@@ -30,7 +47,7 @@
 		@endif
       
       	<div class="section">
-        	<a href="{{ route('propositions') }}" class="btn btn-default btn-sm"><i class="fa fa-angle-left"></i> {{Lang::get('messages.proposition.back')}}</a>
+        	<a href="#" class="btn btn-default btn-sm" disabled><i class="fa fa-angle-left"></i> {{Lang::get('messages.proposition.back')}}</a>
             <span class="pull-right">
                 <div class="btn-group">
                   <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share"></i> {{Lang::get('messages.proposition.share.share')}}</a>
@@ -41,7 +58,6 @@
                     <li><a href="{{ $shareLinks['pinterest'] }}"><i class="fa fa-pinterest-square"></i> {{Lang::get('messages.proposition.share.pin')}}</a></li>
                   </ul>
                 </div>
-                
                 <div class="btn-group">
 	                @if ($proposition['ending_in'] <= 0)
 	                <p class="label label-info label-btn">{{ Lang::get('messages.proposition.status.expired') }}</p> 
@@ -49,16 +65,6 @@
 		         	<p class="label label-info label-btn">{{ Lang::choice('messages.proposition.status.ending_in', $proposition['ending_in'], ['daysleft' => $proposition['ending_in']]) }}</p> 
 		         	@endif
 	         	</div>
-                
-                <div class="btn-group pull-right pull-right-left-margin">
-				  <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" data-placement="right" title="{{Lang::get('messages.proposition.flagging.flag')}}">
-				    <i class="glyphicon glyphicon-flag"></i>
-				  </button>
-				  <ul class="dropdown-menu">
-				    <li><a href="{{ route('flag', [$proposition['propositionId'], 1]) }}">{{Lang::get('messages.proposition.flagging.offensive')}}</a></li>
-				    <li><a href="{{ route('flag', [$proposition['propositionId'], 3]) }}">{{Lang::get('messages.proposition.flagging.incomprehensible')}}</a></li>
-				  </ul>
-				</div>
                 
             </span>
         </div>
@@ -75,25 +81,17 @@
         <div class="btn-group btn-group-justified section">
 			<a href="#" class="btn btn-primary" disabled>{{ Lang::get('messages.proposition.voting.expired') }}</a>
 		</div>
-        @elseif ($votes['userHasVoted'] == false)
-                    
-		@if ($user['belongsToSchool'] == true)
+        @else
+
 		<div class="btn-group btn-group-justified section">
-          <a href="{{ route('upvote', $proposition['propositionId']) }}" class="btn btn-success"><i class="fa fa-thumbs-o-up"></i> {{ Lang::get('messages.proposition.voting.actions.upvote') }}</a>
-          <a href="{{ route('downvote', $proposition['propositionId']) }}" class="btn btn-danger"><i class="fa fa-thumbs-o-down"></i> {{ Lang::get('messages.proposition.voting.actions.downvote') }}</a>
+          <a href="#" class="btn btn-success" disabled><i class="fa fa-thumbs-o-up"></i> {{ Lang::get('messages.proposition.voting.actions.upvote') }}</a>
+          <a href="#" class="btn btn-danger" disabled><i class="fa fa-thumbs-o-down"></i> {{ Lang::get('messages.proposition.voting.actions.downvote') }}</a>
         </div>
-		@else
-		<p class="text-primary text-center"><small>Link your school account in order to vote and comment</small></p>
-		<div class="btn-group btn-group-justified section">
-			<a href="{{ route('getLinkAuth') }}" class="btn btn-info">{{ Lang::get('messages.profile.account.school_link_actions.link_now') }}</a>
+        <div class="btn-group btn-group-justified section">
+			<a href="{{ route('login') }}" class="btn btn-info">{{ Lang::get('messages.proposition.voting.need_to_login') }}</a>
 		</div>
-		@endif
-					
-		@else
-		<div class="btn-group btn-group-justified section">
-			<a href="#" class="btn btn-success" disabled>{{ Lang::get('messages.proposition.voting.already_voted') }}</a>
-		</div>
-		@endif
+        @endif
+       
         
         <div class="section">
         	<div class="thumbnail section">
@@ -103,29 +101,6 @@
             </div>
         </div>
         
-        @if ($proposition['ending_in'] > 0)
-        <div class="section">
-        	<button class="btn btn-white btn-block" type="button" data-toggle="collapse" data-target="#comment" aria-expanded="false" aria-controls="comment">{{ Lang::get('messages.proposition.voting.actions.comment') }}</button>
-        </div>
-        
-        <div class="collapse" id="comment">
- 			<div class="section">
-        		<div class="thumbnail section">
-              		<div class="caption">
-	              			<form action="{{ route('comment') }}" method="POST">
-	              			<div class="form-group">
-	                     		<textarea  name="commentBody" class="form-control" rows="3" id="textArea" placeholder="{{ Lang::get('messages.proposition.voting.actions.comment_placeholder') }}"></textarea>
-	              			</div>
-			                <input type="hidden" name="propositionId" value="{{ $proposition['propositionId'] }}"/>
-							{!! csrf_field() !!}
-							<input class="btn btn-primary" type="submit" value="{{ Lang::get('messages.proposition.voting.actions.post_comment') }}" /> <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#comment" aria-expanded="false" aria-controls="comment">{{Lang::get('messages.proposition.comments.cancel')}}</button>
-		                	</form>
-        			</div>
-        		</div>
-        	</div>
-        </div>
-        @endif
-
         <div class="section comments">
         	<div class="thumbnail section">
         		
@@ -134,19 +109,19 @@
                 	<div class="comment">
 <!--                     	<img src="{{ $comment['commenter']['avatar'] }}" class="profile-picture"> -->
                         <small class="name"><strong>{{ $comment['commenter']['fullName'] }}</strong></small>
-                        <small class="pull-right text-muted">@if ($comment['commenter']['id'] == $user['userId']) <a href="{{ route('comment.delete', ['comment' => $comment['commentId']]) }}" class="text-muted">{{ Lang::get('messages.proposition.comments.delete') }}</a> - @endif {{ $comment['date_created'] }}</small>
+                        <small class="pull-right text-muted">{{ $comment['date_created'] }}</small>
                         <p>{{ $comment['commentBody'] }}</p>
                     </div>
                 	@endforeach
                 @else
 	            	<div class="caption">
-	                	<small class="text-muted">{{Lang::get('messages.proposition.comments.no_comments')}} @if ($proposition['ending_in'] >= 0) {{Lang::get('messages.proposition.comments.no_comments_part2')}} <a href="#comment" type="button" data-toggle="collapse" data-target="#comment" aria-expanded="false" aria-controls="comment">{{Lang::get('messages.proposition.comments.add')}}</a>@endif .</small>
+	                	<small class="text-muted">{{Lang::get('messages.proposition.comments.no_comments')}}.</small>
 	                </div>
                 @endif
                 
 			</div>
         </div>
-       
+        
         
       </div>
 	</div>

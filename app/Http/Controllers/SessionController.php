@@ -107,7 +107,7 @@ class SessionController extends Controller
     		if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
 			    
     			$user = Auth::user();
-    			return redirect()->route('propositions');
+    			return redirect()->intended('/');
 
 			} else {
 				return redirect()->back()->withInput($request->except('password'))->withErrors([
@@ -153,8 +153,8 @@ class SessionController extends Controller
 		    		$user->setFacebookId($socialUser->id);
 		    	
 		    		Auth::login($user, true);
-		    	
-		    		return redirect()->route('propositions');
+		    
+		    		return redirect()->intended('/');
 		    	
 		    	} else {
 		    		return redirect()->route('login')->withErrors([
