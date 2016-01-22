@@ -247,7 +247,7 @@ return [
 		
 		'form' => [
 				'select' => [
-						'please_select' => "Please select ...",
+						'please_select_deadline' => "Please choose a deadline ...",
 						'2weeks' => "2 weeks",
 						'1month' => "1 month",
 						'2months' => "2 months",

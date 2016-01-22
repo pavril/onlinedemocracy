@@ -70,7 +70,7 @@
       <div id="step3">
       	<div class="proposition section">
             <select name="deadline" id="preview_deadline_entry" class="form-control input-lg input-proposition" class="form-control">
-							<option value="null" disabled @if (old('deadline') == null) selected @endif>{{ Lang::get('messages.form.select.please_select') }}</option>
+							<option value="null" disabled @if (old('deadline') == null) selected @endif>{{ Lang::get('messages.form.select.please_select_deadline') }}</option>
 							<option value="1" @if (old('deadline') == 1) selected @endif>{{ Lang::get('messages.form.select.2weeks') }}</option>
 							<option value="2" @if (old('deadline') == 2) selected @endif>{{ Lang::get('messages.form.select.1month') }}</option>
 							<option value="3" @if (old('deadline') == 3) selected @endif>{{ Lang::get('messages.form.select.2months') }}</option>
