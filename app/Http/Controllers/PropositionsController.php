@@ -32,12 +32,9 @@ class PropositionsController extends Controller
      * @return \Illuminate\Http\Response
      */
 	
-	public function __construct () {
-		\App::setLocale(Auth::user()->language());
-	}
-	
     public function index()
     {
+		\App::setLocale(Auth::user()->language());
     	$user = Auth::user();
     	$viewUser = [
     			'fullName' => $user->firstName() . " " . $user->lastName(),
@@ -143,7 +140,8 @@ class PropositionsController extends Controller
      */
     public function create()
     {
-    	
+
+    	\App::setLocale(Auth::user()->language());
     	$user = Auth::user();
     	$viewUser = [
     			'fullName' => $user->firstName() . " " . $user->lastName(),
@@ -168,6 +166,7 @@ class PropositionsController extends Controller
      */
     public function store(Request $request)
     {
+		\App::setLocale(Auth::user()->language());
     	$user = Auth::user();
     	 
     	$validator = Validator::make($request->all(), [
@@ -281,6 +280,7 @@ class PropositionsController extends Controller
     	$viewProposition['commentsCount'] = count($viewComments);
     	
     	if (Auth::check()) {
+			\App::setLocale(Auth::user()->language());
 	    	$user = Auth::user();
 	    	$viewUser = ['userId' => $user->userId(), 'fullName' => $user->firstName() . " " . $user->lastName(),'firstName' => $user->firstName(),'lastName' => $user->lastName(),'contactEmail' => $user->contactEmail(),'email' => $user->email(),'avatar' => $user->avatar(),'belongsToSchool' => $user->belongsToSchool(),'schoolEmail' => $user->googleEmail(),'role' => $user->role(),];
 	        
@@ -297,6 +297,7 @@ class PropositionsController extends Controller
     }
     
     public function comment(Request $request) {
+		\App::setLocale(Auth::user()->language());
     	$user = Auth::user();
     	
     	$validator = Validator::make($request->all(), [
@@ -327,6 +328,7 @@ class PropositionsController extends Controller
     }
     
     public function delete_comment($commentId) {
+		\App::setLocale(Auth::user()->language());
     	$user = Auth::user();
     	
     	$commentsFactory = new commentFactory();
@@ -341,6 +343,7 @@ class PropositionsController extends Controller
     }
     
     public function upvote($id) {
+		\App::setLocale(Auth::user()->language());
     	$user = Auth::user();
     	
     	if ($user->belongsToSchool() == true) {
@@ -368,6 +371,7 @@ class PropositionsController extends Controller
     }
     
     public function downvote($id) {
+		\App::setLocale(Auth::user()->language());
     	$user = Auth::user();
     	$propositionFactory = new PropositionFactory();
     	
@@ -397,6 +401,7 @@ class PropositionsController extends Controller
      */
     public function flag($id, $flag_type)
     {
+		\App::setLocale(Auth::user()->language());
         if ($flag_type == 1 OR $flag_type == 3) {
         	Flags::create([
         			"type" => $flag_type,
