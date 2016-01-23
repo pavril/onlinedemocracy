@@ -29,7 +29,8 @@ class MainController extends Controller
 	}
 	
 	public function feedback() {
-		
+
+		\App::setLocale(Auth::user()->language());
 		$user = Auth::user();
 		$propositionFactory = new PropositionFactory();
 		 

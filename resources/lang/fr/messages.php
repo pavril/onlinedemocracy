@@ -53,7 +53,7 @@ return [
 						'already_voted' => "Tu as déjà voté pour cette proposition",
 						'already_voted_sort' => "Tu as voté, félicitations !",
 						'link' => "Lies ce compte avec l'email de ton école pour pouvoir voter et commenter !",
-						'credits' => "Ecrit par :",
+						'credits' => "Ecrit par",
 						'actions' => [
 								'upvote' => "Voter pour",
 								'downvote' => "Voter contre",
@@ -99,13 +99,13 @@ return [
 						'contact_email_info' => "Tu vas recevoir notre courriel à cette adresse.",
 						'email' => "Email",
 						'avatar' => "Avatar",
-						'change_password' => "Changes ton mot de passe",
+						'change_password' => "Changer le mot de passe",
 						'language' => "Langue",
 						'school_link' => "Lien au compte de l'école",
 						'school_link_help' => "Tu dois faire partie de l'école Européenne de Mamer pour voter, commenter et créer des propositions.",
 						'school_link_actions' => [
 								'link_now' => "Lier maintenant",
-								'linked_with' => "Lier avec :",
+								'linked_with' => "Lié avec :",
 								'unlink_now' => "Détacher",
 						],
 						'school_link_messages' => [
@@ -120,7 +120,7 @@ return [
 				],
 				'password' => [
 						'old' => 'Mot de passe actuel',
-						'enter_old' => 'Entrer votre mot de passe actuel',
+						'enter_old' => 'Saisir mot de passe actuel',
 						'new' => 'Nouveau mot de passe',
 						'enter_new' => 'Saisir nouveau mot de passe',
 						'new_confirm' => 'Confirmer mot de passe',
@@ -132,7 +132,7 @@ return [
 				'create_proposition' => [
 						'step' => "Etape :step",
 						'create_proposition' => "Créer proposition",
-						'proposition_sort' => "Ecrire ta proposition",
+						'proposition_sort' => "Écris ta proposition",
 						'proposition_long' => "Décris ton idée (optionnel)",
 						'deadline' => "Choisis une date limite",
 						'confirm' => "Confimer",
@@ -160,7 +160,7 @@ return [
 		],
 		
 		'feedback' => [
-				'thanks' => "Merci pour votre avis",
+				'thanks' => "Merci pour ton avis",
 				'reason' => "DirectDemocracy peut faire mieux ! N'hésites pas à nous dire ce que l'on peut améliorer ou rajouter ! Ton aide sera beaucoup appréciée.",
 				'feedback' => "Ton avis",
 				'submit' => "Donnes-nous ton avis",
@@ -204,10 +204,10 @@ return [
 						'error' => "Quelque chose n'a pas fonctionné :(",
 						'forgot_pass' => "Mot de passe oublié",
 						'login' => "Connexion",
-						'email' => "Courrier",
-						'email_placeholder' => "Saisis ton adresse email",
+						'email' => "Email",
+						'email_placeholder' => "Saisir adresse email",
 						'password' => "Mot de passe",
-						'password_placeholder' => "Saisis ton mot de passe",
+						'password_placeholder' => "Saisir mot de passe",
 						'submit' => "S'enregistrer",
 						'use_fb' => "S'enregistrer avec Facebook",
 						'use_fb_login' => "Se connecter avec Facebook",
@@ -216,20 +216,20 @@ return [
 				"sign_up" => [
 						'sign_up' => "S'enregistrer",
 						'name' => "Nom",
-						'first_placeholder' => "Saisis ton nom",
-						'last_placeholder' => "Saisis ton nom de famille",
+						'first_placeholder' => "Saisir prènom",
+						'last_placeholder' => "Saisir nom",
 						'email' => "Adresse email",
-						'email_placeholder' => "Saisis ton adresse email",
+						'email_placeholder' => "Saisir adresse email",
 						'password' => "Mot de passe",
-						'password_placeholder' => "Enter a password",
-						'password_confirm' => "Saisis ton mot de passe une deuxième fois",
+						'password_placeholder' => "Saisir un mot de passe",
+						'password_confirm' => "Saisir mot de passe une deuxième fois",
 						'use_fb' => "S'enregistrer avec Facebook",
 						'accept_terms' => "En s'enregistrant tu acceptes les",
 				],
 				"forgot" => [
 						'reset' => "Réinitialiser le mot de passe",
 						'email' => "Adresse email",
-						'email_placeholder' => "Saisis ton adresse email",
+						'email_placeholder' => "Saisir adresse email",
 						'email_link' => "Envoyez-moi un lien de réinitialisation du mot de passe",
 				],
 				"reset" => [
@@ -246,6 +246,7 @@ return [
 		'form' => [
 				'select' => [
 						'please_select' => "Veuillez choisir ...",
+						'please_select_deadline' => "Choisis une date limite ...",
 						'2weeks' => "2 semaines",
 						'1month' => "1 mois",
 						'2months' => "2 mois",

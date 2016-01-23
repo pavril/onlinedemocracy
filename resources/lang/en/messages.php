@@ -21,7 +21,7 @@ return [
 
 		'proposition' => [
 				'back' => "Back",
-				'flagged' => "This proposition was flagged successfully, our moderators team will handle your request.",
+				'flagged' => "This position has been flagged, our moderators have been notified.",
 				'status' => [
 						'expired' => "Expired",
 						'blocked' => "Blocked by moderator",
@@ -54,7 +54,7 @@ return [
 						'already_voted' => "You have already voted for this proposition",
 						'already_voted_sort' => "You have voted!",
 						'link' => "Link your school account in order to vote and comment",
-						'credits' => "Written by:",
+						'credits' => "Written by",
 						'actions' => [
 								'upvote' => "Upvote",
 								'downvote' => "Downvote",
@@ -247,7 +247,8 @@ return [
 		
 		'form' => [
 				'select' => [
-						'please_select_deadline' => "Please choose a deadline ...",
+						'please_select' => "Please select ...",
+						'please_select_deadline' => "Choose a deadline ...",
 						'2weeks' => "2 weeks",
 						'1month' => "1 month",
 						'2months' => "2 months",

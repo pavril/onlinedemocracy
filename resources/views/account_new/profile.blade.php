@@ -37,12 +37,13 @@
 	</div>
               
 	<br/>
-              
+
 	<div class="form-group form-group-sm @if ($errors->has('language')) has-error @endif @if (isset($highlight['lang']) == true) focused @endif">
 		<label for="inputPassword3" class="col-sm-2 control-label">{{ Lang::get('messages.profile.account.language') }}</label>
 		<div class="col-sm-10">
 			<select class="form-control" name="lang">
-				<option value="1">{{Lang::get('messages.languages.en')}}</option>
+				<option value="en" @if ($user['lang'] == 'en') selected @endif >{{Lang::get('messages.languages.en')}}</option>
+				<option value="fr" @if ($user['lang'] == 'fr') selected @endif >{{Lang::get('messages.languages.fr')}}</option>
 			</select>
 		</div>
 	</div>

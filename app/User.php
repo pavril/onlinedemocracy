@@ -27,7 +27,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['id', 'email', 'password', 'firstName', 'lastName', 'contactEmail', 'avatar', 'facebookId', 'googleId', 'roleId', 'googleEmail', 'belongsToSchool'];
+    protected $fillable = ['id', 'email', 'password', 'firstName', 'lastName', 'contactEmail', 'avatar', 'facebookId', 'googleId', 'roleId', 'languageCode', 'googleEmail', 'belongsToSchool'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -130,6 +130,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     
     public function role() {
     	return $this->attributes['roleId'];
+    }
+    
+    public function language() {
+    	return $this->attributes['languageCode'];
+    }
+    public function setLanguage($langCode) {
+    	return $this->attributes['languageCode'] = $langCode;
     }
     
     public function setRole($role) {

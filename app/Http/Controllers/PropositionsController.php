@@ -31,6 +31,11 @@ class PropositionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+	
+	public function __construct () {
+		\App::setLocale(Auth::user()->language());
+	}
+	
     public function index()
     {
     	$user = Auth::user();

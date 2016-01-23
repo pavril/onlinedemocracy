@@ -25,6 +25,7 @@ class ProfileController extends Controller
 	
 	public function __construct(Socialite $socialite){
 		$this->socialite = $socialite;
+		\App::setLocale(Auth::user()->language());
 	}
 	
 	
@@ -49,6 +50,7 @@ class ProfileController extends Controller
     			'belongsToSchool' => $user->belongsToSchool(),
     			'schoolEmail' => $user->googleEmail(),
     			'role' => $user->role(),
+    			'lang' => $user->language(),
     			'propositionsCount' => $propositionsCount,
     	];
 
@@ -76,6 +78,7 @@ class ProfileController extends Controller
     			'first' => 'required',
     			'last' => 'required',
     			'contact' => 'email',
+    			'lang' => 'required',
     	]);
     	 
     	if ($validator->fails()) {
@@ -87,12 +90,14 @@ class ProfileController extends Controller
     		$firstName = $request->input('first');
     		$lastName = $request->input('last');
     		$contactemail = $request->input('contact');
+    		$lang = $request->input('lang');
     	
     		$user = Auth::user();
     	
     		$user->setFirstName($firstName);
     		$user->setLastName($lastName);
     		$user->setContactEmail($contactemail);
+    		$user->setLanguage($lang);
     	
     		$user->save();
     	
