@@ -17,9 +17,9 @@
 	.background-header {
 		background: #3e3f3a;
 		display: block;
-		height: 600px;
 		width: 100%;
 		padding-top: 90px;
+		padding-bottom: 10px;
 		color: #eee;
 	}
 	.background-header {
@@ -40,6 +40,10 @@
 	.btn-secondary:hover, .btn-secondary:active, .btn-secondary:focus {
 		background: #A0A09F !important;
 	}
+	.background-header .justify.hidden-xs {
+		padding-bottom: 20px;
+	}
+		
 	.background-header h1 {
 		color: white;
 		font-size: 50px;
@@ -49,9 +53,6 @@
 	}
 	.btn-lg {
 		font-size: 16px;
-	}
-	.btn-lg:last-child {
-		margin-left: 10px;
 	}
 	.section {
 		background: #F1F1EF;
@@ -83,6 +84,31 @@
 	.section.terms .container {
 	    padding-top: 80px;
     }
+    
+    /* Landscape phones and portrait tablets */
+	@media (max-width: 767px) {
+		.background-header h1 {
+			text-align: center;
+    		font-size: 45px;
+		}
+		.background-header .lead {
+		    text-align: center;
+		    font-size: 20px;
+		    margin-top: 15px;
+		}
+		.padding-top {
+			padding-right: 15px;
+		}
+		.background-header .justify.visible-xs {
+			padding-top: 10px;
+			padding-bottom: 20px;
+		}
+	}
+	
+	/* Portrait phones and smaller */
+	@media (max-width: 480px) {
+		
+	}
 </style>
 @stop
 
