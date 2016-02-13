@@ -119,7 +119,7 @@
 	        <!-- Brand and toggle get grouped for better mobile display -->
 	        <div class="navbar-header">
 	          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topFixedNavbar1"><span class="sr-only">{{ Lang::get('messages.navigation.nav_toggle') }}</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-	          <a class="navbar-brand" href="{{ route('home') }}">DirectDemocracy</a></div>
+	          <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('img/logo.svg') }}" alt="DirectDemocracy logo">DirectDemocracy</a></div>
 	        <!-- Collect the nav links, forms, and other content for toggling -->
 	        <div class="collapse navbar-collapse" id="topFixedNavbar1">
 	          

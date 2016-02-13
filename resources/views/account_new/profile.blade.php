@@ -10,11 +10,11 @@
 		<label for="name" class="col-sm-2 control-label">{{ Lang::get('messages.profile.account.name') }}</label>
 		<div class="col-sm-10">
 			<div class="row">
-				<span class="col-sm-6">
+				<span class="col-sm-6 col-xs-6">
 					<input type="text" class="form-control" id="name" name="first" placeholder="First name" value="{{ old('first') ? old('first') : $user['firstName'] }}">
 					@if ($errors->has('first')) <small class="text-danger">{{ $errors->first('first') }}</small>@endif
 				</span>
-				<span class="col-sm-6">
+				<span class="col-sm-6 col-xs-6">
 					<input type="text" class="form-control" id="last" name="last" placeholder="Last name" value="{{ old('last') ? old('last') : $user['lastName'] }}">
 					@if ($errors->has('last')) <small class="text-danger">{{ $errors->first('last') }}</small>@endif
 				</span>

@@ -140,19 +140,22 @@ class SessionController extends Controller
 		       	
 		    	if($socialUser = $this->socialite->with($provider)->user()){
 		    	
-		    	
-		    		$user = User::firstOrCreate([
+		    		$oAuthUser = User::firstOrCreate([
 		    				'email' => $socialUser->email,
 		    		]);
-		    	
+		    		
+		    		Auth::login($oAuthUser, true);
+		    		
+					$user = Auth::user();
+					
 		    		$user->setfirstName($socialUser->user['first_name']);
 		    		$user->setlastName($socialUser->user['last_name']);
-		    	
+		    		 
 		    		$user->setAvatar($socialUser->avatar_original);
-		    	
+		    		
 		    		$user->setFacebookId($socialUser->id);
-		    	
-		    		Auth::login($user, true);
+		    		
+		    		$user->save();
 		    
 		    		return redirect()->intended('/');
 		    	

@@ -4,8 +4,11 @@
 		
 		<title>@yield('title') - DirectDemocracy</title>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
+        
+	    <link rel="icon" type="image/svg+xml" href="{{ asset('img/logo.svg') }}" />
+	    <link rel="alternate icon" type="image/png" href="{{ asset('img/logo.png') }}">
     
         <link href="{{ asset('css_new/bootstrap.css') }}" rel="stylesheet" type="text/css">
         <link href="https://bootswatch.com/sandstone/bootstrap.min.css" rel="stylesheet" type="text/css">
