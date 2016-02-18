@@ -68,6 +68,13 @@
 		padding-top: 20px;
 		padding-bottom: 30px;
 	}
+	.footer select {
+		background: #3E3F3A;
+		border: none;
+	}
+	.footer select:focus, .footer select:active, .footer select:hover {
+		outline: none;
+	}
 	.panel img {
 		display: block;
 		width: 60%;
@@ -139,6 +146,7 @@
   	<div class="container">
         <p><small class="text-muted"><a href="{{ route('terms') }}" class="text-muted">{{Lang::get('messages.website.terms')}}</a> | <a href="https://github.com/pavril/onlinedemocracy" target="_blank" class="text-muted">GitHub</a></small></p>
         <p><small class="text-muted">{{Lang::get('messages.website.footer')}}</small></p>
+        
 	</div>
   </div>
 @stop()

@@ -1,12 +1,7 @@
 @extends('layouts_new.authBase')
 
 @section('header_scripts')
-<meta property="fb:app_id" content="{{ env('FACEBOOK_CLIENT_ID') }}" />
-<meta property="og:url" content="{{ route('proposition', [$proposition['propositionId']]) }}" />
-<meta property="og:title" content="{{ $proposition['propositionSort'] }}" />
-<meta property="og:description" content="{{ $proposition['propositionLong'] }}" />
-<meta property="og:image" content="{{ asset('img/logo.svg') }}" />
-<meta property="og:site_name" content="DirectDemocracy.Online">
+@include('layouts_new.proposition_share_info')
 @stop
 
 @section('title', $proposition['propositionSort'])

@@ -1,12 +1,7 @@
 @extends('layouts_new.websiteBase')
 
 @section('header_scripts')
-<meta property="fb:app_id" content="{{ env('FACEBOOK_CLIENT_ID') }}" />
-<meta property="og:url" content="{{ route('proposition', [$proposition['propositionId']]) }}" />
-<meta property="og:title" content="{{ $proposition['propositionSort'] }}" />
-<meta property="og:description" content="{{ $proposition['propositionLong'] }}" />
-<meta property="og:image" content="{{ asset('img/logo.svg') }}" />
-<meta property="og:site_name" content="DirectDemocracy.Online">
+@include('layouts_new.proposition_share_info')
 <style>
 	body {
 		padding-top: 90px;
@@ -51,7 +46,7 @@
         	<a href="#" class="btn btn-default btn-sm" disabled><i class="fa fa-angle-left"></i> {{Lang::get('messages.proposition.back')}}</a>
             <span class="pull-right">
                 <div class="btn-group">
-                  <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share"></i> {{Lang::get('messages.proposition.share.share')}}</a>
+                  <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share"></i> {{Lang::get('messages.proposition.share.share')}} <span class="badge" id="shares-count">0</span></a>
                   <ul class="dropdown-menu" id="social_links">
                     <li><a href="{{ $shareLinks['facebook'] }}"><i class="fa fa-facebook-square"></i> {{Lang::get('messages.proposition.share.facebook')}}</a></li>
                     <li><a href="{{ $shareLinks['twitter'] }}"><i class="fa fa-twitter-square"></i> {{Lang::get('messages.proposition.share.twitter')}}</a></li>
@@ -138,6 +133,22 @@ $(document).ready( function() {
 		var link = $(this).attr('href');
 		var myWindow = window.open(link, "MsgWindow", "width=550, height=500");
 	});
+
+	$URL = "{{ route('proposition', [$proposition['propositionId']]) }}";
+	// Facebook Shares Count
+	$.getJSON( 'http://graph.facebook.com/?id=' + $URL, function( fbdata ) {
+		$('#shares-count').text(ReplaceNumberWithCommas(fbdata.shares));
+	});
+				    
 });
+// Format Number functions
+function ReplaceNumberWithCommas(yourNumber) {
+	//Seperates the components of the number
+	var components = yourNumber.toString().split(".");
+	//Comma-fies the first part
+	components [0] = components [0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+	//Combines the two sections
+	return components.join(".");
+}
 </script>
 @stop
