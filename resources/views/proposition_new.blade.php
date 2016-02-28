@@ -60,7 +60,12 @@
             </span>
         </div>
       
-  	    <div class="thumbnail proposition section">
+  	    <div class="thumbnail proposition section @if (empty($proposition['marker']) == false) 
+	          		 @if ($proposition['marker']->relationMarkerId() == \App\Marker::SUCCESS) success
+	          		 @elseif ($proposition['marker']->relationMarkerId() == \App\Marker::UNDER_DISCUSSION) info
+	          		 @elseif ($proposition['marker']->relationMarkerId() == \App\Marker::FAILED) warning
+	          		 @endif
+	          		 @endif ">
          	<div class="caption">
   	        	<h1>@if (empty($proposition['marker']) == false) 
 	          		 @if ($proposition['marker']->relationMarkerId() == \App\Marker::SUCCESS)<span class="label label-success label-icon"><i class="material-icons">check</i></span>
@@ -235,8 +240,8 @@
 		</form>
       </div>
       <div class="modal-footer">
-      	<a href="{{ route('marker.delete', [$proposition['propositionId']]) }}" class="btn btn-danger btn-block">{{Lang::get('messages.proposition.marker.modal.delete')}}</a>
         <button type="button" id="marker_save" class="btn btn-primary btn-block">{{Lang::get('messages.proposition.marker.modal.update')}}</button>
+      	<a href="{{ route('marker.delete', [$proposition['propositionId']]) }}" class="btn btn-danger btn-block">{{Lang::get('messages.proposition.marker.modal.delete')}}</a>
       </div>
     </div>
   </div>

@@ -40,7 +40,7 @@
 					
 					@if ($proposition['statusId'] !== 2)
 					@if ($proposition['statusId'] !== 3)
-					<p class="text-muted"><span class="label label-success">{{ Lang::choice('messages.proposition.voting.stats.upvotes', $proposition['upvotes'], ['votes' => $proposition['upvotes']]) }}</span> <span class="label label-danger">{{ Lang::choice('messages.proposition.voting.stats.upvotes', $proposition['downvotes'], ['votes' => $proposition['downvotes']]) }}</span> <span class="label label-info">{{ Lang::choice('messages.proposition.voting.stats.comments', $proposition['commentsCount'], ['comments' => $proposition['commentsCount']]) }}</span></p>
+					<p class="text-muted"><span class="label label-success">{{ Lang::choice('messages.proposition.voting.stats.upvotes', $proposition['upvotes'], ['votes' => $proposition['upvotes']]) }}</span> <span class="label label-danger">{{ Lang::choice('messages.proposition.voting.stats.downvotes', $proposition['downvotes'], ['votes' => $proposition['downvotes']]) }}</span> <span class="label label-info">{{ Lang::choice('messages.proposition.voting.stats.comments', $proposition['commentsCount'], ['comments' => $proposition['commentsCount']]) }}</span></p>
 					<p><a href="{{ route('proposition', [$proposition['id']]) }}" class="btn btn-primary btn-sm">{{ Lang::get('messages.profile.propositions.go_to') }}</a></p>
 					@endif
 					@endif

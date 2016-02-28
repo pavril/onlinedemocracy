@@ -70,7 +70,7 @@ return [
 				'marker' => [
 						'1' => "Réussite",
 						'2' => "En discussion",
-						'3' => "N'a pas marché",
+						'3' => "Ne sera pas discutée davantage pour le moment ",
 						'modal' => [
 								'create_title' => "Marquer cette proposition",
 								'edit_title' => "Modifier proposition marquée",

@@ -71,7 +71,7 @@ return [
 				'marker' => [
 						'1' => "Success",
 						'2' => "Under discussion",
-						'3' => "Didn't worked out",
+						'3' => "No further discussions",
 						'modal' => [
 								'create_title' => "Mark proposition",
 								'edit_title' => "Edit marked proposition",

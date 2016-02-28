@@ -61,6 +61,18 @@ a.thumbnail:hover .caption {
     margin: 0;
     margin-bottom: 15px;
 }
+.proposition.success {
+	border-color: #93c54b;
+}
+.proposition.warning {
+	border-color: #f47c3c;
+}
+.proposition.info {
+	border-color: #29abe0;
+}
+.proposition.danger {
+	border-color: #d9534f;
+}
 .proposition .alert {
 	margin-bottom: -5px;
     margin-left: -5px;
