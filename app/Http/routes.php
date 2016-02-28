@@ -53,6 +53,10 @@ Route::get('/proposition/{id}/upvote', ['middleware' => 'auth', 'as' => 'upvote'
 Route::get('/proposition/{id}/downvote', ['middleware' => 'auth', 'as' => 'downvote', 'uses' => 'PropositionsController@downvote']);
 Route::get('/proposition/{id}/flag/{flag_type}', ['middleware' => 'auth', 'as' => 'flag', 'uses' => 'PropositionsController@flag']);
 
+Route::post('/proposition/{id}/marker/create', ['middleware' => 'auth', 'as' => 'marker.create', 'uses' => 'PropositionsController@create_marker']);
+Route::post('/proposition/{id}/marker/edit', ['middleware' => 'auth', 'as' => 'marker.edit', 'uses' => 'PropositionsController@edit_marker']);
+Route::get('/proposition/{id}/marker/delete', ['middleware' => 'auth', 'as' => 'marker.delete', 'uses' => 'PropositionsController@delete_marker']);
+
 //Moderator routes
 Route::get('/moderator/approval', ['middleware' => 'auth', 'as' => 'moderator.approval', 'uses' => 'ModeratorController@index']);
 Route::get('/moderator/flags', ['middleware' => 'auth', 'as' => 'moderator.handle_flags', 'uses' => 'ModeratorController@handle_flags']);

@@ -10,6 +10,7 @@ use \App\Votes;
 use \App\User;
 use \App\Comments;
 use \App\Flags;
+use \App\Marker;
 
 class PropositionFactory extends Model {
 	
@@ -102,6 +103,10 @@ class PropositionFactory extends Model {
 	
 	public function getCommentsCount($id) {
 		return Comments::wherePropositionId($id)->count();
+	}
+	
+	public function getMarker($id) {
+		return Marker::wherePropositionId($id)->get()->first();
 	}
 	
 }

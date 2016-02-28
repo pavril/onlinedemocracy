@@ -67,10 +67,31 @@
       
   	    <div class="thumbnail proposition section">
          	<div class="caption">
-  	        	<h1>{{{ $proposition['propositionSort'] }}}</h1>
+  	        	<h1>@if (empty($proposition['marker']) == false) 
+	          		 @if ($proposition['marker']->relationMarkerId() == \App\Marker::SUCCESS)<span class="label label-success label-icon"><i class="material-icons">check</i></span>
+	          		 @elseif ($proposition['marker']->relationMarkerId() == \App\Marker::UNDER_DISCUSSION) <span class="label label-info label-icon"><i class="material-icons">speaker_notes</i></span>
+	          		 @elseif ($proposition['marker']->relationMarkerId() == \App\Marker::FAILED) <span class="label label-warning label-icon"><i class="material-icons">announcement</i></span>
+	          		 @endif
+	          		 @endif {{{ $proposition['propositionSort'] }}}</h1>
   	        	<p class="lead">{{{ $proposition['propositionLong'] }}}</p>
            		<small class="text-muted">{{ Lang::choice('messages.proposition.voting.stats.upvotes', $votes['upvotes'], ['votes' => $votes['upvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.downvotes', $votes['downvotes'], ['votes' => $votes['downvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.comments', $proposition['commentsCount'], ['comments' => $proposition['commentsCount']]) }}</small>
         	</div>
+        	
+        	@if (empty($proposition['marker']) == false)
+        	@if ($proposition['marker']->relationMarkerId() == \App\Marker::SUCCESS)
+	        <div class="alert alert-success">
+				<strong>{{Lang::get('messages.proposition.marker.1')}}!</strong> {{ $proposition['marker']->markerText() }}
+			</div>
+			@elseif ($proposition['marker']->relationMarkerId() == \App\Marker::UNDER_DISCUSSION)
+	        <div class="alert alert-info">
+				<strong>{{Lang::get('messages.proposition.marker.2')}}!</strong> {{ $proposition['marker']->markerText() }}
+			</div>
+			@elseif ($proposition['marker']->relationMarkerId() == \App\Marker::FAILED)
+			<div class="alert alert-warning">
+				<strong>{{Lang::get('messages.proposition.marker.3')}}!</strong> {{ $proposition['marker']->markerText() }}
+			</div>
+			@endif
+			@endif
         </div>
       
         @if ($proposition['ending_in'] <= 0)

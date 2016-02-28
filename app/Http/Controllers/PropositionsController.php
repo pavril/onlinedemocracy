@@ -21,6 +21,7 @@ use App\Votes;
 use App\Comments;
 use App\CommentFactory;
 use App\Flags;
+use App\Marker;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
@@ -74,6 +75,7 @@ class PropositionsController extends Controller
     					'upvotes' => $propositionFactory->getUpvotes($proposition->propositionId()),
     					'downvotes' => $propositionFactory->getDownvotes($proposition->propositionId()),
     					'comments' => $propositionFactory->getCommentsCount($proposition->propositionId()),
+    					'marker' => $propositionFactory->getMarker($proposition->propositionId()),
     			];
     			
     		} elseif (($daysLeft <= 5) AND ($daysLeft >= 0)) {
@@ -90,6 +92,7 @@ class PropositionsController extends Controller
     					'upvotes' => $propositionFactory->getUpvotes($proposition->propositionId()),
     					'downvotes' => $propositionFactory->getDownvotes($proposition->propositionId()),
     					'comments' => $propositionFactory->getCommentsCount($proposition->propositionId()),
+    					'marker' => $propositionFactory->getMarker($proposition->propositionId()),
     			];
     			
     		} elseif (($userHasVoted == true) AND ($daysLeft > 0)) {
@@ -106,6 +109,7 @@ class PropositionsController extends Controller
     					'upvotes' => $propositionFactory->getUpvotes($proposition->propositionId()),
     					'downvotes' => $propositionFactory->getDownvotes($proposition->propositionId()),
     					'comments' => $propositionFactory->getCommentsCount($proposition->propositionId()),
+    					'marker' => $propositionFactory->getMarker($proposition->propositionId()),
     			];
     			 
     		} else {
@@ -121,14 +125,18 @@ class PropositionsController extends Controller
     					'upvotes' => $propositionFactory->getUpvotes($proposition->propositionId()),
     					'downvotes' => $propositionFactory->getDownvotes($proposition->propositionId()),
     					'comments' => $propositionFactory->getCommentsCount($proposition->propositionId()),
+    					'marker' => $propositionFactory->getMarker($proposition->propositionId()),
     			];
     		}
     		
     		
     		
-    		$expiredPropositions = array_slice($expiredPropositions, 0, 5); //keep only 5 expired propositions
     		
     	}
+    	
+    	$expiredPropositions = array_slice($expiredPropositions, 0, 6); //keep only 6 expired propositions
+    	
+//     	dd($propositionsArray);
     	
     	return view('propositions_new', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser, 'propositions' => $viewPropositions, 'expiredPropositions' => $expiredPropositions, 'endingSoonPropositions' => $endingSoonPropositions, 'votedPropositions' => $votedPropositions]);
     }
@@ -244,6 +252,7 @@ class PropositionsController extends Controller
     			'date_created' => Carbon::createFromTimestamp(strtotime($proposition->date_created()))->diffForHumans(),
     			'deadline' => $proposition->deadline(),
     			'ending_in' => Carbon::now()->diffInDays(Carbon::createFromTimestamp(strtotime($proposition->deadline())), false),
+    			'marker' => $propositionFactory->getMarker($proposition->propositionId()),
     	];
     	
     	$viewVotes = [
@@ -399,8 +408,7 @@ class PropositionsController extends Controller
      * @param  int  $flag_type
      * @return \Illuminate\Http\Response
      */
-    public function flag($id, $flag_type)
-    {
+    public function flag($id, $flag_type) {
 		\App::setLocale(Auth::user()->language());
         if ($flag_type == 1 OR $flag_type == 3) {
         	Flags::create([
@@ -411,6 +419,93 @@ class PropositionsController extends Controller
         } else {
         	abort(404);
         }
+    }
+    
+    /**
+     * Create mark for proposition.
+     *
+     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function create_marker($id, Request $request) {
+    	
+    	\App::setLocale(Auth::user()->language());
+    	$user = Auth::user();
+    	
+    	if ($user->role() === 2) {
+	    	$validator = Validator::make($request->all(), [
+	    			'type' => 'required|min:1|max:3',
+	    			'message' => 'max:240',
+	    	]);
+	    	
+	    	if ($validator->fails()) {
+	    	
+				return $validator->errors();
+	    		 
+	    	} else {
+	
+	    		Marker::create([
+	    				"marker_id" => $request->input('type'),
+	    				"marker_text" => $request->input('message'),
+	    				"proposition_id" => $id,
+	    		]);
+	    		
+				return 'success';
+	    		 
+	    	}
+    	} else {
+    		return trans('messages.unauthorized');
+    	}
+    	
+    }
+    
+    public function edit_marker($id, Request $request) {
+    	 
+    	\App::setLocale(Auth::user()->language());
+    	$user = Auth::user();
+    	 
+    	if ($user->role() === 2) {
+	    	$validator = Validator::make($request->all(), [
+	    			'type' => 'required|min:1|max:3',
+	    			'message' => 'max:240',
+	    	]);
+	    	 
+	    	if ($validator->fails()) {
+	    		 
+	    		return $validator->errors();
+	    		 
+	    	} else {
+	    		
+	    		$marker = with(new PropositionFactory)->getMarker($id);
+	    		$marker->setRelationMarkerId($request->input('type'));
+	    		$marker->setMarkerText($request->input('message'));
+	    		$marker->save();
+	    
+	    		return 'success';
+	    		
+	    	}
+	    } else {
+	   		return trans('messages.unauthorized');
+	   	}
+    	 
+    }
+    
+    public function delete_marker($id) {
+    	
+    	\App::setLocale(Auth::user()->language());
+    	$user = Auth::user();
+    	
+    	if ($user->role() === 2) {
+    		
+	    	$marker = with(new PropositionFactory)->getMarker($id);
+	    	$marker->delete();
+	    	
+	    	return redirect()->back();
+	    	
+	    } else {
+	    	abort(403, trans('messages.unauthorized'));
+	    }
     }
     
 }

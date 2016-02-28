@@ -143,6 +143,7 @@ class ProfileController extends Controller
     				'statusId' => $proposition->status(),
     				'blockReason' => $proposition->blockReason(),
     				'ending_in' => Carbon::now()->diffInDays(Carbon::createFromTimestamp(strtotime($proposition->deadline())), false),
+    				'marker' => $propositionFactory->getMarker($proposition->propositionId()),
     		];
     	}
     	

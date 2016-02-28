@@ -62,12 +62,34 @@
       
   	    <div class="thumbnail proposition section">
          	<div class="caption">
-  	        	<h1>{{{ $proposition['propositionSort'] }}}</h1>
+  	        	<h1>@if (empty($proposition['marker']) == false) 
+	          		 @if ($proposition['marker']->relationMarkerId() == \App\Marker::SUCCESS)<span class="label label-success label-icon"><i class="material-icons">check</i></span>
+	          		 @elseif ($proposition['marker']->relationMarkerId() == \App\Marker::UNDER_DISCUSSION) <span class="label label-info label-icon"><i class="material-icons">speaker_notes</i></span>
+	          		 @elseif ($proposition['marker']->relationMarkerId() == \App\Marker::FAILED) <span class="label label-warning label-icon"><i class="material-icons">announcement</i></span>
+	          		 @endif
+	          		 @endif @if ($user['role'] === 2) <a data-toggle="modal" data-target="#mark" class="label label-gray label-icon pull-right" href="#"> @if (empty($proposition['marker']) == false) <i class="material-icons">edit</i> @else <i class="material-icons">add</i> @endif </a> @endif {{{ $proposition['propositionSort'] }}}</h1>
   	        	<p class="lead">{{{ $proposition['propositionLong'] }}}</p>
            		<small class="text-muted">{{ Lang::choice('messages.proposition.voting.stats.upvotes', $votes['upvotes'], ['votes' => $votes['upvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.downvotes', $votes['downvotes'], ['votes' => $votes['downvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.comments', $proposition['commentsCount'], ['comments' => $proposition['commentsCount']]) }}</small>
         	</div>
+        	
+        	@if (empty($proposition['marker']) == false)
+        	@if ($proposition['marker']->relationMarkerId() == \App\Marker::SUCCESS)
+	        <div class="alert alert-success">
+				<strong>{{Lang::get('messages.proposition.marker.1')}}!</strong> {{ $proposition['marker']->markerText() }}
+			</div>
+			@elseif ($proposition['marker']->relationMarkerId() == \App\Marker::UNDER_DISCUSSION)
+	        <div class="alert alert-info">
+				<strong>{{Lang::get('messages.proposition.marker.2')}}!</strong> {{ $proposition['marker']->markerText() }}
+			</div>
+			@elseif ($proposition['marker']->relationMarkerId() == \App\Marker::FAILED)
+			<div class="alert alert-warning">
+				<strong>{{Lang::get('messages.proposition.marker.3')}}!</strong> {{ $proposition['marker']->markerText() }}
+			</div>
+			@endif
+			@endif
+			
         </div>
-      
+        
         @if ($proposition['ending_in'] <= 0)
         <div class="btn-group btn-group-justified section">
 			<a href="#" class="btn btn-primary" disabled>{{ Lang::get('messages.proposition.voting.expired') }}</a>
@@ -80,7 +102,7 @@
           <a href="{{ route('downvote', $proposition['propositionId']) }}" class="btn btn-danger"><i class="fa fa-thumbs-o-down"></i> {{ Lang::get('messages.proposition.voting.actions.downvote') }}</a>
         </div>
 		@else
-		<p class="text-primary text-center"><small>Link your school account in order to vote and comment</small></p>
+		<p class="text-primary text-center"><small>{{Lang::get('messages.proposition.voting.link')}}</small></p>
 		<div class="btn-group btn-group-justified section">
 			<a href="{{ route('getLinkAuth') }}" class="btn btn-info">{{ Lang::get('messages.profile.account.school_link_actions.link_now') }}</a>
 		</div>
@@ -151,8 +173,138 @@
 @stop
 
 @section('footer_scripts')
+@if ($user['role'] === 2)
+@if (empty($proposition['marker']) == true)
+<div class="modal fade" id="mark" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="material-icons">close</i></button>
+        <h4 class="modal-title" id="myModalLabel">{{Lang::get('messages.proposition.marker.modal.create_title')}}</h4>
+      </div>
+      <div class="modal-body">
+        <form id="marker">
+		  <div class="form-group">
+		    <label for="type">{{Lang::get('messages.proposition.marker.modal.type')}}</label>
+		    <select name="type" class="form-control" id="type">
+		    	<option disabled selected>{{Lang::get('messages.form.select.please_select')}}</option>
+		    	<option value="{{ \App\Marker::SUCCESS }}">{{Lang::get('messages.proposition.marker.1')}}</option>
+				<option value="{{ \App\Marker::UNDER_DISCUSSION }}">{{Lang::get('messages.proposition.marker.2')}}</option>
+				<option value="{{ \App\Marker::FAILED }}">{{Lang::get('messages.proposition.marker.3')}}</option>
+			</select>
+		  </div>
+		  <div class="form-group">
+		    <label for="message">{{Lang::get('messages.proposition.marker.modal.message')}}</label>
+		    <textarea class="form-control" name="message" rows="3" id="message"></textarea>
+		  </div>
+		  {{ csrf_field() }}
+		  <div class="errors" id="errors"></div>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="marker_save" class="btn btn-primary btn-block">{{Lang::get('messages.proposition.marker.modal.set')}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+@else
+<div class="modal fade" id="mark" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="material-icons">close</i></button>
+        <h4 class="modal-title" id="myModalLabel">{{Lang::get('messages.proposition.marker.modal.edit_title')}}</h4>
+      </div>
+      <div class="modal-body">
+        <form id="marker">
+		  <div class="form-group">
+		    <label for="type">{{Lang::get('messages.proposition.marker.modal.type')}}</label>
+		    <select name="type" class="form-control" id="type">
+		    	<option disabled>{{Lang::get('messages.form.select.please_select')}}</option>
+		    	<option value="{{ \App\Marker::SUCCESS }}" @if ($proposition['marker']->relationMarkerId() == \App\Marker::SUCCESS) selected @endif >{{Lang::get('messages.proposition.marker.1')}}</option>
+				<option value="{{ \App\Marker::UNDER_DISCUSSION }}" @if ($proposition['marker']->relationMarkerId() == \App\Marker::UNDER_DISCUSSION) selected @endif >{{Lang::get('messages.proposition.marker.2')}}</option>
+				<option value="{{ \App\Marker::FAILED }}" @if ($proposition['marker']->relationMarkerId() == \App\Marker::FAILED) selected @endif >{{Lang::get('messages.proposition.marker.3')}}</option>
+			</select>
+		  </div>
+		  <div class="form-group">
+		    <label for="message">{{Lang::get('messages.proposition.marker.modal.message')}}</label>
+		    <textarea class="form-control" name="message" rows="3" id="message">{{ $proposition['marker']->markerText() }}</textarea>
+		  </div>
+		  {{ csrf_field() }}
+		  <div class="errors" id="errors"></div>
+		</form>
+      </div>
+      <div class="modal-footer">
+      	<a href="{{ route('marker.delete', [$proposition['propositionId']]) }}" class="btn btn-danger btn-block">{{Lang::get('messages.proposition.marker.modal.delete')}}</a>
+        <button type="button" id="marker_save" class="btn btn-primary btn-block">{{Lang::get('messages.proposition.marker.modal.update')}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endif
+@endif
 <script>
 $(document).ready( function() {
+
+	@if ($user['role'] === 2)
+	@if (empty($proposition['marker']) == true)
+	$('#mark').on('show.bs.modal', function (event) {
+		  var $modal = $(this);
+		  $modal.find('.errors').html('');
+		  $modal.find('#type').val(null);
+		  $modal.find('#message').val(null);
+	});
+	@else
+	$('#mark').on('show.bs.modal', function (event) {
+		  var $modal = $(this);
+		  $modal.find('.errors').html('');
+	});
+	@endif
+
+	$("#marker_save").click( function(e) {
+
+		@if (empty($proposition['marker']) == true)
+		var url = "{{ route('marker.create', [$proposition['propositionId']]) }}";
+		@else
+		var url = "{{ route('marker.edit', [$proposition['propositionId']]) }}";
+		@endif
+	    
+		$.post( url, $("#marker").serialize() )
+		  .done(function(e) {
+		    var errors = e;
+			if (errors !== 'success') {
+				errorsHtml = '<div class="alert alert-danger">';
+			    $.each(errors, function(index, value) {
+			        errorsHtml += '<p>' + value + '</p>';
+			    });
+			    errorsHtml += '</di>'; 
+	
+				$( '#errors' ).html( errorsHtml );
+			} else {
+				@if (empty($proposition['marker']) == true)
+				$( '#errors' ).html( '<div class="alert alert-success"><p>{{Lang::get('messages.proposition.marker.modal.create_success')}}</p></div>' );
+				@else
+				$( '#errors' ).html( '<div class="alert alert-success"><p>{{Lang::get('messages.proposition.marker.modal.update_success')}}</p></div>' );
+				@endif
+				setTimeout(function(){
+					$('#mark').modal('hide');
+					location.reload();
+				}, 700); 
+			}
+		  })
+		  .fail(function(e) {
+				var errors = $.parseJSON(e.responseText);
+				errorsHtml = '<div class="alert alert-danger"><ul>';
+			    $.each(errors, function(index, value) {
+			        errorsHtml += '<li>' + value + '</li>';
+			    });
+			    errorsHtml += '</ul></di>';
+				$( '#errors' ).html( errorsHtml );
+		  });
+		
+	});
+	@endif
+	
 	$("#social_links li a").click( function(e) {
 		e.preventDefault();
 

@@ -1,11 +1,15 @@
 @import url(https://fonts.googleapis.com/css?family=Asap:400,700);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 /* CSS Document */
 
+*, *:before, *:after {box-sizing:  border-box !important;}
 body {
 	position: relative;
 	font-family: "soleil", 'Asap', "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
-
+.material-icons {
+	font-size: inherit;
+}
 .navbar-brand img {
     height: 40px;
 	margin: -15px 10px -10px 0px;
@@ -57,6 +61,14 @@ a.thumbnail:hover .caption {
     margin: 0;
     margin-bottom: 15px;
 }
+.proposition .alert {
+	margin-bottom: -5px;
+    margin-left: -5px;
+    margin-right: -5px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin-top: 5px;
+}
 .section {
 	margin-bottom: 15px;
 	font-weight: 300;
@@ -86,6 +98,48 @@ a.thumbnail:hover .caption {
     display: inline-block;
     margin: 0;
     border-radius: 3px;
+}
+.label-gray {
+    background-color: #98978b;
+}
+.label-gray:hover {
+    background-color: #777;
+}
+.modal-open .modal {
+	display: block;
+}
+.close .material-icons {
+	margin-top: 2px;
+}
+.modal-header, .modal-footer {
+	border: none;
+}
+.modal-content {
+	box-shadow: none;
+}
+.close .material-icons {
+	margin-top: 6px;
+}
+.label-icon {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border-radius: 100%;
+	padding: 1px 0 0 1px;
+    line-height: 20px;
+    margin-right: 2px;
+}
+.label-icon.pull-left {
+	margin-right: 5px;
+}
+.thumbnail.proposition.section .label-icon {
+	display: inline-block;
+	width: auto;
+	height: auto;
+    border-radius: 100%;
+    line-height: 20px;
+    margin-right: 2px;
+    padding: 5px;
 }
 .btn.btn-sm .badge {
 	top: -2px;
@@ -254,56 +308,68 @@ textarea.input-proposition {
 .bs-wizard > .bs-wizard-step.disabled a.bs-wizard-dot{ pointer-events: none; }
 /*END Form Wizard*/
 
-
-
-
-*, *:before, *:after {box-sizing:  border-box !important;}
-
- 	.pinBoot { 
- 	 -moz-column-width: 18em; 
- 	 -webkit-column-width: 18em; 
- 	 -moz-column-gap: 1em; 
- 	 -webkit-column-gap:1em;    
- 	} 
+.pinBoot { 
+	-moz-column-width: 18em; 
+	-webkit-column-width: 18em; 
+	-moz-column-gap: 1em; 
+	-webkit-column-gap:1em;
+} 
 	
- 	.pinBoot .thumbnail { 
- 	 display: inline-block; 
- 	 padding:  .25rem; 
- 	 width:  100%;  
- 	} 
+.pinBoot .thumbnail { 
+	display: inline-block; 
+	padding:  .25rem; 
+	width:  100%;
+} 
 	
- 	.pinBoot .thumbnail .caption { 
- 	 position:relative; 
- 	 display: block; 
- 	} 
+.pinBoot .thumbnail .caption { 
+	position:relative; 
+	display: block; 
+} 
  	
- 	.text-sized-picture {
-	 	height: 20px;
-	    width: 20px;
-	    vertical-align: middle;
-	    margin: 0 !important;
-	    margin-right: 5px;
-	    display: inline !important;
-    }
-    
-    a.panel-title {
-    	white-space: nowrap; 
-	    width: auto; 
-	    display: block;
-	    overflow: hidden;
-    	text-overflow:ellipsis;
-    }
-    
-    .list-group-form form {
-		padding: 16px 24px;
-		background: #eee;
-		border: 1px solid #dfd7ca;
+.text-sized-picture {
+	height: 20px;
+	width: 20px;
+	vertical-align: middle;
+	margin: 0 !important;
+	margin-right: 5px;
+	display: inline !important;
+}  
+a.panel-title {
+	white-space: nowrap; 
+	width: auto; 
+	display: block;
+	overflow: hidden;
+	text-overflow:ellipsis;
+}
+.panel-body .alert.full-width {
+    margin-bottom: -16px;
+    margin-left: -16px;
+    margin-right: -16px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin-top: 15px;
+}
+.list-group-form form {
+	padding: 16px 24px;
+	background: #eee;
+	border: 1px solid #dfd7ca;
+}
+.no-animation * {
+	-webkit-transition: none;
+	-moz-transition: none;
+	-ms-transition: none;
+	-o-transition: none;
+	transition: none;
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+	.proposition h1 {
+		font-size: 30px;
 	}
+}
 	
-	.no-animation * {
-	    -webkit-transition: none;
-	    -moz-transition: none;
-	    -ms-transition: none;
-	    -o-transition: none;
-	    transition: none;
-	}​
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+	
+}

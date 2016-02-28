@@ -10,24 +10,34 @@
 	<div class="pinBoot" id="expiring">
 		@foreach($endingSoonPropositions as $proposition)
 		<a class="thumbnail" href="{{ route('proposition', [$proposition['id']]) }}">
-         		<div class="caption">
-  	        		<p>{{{ $proposition['propositionSort'] }}}</p>
-           			<small class="text-muted text-">{{ Lang::choice('messages.proposition.voting.stats.upvotes', $proposition['upvotes'], ['votes' => $proposition['upvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.downvotes', $proposition['downvotes'], ['votes' => $proposition['downvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.comments', $proposition['comments'], ['comments' => $proposition['comments']]) }}</small>
-        		</div>
+         	<div class="caption">
+	          	<p>@if (empty($proposition['marker']) == false) 
+	          		 @if ($proposition['marker']->relationMarkerId() == \App\Marker::SUCCESS)<span class="label label-success label-icon"><i class="material-icons">check</i></span>
+	          		 @elseif ($proposition['marker']->relationMarkerId() == \App\Marker::UNDER_DISCUSSION) <span class="label label-info label-icon"><i class="material-icons">speaker_notes</i></span>
+	          		 @elseif ($proposition['marker']->relationMarkerId() == \App\Marker::FAILED) <span class="label label-warning label-icon"><i class="material-icons">announcement</i></span>
+	          		 @endif
+	          		{{{ $proposition['propositionSort'] }}} @else {{{ $proposition['propositionSort'] }}} @endif</p>
+       			<small class="text-muted">{{ Lang::choice('messages.proposition.voting.stats.upvotes', $proposition['upvotes'], ['votes' => $proposition['upvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.downvotes', $proposition['downvotes'], ['votes' => $proposition['downvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.comments', $proposition['comments'], ['comments' => $proposition['comments']]) }}</small>
+       		</div>
         </a>
       	@endforeach
 	</div>
 	@endif
-      	
+	
     @if (count($propositions) !== 0)
     <h3 class="propositions-section" >{{ Lang::get('messages.propositions.new_propositions') }}</h3>
 	<div class="pinBoot" id="recent">
 		@foreach($propositions as $proposition)
 		<a class="thumbnail" href="{{ route('proposition', [$proposition['id']]) }}">
-         		<div class="caption">
-	  	        	<p>{{{ $proposition['propositionSort'] }}}</p>
-           			<small class="text-muted text-">{{ Lang::choice('messages.proposition.voting.stats.upvotes', $proposition['upvotes'], ['votes' => $proposition['upvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.downvotes', $proposition['downvotes'], ['votes' => $proposition['downvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.comments', $proposition['comments'], ['comments' => $proposition['comments']]) }}</small>
-        		</div>
+         	<div class="caption">
+	          	<p>@if (empty($proposition['marker']) == false) 
+	          		 @if ($proposition['marker']->relationMarkerId() == \App\Marker::SUCCESS)<span class="label label-success label-icon"><i class="material-icons">check</i></span>
+	          		 @elseif ($proposition['marker']->relationMarkerId() == \App\Marker::UNDER_DISCUSSION) <span class="label label-info label-icon"><i class="material-icons">speaker_notes</i></span>
+	          		 @elseif ($proposition['marker']->relationMarkerId() == \App\Marker::FAILED) <span class="label label-warning label-icon"><i class="material-icons">announcement</i></span>
+	          		 @endif
+	          		{{{ $proposition['propositionSort'] }}} @else {{{ $proposition['propositionSort'] }}} @endif</p>
+       			<small class="text-muted">{{ Lang::choice('messages.proposition.voting.stats.upvotes', $proposition['upvotes'], ['votes' => $proposition['upvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.downvotes', $proposition['downvotes'], ['votes' => $proposition['downvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.comments', $proposition['comments'], ['comments' => $proposition['comments']]) }}</small>
+       		</div>
        	</a>
 		@endforeach
 	</div>
@@ -38,10 +48,15 @@
 	<div class="pinBoot" id="voted">
 		@foreach($votedPropositions as $proposition)
   	    	<a class="thumbnail" href="{{ route('proposition', [$proposition['id']]) }}">
-         		<div class="caption">
-  	        		<p>{{{ $proposition['propositionSort'] }}}</p>
-           			<small class="text-muted text-">{{ Lang::choice('messages.proposition.voting.stats.upvotes', $proposition['upvotes'], ['votes' => $proposition['upvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.downvotes', $proposition['downvotes'], ['votes' => $proposition['downvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.comments', $proposition['comments'], ['comments' => $proposition['comments']]) }}</small>
-        		</div>
+	         	<div class="caption">
+		          	<p>@if (empty($proposition['marker']) == false) 
+		          		 @if ($proposition['marker']->relationMarkerId() == \App\Marker::SUCCESS)<span class="label label-success label-icon"><i class="material-icons">check</i></span>
+		          		 @elseif ($proposition['marker']->relationMarkerId() == \App\Marker::UNDER_DISCUSSION) <span class="label label-info label-icon"><i class="material-icons">speaker_notes</i></span>
+		          		 @elseif ($proposition['marker']->relationMarkerId() == \App\Marker::FAILED) <span class="label label-warning label-icon"><i class="material-icons">announcement</i></span>
+		          		 @endif
+		          		{{{ $proposition['propositionSort'] }}} @else {{{ $proposition['propositionSort'] }}} @endif</p>
+	       			<small class="text-muted">{{ Lang::choice('messages.proposition.voting.stats.upvotes', $proposition['upvotes'], ['votes' => $proposition['upvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.downvotes', $proposition['downvotes'], ['votes' => $proposition['downvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.comments', $proposition['comments'], ['comments' => $proposition['comments']]) }}</small>
+	       		</div>
        		</a>
 		@endforeach
 	</div>
@@ -53,9 +68,14 @@
 		@foreach($expiredPropositions as $proposition)
   	    	<a class="thumbnail" href="{{ route('proposition', [$proposition['id']]) }}">
          		<div class="caption">
-  	        		<p>{{{ $proposition['propositionSort'] }}}</p>
-           			<small class="text-muted text-">{{ Lang::choice('messages.proposition.voting.stats.upvotes', $proposition['upvotes'], ['votes' => $proposition['upvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.downvotes', $proposition['downvotes'], ['votes' => $proposition['downvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.comments', $proposition['comments'], ['comments' => $proposition['comments']]) }}</small>
-        		</div>
+		          	<p>@if (empty($proposition['marker']) == false) 
+		          		 @if ($proposition['marker']->relationMarkerId() == \App\Marker::SUCCESS)<span class="label label-success label-icon"><i class="material-icons">check</i></span>
+		          		 @elseif ($proposition['marker']->relationMarkerId() == \App\Marker::UNDER_DISCUSSION) <span class="label label-info label-icon"><i class="material-icons">speaker_notes</i></span>
+		          		 @elseif ($proposition['marker']->relationMarkerId() == \App\Marker::FAILED) <span class="label label-warning label-icon"><i class="material-icons">announcement</i></span>
+		          		 @endif
+		          		{{{ $proposition['propositionSort'] }}} @else {{{ $proposition['propositionSort'] }}} @endif</p>
+	       			<small class="text-muted">{{ Lang::choice('messages.proposition.voting.stats.upvotes', $proposition['upvotes'], ['votes' => $proposition['upvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.downvotes', $proposition['downvotes'], ['votes' => $proposition['downvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.comments', $proposition['comments'], ['comments' => $proposition['comments']]) }}</small>
+	       		</div>
         	</a>
 		@endforeach
 	</div>

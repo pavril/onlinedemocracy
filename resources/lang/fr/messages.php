@@ -67,6 +67,22 @@ return [
 								'comments' => "{1} :comments commentaire|{0} Pas de commentaire|[2,Inf] :comments commentaires",
 						],
 				],
+				'marker' => [
+						'1' => "Réussite",
+						'2' => "En discussion",
+						'3' => "N'a pas marché",
+						'modal' => [
+								'create_title' => "Marquer cette proposition",
+								'edit_title' => "Modifier proposition marquée",
+								'type' => "Type du marqueur",
+								'message' => "Message du marqueur",
+								'set' => "Enregistrer",
+								'delete' => "Supprimer le marqueur",
+								'update' => "Enregistrer",
+								'create_success' => "Proposition marquée avec succès !",
+								'update_success' => "Modifications enregistrés avec succès !",
+						],
+				],
 		],
 		
 		'propositions' => [

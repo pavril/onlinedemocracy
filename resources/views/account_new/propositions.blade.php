@@ -11,6 +11,7 @@
 @foreach ($propositions as $proposition)
 <div class="panel panel-default">
 	<div class="panel-heading" role="tab" id="heading{{ $proposition['id'] }}">
+		
 		@if ($proposition['statusId'] == 1)
 		@if ($proposition['ending_in'] <= 0)
 		<span class="label label-warning pull-right" style="line-height: 18px;">{{ Lang::get('messages.profile.propositions.status.expired') }}</span>
@@ -20,7 +21,14 @@
 		@else
 		<span class="label @if ($proposition['statusId'] == 2) label-info @else label-danger @endif pull-right" style="line-height: 18px;">@if ($proposition['statusId'] == 2) {{ Lang::get('messages.proposition.status.pending') }} @elseif ($proposition['statusId'] == 3) {{ Lang::get('messages.proposition.status.blocked') }} @endif</span>
 		@endif
-		<a class="panel-title" role="button" data-toggle="collapse" data-parent="#propositions" href="#collapse{{ $proposition['id'] }}" aria-controls="collapse{{ $proposition['id'] }}">{{{ $proposition['propositionSort'] }}}</a>
+		<a class="panel-title" role="button" data-toggle="collapse" data-parent="#propositions" href="#collapse{{ $proposition['id'] }}" aria-controls="collapse{{ $proposition['id'] }}">
+		@if (empty($proposition['marker']) == false) 
+			@if ($proposition['marker']->relationMarkerId() == \App\Marker::SUCCESS)<span class="label label-success label-icon pull-left"><i class="material-icons">check</i></span>
+			@elseif ($proposition['marker']->relationMarkerId() == \App\Marker::UNDER_DISCUSSION) <span class="label label-info label-icon pull-left"><i class="material-icons">speaker_notes</i></span>
+			@elseif ($proposition['marker']->relationMarkerId() == \App\Marker::FAILED) <span class="label label-warning label-icon pull-left"><i class="material-icons">announcement</i></span>
+			@endif
+		@endif
+		{{{ $proposition['propositionSort'] }}}</a>
 	</div>
 	       
 	<div id="collapse{{ $proposition['id'] }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ $proposition['id'] }}">
@@ -45,7 +53,7 @@
 			</div>
 			
 					@if ($proposition['statusId'] == 3)
-					<p class="alert alert-danger"><small  role="alert">{{ Lang::get('messages.profile.propositions.status.block_reason') }} {{ $proposition['blockReason'] }}</small></p>
+					<p class="alert alert-danger full-width"><small  role="alert">{{ Lang::get('messages.profile.propositions.status.block_reason') }} {{ $proposition['blockReason'] }}</small></p>
 					@endif
 		</div>
 	</div>

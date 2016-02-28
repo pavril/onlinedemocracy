@@ -68,6 +68,22 @@ return [
 								'comments' => "{1} :comments comment|{0} :comments comments|[2,Inf] :comments comments",
 						],
 				],
+				'marker' => [
+						'1' => "Success",
+						'2' => "Under discussion",
+						'3' => "Didn't worked out",
+						'modal' => [
+								'create_title' => "Mark proposition",
+								'edit_title' => "Edit marked proposition",
+								'type' => "Marker type",
+								'message' => "Marker message",
+								'set' => "Set marker",
+								'delete' => "Remove marker",
+								'update' => "Update marker",
+								'create_success' => "Proposition marked successfully!",
+								'update_success' => "Proposition marker updated successfully!",
+						],
+				],
 		],
 		
 		'propositions' => [
