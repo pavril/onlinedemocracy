@@ -15,6 +15,10 @@ body {
 	margin: -15px 10px -10px 0px;
     display: inline;
 }
+.navbar .nav>li>a.btn {
+	margin: 10px;
+	padding: 10px;
+}
 
 a.thumbnail:hover, a.thumbnail:focus, a.thumbnail:active {
 	text-decoration: none;
