@@ -374,6 +374,53 @@ a.panel-title {
 	transition: none;
 }
 
+.btn-teal {
+  color: #fff !important;
+  background-color: #008080 !important;
+  border-color: #008080;
+}
+.btn-teal:hover,
+.btn-teal:focus,
+.btn-teal.focus,
+.btn-teal:active,
+.btn-teal.active,
+.open > .dropdown-toggle.btn-teal {
+  color: #fff !important;
+  background-color: #0F7171 !important;
+  border-color: #0F7171 !important;
+}
+.btn-teal:active,
+.btn-teal.active,
+.open > .dropdown-toggle.btn-teal {
+  background-image: none;
+}
+.btn-teal.disabled,
+.btn-teal[disabled],
+fieldset[disabled] .btn-teal,
+.btn-teal.disabled:hover,
+.btn-teal[disabled]:hover,
+fieldset[disabled] .btn-teal:hover,
+.btn-teal.disabled:focus,
+.btn-teal[disabled]:focus,
+fieldset[disabled] .btn-teal:focus,
+.btn-teal.disabled.focus,
+.btn-teal[disabled].focus,
+fieldset[disabled] .btn-teal.focus,
+.btn-teal.disabled:active,
+.btn-teal[disabled]:active,
+fieldset[disabled] .btn-teal:active,
+.btn-teal.disabled.active,
+.btn-teal[disabled].active,
+fieldset[disabled] .btn-teal.active {
+  background-color: #259292 !important;
+  border-color: #259292 !important;
+}
+
+.btn-teal .badge {
+  color: #008080;
+  background-color: #fff;
+}
+
 /* Landscape phones and portrait tablets */
 @media (max-width: 767px) {
 	.proposition h1 {
