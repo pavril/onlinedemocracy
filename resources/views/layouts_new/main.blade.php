@@ -9,6 +9,8 @@
         
 	    <link rel="icon" type="image/svg+xml" href="{{ asset('img/logo.svg') }}" />
 	    <link rel="alternate icon" type="image/png" href="{{ asset('img/logo.png') }}">
+	    
+	    <meta property="fb:admins" content="100002828091107" />
     
         <link href="{{ asset('css_new/bootstrap.css') }}" rel="stylesheet" type="text/css">
         <link href="https://bootswatch.com/sandstone/bootstrap.min.css" rel="stylesheet" type="text/css">
