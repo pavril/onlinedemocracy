@@ -78,6 +78,9 @@ class Proposition extends Model implements AuthenticatableContract
     	return $this->attributes['block_reason'] = $value;
     }
     
+    public function addTag(Tags $tag) {
+    	with(new PropositionFactory)->addTagtoProposition($tag, $this);
+    }
     
     public function date_created () {
     	return $this->attributes['created_at'];

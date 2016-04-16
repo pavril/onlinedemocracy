@@ -111,7 +111,6 @@
       </div>
 	</div>
 </div>
-</div>
 @else
 <div class="container">
 	
@@ -129,6 +128,41 @@
 @stop
 
 @section('footer_scripts')
+<script type="text/javascript" src="{{ asset('js/jquery.overlay.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.textcomplete.js') }}"></script>
+<script type="text/javascript">
+$('#preview_heading_entry, #preview_subheading_entry').textcomplete([
+    { // html
+        mentions: ['cafeteria', 'food', 'café'],
+        match: /\B#(\w*)$/,
+        search: function (term, callback) {
+            callback($.map(this.mentions, function (mention) {
+                return mention.indexOf(term) === 0 ? mention : null;
+            }));
+        },
+        index: 1,
+        replace: function (mention) {
+            return '#' + mention + ' ';
+        }
+    }
+], {
+    onKeydown: function (e, commands) {
+        if (e.keyCode === 32) { // CTRL-J
+            return commands.KEY_ENTER;
+        }
+    }
+}, { appendTo: 'body' }).overlay([
+    {
+		match: /\B#\w+/g,
+        css: {
+            'background-color': '#d8dfea'
+        }
+    }
+]);
+</script>
+<style>
+#preview_heading_entry, #preview_subheading_entry {line-height: 50px !important;}.textoverlay span {border-radius: 5px;}.dropdown-menu.textcomplete-dropdown {display: block;}
+</style>
 <script>
 var current = 1;
 @if (count($errors) > 0) current = 4; @endif

@@ -17,12 +17,15 @@ use App\User;
 use App\UserFactory;
 use App\Proposition;
 use App\PropositionFactory;
+use App\TagsFactory;
 use App\Votes;
 use App\Comments;
 use App\CommentFactory;
 use App\Flags;
 use App\Marker;
+use App\Tags;
 use Illuminate\Database\Eloquent\Model;
+use \Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class PropositionsController extends Controller
@@ -134,10 +137,6 @@ class PropositionsController extends Controller
     		
     	}
     	
-    	$expiredPropositions = array_slice($expiredPropositions, 0, 6); //keep only 6 expired propositions
-    	
-//     	dd($propositionsArray);
-    	
     	return view('propositions_new', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser, 'propositions' => $viewPropositions, 'expiredPropositions' => $expiredPropositions, 'endingSoonPropositions' => $endingSoonPropositions, 'votedPropositions' => $votedPropositions]);
     }
 
@@ -191,6 +190,24 @@ class PropositionsController extends Controller
     		 
     		if ($user->belongsToSchool() == true) {
     			
+    			
+    			/* PROCESS: 
+    			 * 
+    			 * - GET TAGS ENTERED IN EACH FIELD
+    			 * - GROUP ALL TAGS (DELETE DUPLICATES)
+    			 * - ADD NEW TAGS IN DATABASE
+    			 * - ASSIGN TAGS TO PROPOSITION (USING RELATION TABLE)
+    			 * 
+    			 */
+    			
+    			/*
+    			 * TODO: 
+    			 * 
+    			 * - create a relation table connecting tags with propositions
+    			 * 
+    			 */
+    		    			
+    			
     			$deadlineId = $request->input('deadline');	// Deadlines: 1=2weeks, 2=1month, 3=2months
     			
     			switch ($deadlineId) {
@@ -205,12 +222,32 @@ class PropositionsController extends Controller
     					break;
     			}
     			
-    			Proposition::create([
+    			$proposition = Proposition::create([
     					"proposer_id" => $user->userId(),
     					"propositionSort" => $request->input('proposition_sort'),
     					"propositionLong" => $request->input('proposition_long'),
     					"deadline" => $deadline,
     			]);
+    			
+    			preg_match_all('/#([^\s]+)/', $request->input('proposition_sort'), $matches);
+    			$tagsOnHeader = array_unique($matches[1]);
+    			 
+//     			echo "<pre>";
+    			
+    			$tagFactory = new TagsFactory();
+    			foreach($tagsOnHeader as $tagString)
+    			{
+    				$tag = $tagFactory->findOrCreate($tagString);
+    				$proposition->addTag($tag);
+    				
+    				//     				$hashtag = new Hashtag();
+    				//     				$hashtag->image_id = $photo->id;
+    				//     				$hashtag->hashtag = $tag;
+    				//     				$hashtag->save();
+//     				var_dump($tagString);
+    			}
+//     			echo "</pre>";
+    			
     			 
     			return redirect()->route('profile.propositions');
     			
