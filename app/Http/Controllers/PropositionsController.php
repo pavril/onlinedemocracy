@@ -556,6 +556,7 @@ class PropositionsController extends Controller
     			->orWhere('propositions.propositionLong', 'LIKE', "%$term%")
     			->orWhere(DB::raw("CONCAT(`users`.`firstName`, ' ', `users`.`lastName`)"), 'LIKE', "%$term%")
     			->where('propositions.status', '=', 1)
+    			->orderBy('propositions.created_at', 'desc')
     			->paginate(5);
     		
     		$pages = $proposition_results->lastPage();
