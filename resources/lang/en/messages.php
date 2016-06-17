@@ -51,6 +51,7 @@ return [
 				'voting' => [
 						'expired' => "You can't vote anymore, this proposition has expired",
 						'need_to_login' => "Login/Register in order to vote and comment",
+						// You need to login to make your opinion count
 						'already_voted' => "You have already voted for this proposition",
 						'already_voted_sort' => "You have voted!",
 						'link' => "Link your school account in order to vote and comment",

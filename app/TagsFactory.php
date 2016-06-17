@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
-use \Illuminate\Support\Facades\DB;
 
 use App\Proposition;
 use \App\Votes;
@@ -12,22 +11,48 @@ use \App\User;
 use \App\Comments;
 use \App\Flags;
 use \App\Marker;
+use \App\Tags;
 
-class PropositionFactory extends Model {
+class TagsFactory {
 	
-	public function getAllPropositions() {
-		return Proposition::all()->orderBy('created_at', 'desc')->get();
+	public function findOrCreate($tagString) {
+		return Tags::firstOrCreate(['content' => $tagString]);
 	}
 	
-	public function getAcceptedPropositions() {
-		return Proposition::whereStatus(1)->orderBy('created_at', 'desc')->get();
+	
+	public function getTagByString($tagString) {
+		return Tags::where('content', '=', $tagString)->first();
 	}
 	
-	public function getQueuedPropositions() {
-		return Proposition::whereStatus(2)->orderBy('deadline', 'asc')->get();
+	public function getAllTags() {
+		return Tags::orderBy('created_at', 'desc')->get();
 	}
-	public function getQueuedPropositionsExeptUsers($id) {
-		return Proposition::whereStatus(2)->whereNotIn('proposer_id', [$id])->orderBy('deadline', 'asc')->get();
+	
+	public function searchTag($term) {
+		if (isset($term)) {
+			$results = Tags::where('content', 'LIKE', "%$term%")->get();
+		} else {
+			$results = $this->getAllTags();
+		}
+		return $results;
+	}
+	
+	public function getTagsByPropositionId($propositionId) {	
+		 return Tags::join('propositions_tags', 'propositions_tags.tag_id', '=', 'tags.id')
+		 	->join('propositions', 'propositions.propositionId', '=', 'propositions_tags.proposition_id')
+			->where('propositions.propositionId', '=', $propositionId)->get();
+	}
+	
+	public function getPropositionsByTagId($tagId) {
+		return Proposition::join('propositions_tags', 'propositions_tags.proposition_id', '=', 'propositions.propositionId')
+		->join('tags', 'tags.id', '=', 'propositions_tags.tag_id')
+		->where('tags.id', '=', $tagId)->get();
+	}
+	
+	public function getAproovedPropositionsByTagId($tagId) {
+		return Proposition::join('propositions_tags', 'propositions_tags.proposition_id', '=', 'propositions.propositionId')
+		->join('tags', 'tags.id', '=', 'propositions_tags.tag_id')
+		->where('tags.id', '=', $tagId)->where('propositions.status', '=', 1)->get();
 	}
 	
 	public function getFlaggedPropositionsExeptUsers($id) {
@@ -49,21 +74,9 @@ class PropositionFactory extends Model {
 		return Proposition::whereProposerId($userId)->count();
 	}
 	
+	//Shouldn't be here move to PropositionFactory
 	public function getProposition($id) {
 		return Proposition::find($id);
-	}
-	
-	public function getPropositionsByTagId($tagId) {
-		return Proposition::join('propositions_tags', 'propositions.propositionId', '=', 'propositions_tags.proposition_id')
-		->join('tags', 'propositions_tags.tag_id', '=', 'tags.id')
-		->where('tags.id', '=', $tagId);
-	}
-	
-	public function addTagtoProposition(Tags $tag, Proposition $proposition) {
-		DB::table('propositions_tags')->insert([
-			'tag_id' => $tag->id(), 
-			'proposition_id' => $proposition->propositionId()						
-		]);
 	}
 	
 	public function getUserVoteStatus($id, $userId) {

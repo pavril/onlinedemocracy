@@ -26,15 +26,17 @@ Route::get('/logout', ['as' => 'logout', 'uses' => 'SessionController@logout']);
 Route::get('/login/{provider?}',['uses' => 'SessionController@getSocialAuth','as'   => 'auth.getSocialAuth']);
 Route::get('/login/callback/{provider?}',['uses' => 'SessionController@getSocialAuthCallback','as'   => 'auth.getSocialAuthCallback']);
 
-//Auth pages
-Route::get('/account/profile', ['middleware' => 'auth', 'as' => 'profile.main', 'uses' => 'ProfileController@index']);
-Route::post('/account/profile', ['middleware' => 'auth', 'as' => 'profile.main.update', 'uses' => 'ProfileController@update']);
-Route::get('/account/profile/password', ['middleware' => 'auth', 'as' => 'profile.password', 'uses' => 'ProfileController@password']);
-Route::post('/account/profile/password', ['middleware' => 'auth', 'as' => 'profile.password.update', 'uses' => 'ProfileController@password_update']);
-Route::get('/account/propositions', ['middleware' => 'auth', 'as' => 'profile.propositions', 'uses' => 'ProfileController@propositions']);
-Route::get('/account/propositions/create', ['middleware' => 'auth', 'as' => 'profile.propositions.create', 'uses' => 'PropositionsController@create']);
-Route::post('/account/propositions/create', ['middleware' => 'auth', 'as' => 'profile.propositions.store', 'uses' => 'PropositionsController@store']);
-Route::get('/account/profile/language', ['middleware' => 'auth', 'as' => 'profile.language', 'uses' => 'ProfileController@language']);
+//Profile-related routes
+Route::group(['prefix' => 'account', 'middleware' => 'auth'], function () {
+	Route::get('/profile', ['as' => 'profile.main', 'uses' => 'ProfileController@index']);
+	Route::post('/profile', ['as' => 'profile.main.update', 'uses' => 'ProfileController@update']);
+	Route::get('/profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
+	Route::post('/profile/password', ['as' => 'profile.password.update', 'uses' => 'ProfileController@password_update']);
+	Route::get('/propositions', ['as' => 'profile.propositions', 'uses' => 'ProfileController@propositions']);
+	Route::get('/propositions/create', ['as' => 'profile.propositions.create', 'uses' => 'PropositionsController@create']);
+	Route::post('/propositions/create', ['as' => 'profile.propositions.store', 'uses' => 'PropositionsController@store']);
+	Route::get('/profile/language', ['as' => 'profile.language', 'uses' => 'ProfileController@language']);
+});
 
 Route::get('/feedback', ['middleware' => 'auth', 'as' => 'feedback', 'uses' => 'MainController@feedback']);
 Route::post('/feedback', ['middleware' => 'auth', 'as' => 'feedback.send', 'uses' => 'MainController@feedback_send']);
@@ -52,18 +54,28 @@ Route::get('/proposition/comment/delete/{commentId}', ['middleware' => 'auth', '
 Route::get('/proposition/{id}/upvote', ['middleware' => 'auth', 'as' => 'upvote', 'uses' => 'PropositionsController@upvote']);
 Route::get('/proposition/{id}/downvote', ['middleware' => 'auth', 'as' => 'downvote', 'uses' => 'PropositionsController@downvote']);
 Route::get('/proposition/{id}/flag/{flag_type}', ['middleware' => 'auth', 'as' => 'flag', 'uses' => 'PropositionsController@flag']);
+Route::get('/search', ['middleware' => 'auth','as' => 'search','uses' => 'PropositionsController@search']);
 
 Route::post('/proposition/{id}/marker/create', ['middleware' => 'auth', 'as' => 'marker.create', 'uses' => 'PropositionsController@create_marker']);
 Route::post('/proposition/{id}/marker/edit', ['middleware' => 'auth', 'as' => 'marker.edit', 'uses' => 'PropositionsController@edit_marker']);
 Route::get('/proposition/{id}/marker/delete', ['middleware' => 'auth', 'as' => 'marker.delete', 'uses' => 'PropositionsController@delete_marker']);
 
 //Moderator routes
-Route::get('/moderator/approval', ['middleware' => 'auth', 'as' => 'moderator.approval', 'uses' => 'ModeratorController@index']);
-Route::get('/moderator/flags', ['middleware' => 'auth', 'as' => 'moderator.handle_flags', 'uses' => 'ModeratorController@handle_flags']);
-Route::get('/moderator/approval/approve/{id}', ['middleware' => 'auth', 'as' => 'moderator.approve', 'uses' => 'ModeratorController@approve']);
-Route::post('/moderator/approval/block', ['middleware' => 'auth', 'as' => 'moderator.block', 'uses' => 'ModeratorController@block']);
+Route::group(['prefix' => 'moderator', 'middleware' => 'auth'], function () {
+	Route::get('/approval', ['as' => 'moderator.approval', 'uses' => 'ModeratorController@index']);
+	Route::get('/flags', ['as' => 'moderator.handle_flags', 'uses' => 'ModeratorController@handle_flags']);
+	Route::get('/approval/approve/{id}', ['as' => 'moderator.approve', 'uses' => 'ModeratorController@approve']);
+	Route::post('/approval/block', ['as' => 'moderator.block', 'uses' => 'ModeratorController@block']);
+});
 
 //Password reset routes
 Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
+
+
+// API routes (return JSON data)
+Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
+	Route::get('tag_search', ['as' => 'tag_search', 'uses' => 'ApiController@tag_search']);
+});
+

@@ -9,6 +9,8 @@
         
 	    <link rel="icon" type="image/svg+xml" href="{{ asset('img/logo.svg') }}" />
 	    <link rel="alternate icon" type="image/png" href="{{ asset('img/logo.png') }}">
+	    
+	    <meta property="fb:admins" content="100002828091107" />
     
         <link href="{{ asset('css_new/bootstrap.css') }}" rel="stylesheet" type="text/css">
         <link href="https://bootswatch.com/sandstone/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -51,6 +53,20 @@
 		$(function () {
 		  $('[data-toggle="tooltip"]').tooltip()
 		})
+		
+		hashtag_regexp = /#([a-zA-Z0-9_]+)/g;
+		function linkHashtags(text) {
+			$link = "{{ route('search') . '?q=%23to_replace' }}";
+		    return text.replace(
+		        hashtag_regexp,
+		        '<a class="hashtag" href="'+$link.replace('to_replace', '$1')+'">#$1</a>'
+		    );
+		}
+		$(document).ready( function() {
+			$('.linkHashtags').each(function() {
+			    $(this).html(linkHashtags($(this).html()));
+			});
+		});
 	    </script>
 	    @yield('footer_scripts')
 	</body>

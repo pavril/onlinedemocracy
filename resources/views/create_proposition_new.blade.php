@@ -111,7 +111,6 @@
       </div>
 	</div>
 </div>
-</div>
 @else
 <div class="container">
 	
@@ -129,6 +128,43 @@
 @stop
 
 @section('footer_scripts')
+<script type="text/javascript" src="{{ asset('js/jquery.overlay.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.textcomplete.js') }}"></script>
+<script type="text/javascript">
+$('#preview_heading_entry, #preview_subheading_entry').textcomplete([{
+	// Required
+	match: /\B#(\w*)$/,
+	search: function (term, callback, match) {
+		$.getJSON('/api/tag_search', { q: term })
+		  .done(function (resp) {
+		  	callback(resp); // `resp` must be an Array
+		  })
+	      .fail(function () {
+	      	callback([]); // Callback must be invoked even if something went wrong.
+	      });
+	},
+	replace: function (value) {
+		return '#' + value + ' ';
+	},
+
+	index: 1,
+	context: function (text) { return text.toLowerCase(); }, // normalize input text
+}], {
+	onKeydown: function (e, commands) {
+		if (e.keyCode === 13) {
+			return commands.KEY_ENTER;
+   		}
+	},
+}, { appendTo: 'body' }).overlay([
+	{
+		match: /\B#\w+/g,
+		css: {'background-color': '#d8dfea'}
+	}
+]); 
+</script>
+<style>
+#preview_heading_entry, #preview_subheading_entry {line-height: 50px !important;}.textoverlay span {border-radius: 5px;}.dropdown-menu.textcomplete-dropdown {display: block;}
+</style>
 <script>
 var current = 1;
 @if (count($errors) > 0) current = 4; @endif
