@@ -56,7 +56,7 @@
 		
 		hashtag_regexp = /#([a-zA-Z0-9_]+)/g;
 		function linkHashtags(text) {
-			$link = "{{ route('tag', ['to_replace']) }}";
+			$link = "{{ route('search') . '?q=%23to_replace' }}";
 		    return text.replace(
 		        hashtag_regexp,
 		        '<a class="hashtag" href="'+$link.replace('to_replace', '$1')+'">#$1</a>'

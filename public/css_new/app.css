@@ -349,7 +349,16 @@ textarea.input-proposition {
 	margin: 0 !important;
 	margin-right: 5px;
 	display: inline !important;
-}  
+}
+small .text-sized-picture {
+	height: 17px;
+	width: 17px;
+    vertical-align: top;
+    margin: 0 !important;
+    margin-right: 5px;
+    display: inline !important;
+}
+
 a.panel-title {
 	white-space: nowrap; 
 	width: auto; 

@@ -67,13 +67,17 @@
 	          		 @endif
 	          		 @endif ">
          	<div class="caption">
-  	        	<h1>@if (empty($proposition['marker']) == false) 
+  	        	@if ($user['role'] === 2) <h1 style="margin-bottom: 0;"><a data-toggle="modal" data-target="#mark" class="label label-gray label-icon pull-right" href="#"> @if (empty($proposition['marker']) == false) <i class="material-icons">edit</i> @else <i class="material-icons">add</i> @endif </a></h1> @endif 
+  	        	<h1 class="linkHashtags">@if (empty($proposition['marker']) == false) 
 	          		 @if ($proposition['marker']->relationMarkerId() == \App\Marker::SUCCESS)<span class="label label-success label-icon"><i class="material-icons">check</i></span>
 	          		 @elseif ($proposition['marker']->relationMarkerId() == \App\Marker::UNDER_DISCUSSION) <span class="label label-info label-icon"><i class="material-icons">speaker_notes</i></span>
 	          		 @elseif ($proposition['marker']->relationMarkerId() == \App\Marker::FAILED) <span class="label label-warning label-icon"><i class="material-icons">announcement</i></span>
 	          		 @endif
-	          		 @endif @if ($user['role'] === 2) <a data-toggle="modal" data-target="#mark" class="label label-gray label-icon pull-right" href="#"> @if (empty($proposition['marker']) == false) <i class="material-icons">edit</i> @else <i class="material-icons">add</i> @endif </a> @endif {{{ $proposition['propositionSort'] }}}</h1>
-  	        	<p class="lead">{{{ $proposition['propositionLong'] }}}</p>
+	          		 @endif {{{ $proposition['propositionSort'] }}}</h1>
+	            <p class="lead linkHashtags">{{{ $proposition['propositionLong'] }}}</p>
+  	        	
+  	        	<!-- Future tags -->
+  	        	
            		<small class="text-muted">{{ Lang::choice('messages.proposition.voting.stats.upvotes', $votes['upvotes'], ['votes' => $votes['upvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.downvotes', $votes['downvotes'], ['votes' => $votes['downvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.comments', $proposition['commentsCount'], ['comments' => $proposition['commentsCount']]) }}</small>
         	</div>
         	
@@ -122,7 +126,7 @@
         <div class="section">
         	<div class="thumbnail section">
             	<div class="caption">
-                	<small class="text-muted">{{ Lang::get('messages.proposition.voting.credits') }} <a href="#"><img class="img-circle text-sized-picture" src="{{ $proposition['proposer']['avatar'] }}"> {{ $proposition['proposer']['fullName'] }}</a> {{ $proposition['date_created'] }}</small>
+                	<small class="text-muted">{{ Lang::get('messages.proposition.voting.credits') }} <a href="{{ route('search') . '?q=' . $proposition['proposer']['fullName'] }}"><img class="img-circle text-sized-picture" src="{{ $proposition['proposer']['avatar'] }}"> {{ $proposition['proposer']['fullName'] }}</a> {{ $proposition['date_created'] }}</small>
                 </div>
             </div>
         </div>
@@ -250,6 +254,7 @@
 @endif
 <script>
 $(document).ready( function() {
+
 
 	@if ($user['role'] === 2)
 	@if (empty($proposition['marker']) == true)

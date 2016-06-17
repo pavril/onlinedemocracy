@@ -140,52 +140,7 @@ class PropositionsController extends Controller
     	return view('propositions_new', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser, 'propositions' => $viewPropositions, 'expiredPropositions' => $expiredPropositions, 'endingSoonPropositions' => $endingSoonPropositions, 'votedPropositions' => $votedPropositions]);
     }
     
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     
-    public function tag($tag)
-    {
-    	\App::setLocale(Auth::user()->language());
-    	$user = Auth::user();
-    	$viewUser = [
-    			'fullName' => $user->firstName() . " " . $user->lastName(),
-    			'firstName' => $user->firstName(),
-    			'lastName' => $user->lastName(),
-    			'contactEmail' => $user->contactEmail(),
-    			'email' => $user->email(),
-    			'avatar' => $user->avatar(),
-    			'belongsToSchool' => $user->belongsToSchool(),
-    			'belongsToSchool' => $user->belongsToSchool(),
-    			'schoolEmail' => $user->googleEmail(),
-    			'role' => $user->role(),
-    	];
-    	
-    	$propositionFactory = new PropositionFactory();
-    	$tagId = with(new TagsFactory())->getTagByString($tag)->id();
-    	
-    	foreach (with(new TagsFactory())->getAproovedPropositionsByTagId($tagId) as $proposition) {
-    		$resultPropositions[$proposition->propositionId()] = [
-    				'id' => $proposition->propositionId(),
-    				'propositionSort' => $proposition->propositionSort(),
-    				'proposer' => $proposition->proposerId(),
-    				'propositionCreationDate' => $proposition->date_created(),
-    				'userHasVoted' => $propositionFactory->getUserVoteStatus($proposition->propositionId(), $user->userId()),
-    				'deadline' => $proposition->deadline(),
-    				'statusId' => $proposition->status(),
-    				'ending_in' => Carbon::now()->diffInDays(Carbon::createFromTimestamp(strtotime($proposition->deadline())), false),
-    				'upvotes' => $propositionFactory->getUpvotes($proposition->propositionId()),
-    				'downvotes' => $propositionFactory->getDownvotes($proposition->propositionId()),
-    				'comments' => $propositionFactory->getCommentsCount($proposition->propositionId()),
-    				'marker' => $propositionFactory->getMarker($proposition->propositionId()),
-    		];
-    	}
-    	
-    	return view('tag', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser, 'propositions' => $resultPropositions, 'tag' => $tag]);
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -208,11 +163,8 @@ class PropositionsController extends Controller
     			'schoolEmail' => $user->googleEmail(),
     			'role' => $user->role(), 
     	];
-    	foreach (with(new TagsFactory())->getAllTags() as $tag) {
-    		$tags[$tag->id()] = $tag->content();
-    	}
     	
-    	return view('create_proposition_new', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser, 'tags' => $tags]);
+    	return view('create_proposition_new', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser]);
     }
 
     /**
@@ -574,6 +526,60 @@ class PropositionsController extends Controller
 	    } else {
 	    	abort(403, trans('messages.unauthorized'));
 	    }
+    }
+    
+    public function search(Request $request)
+    {
+    	\App::setLocale(Auth::user()->language());
+    	$user = Auth::user();
+    	$viewUser = [
+    			'fullName' => $user->firstName() . " " . $user->lastName(),
+    			'firstName' => $user->firstName(),
+    			'lastName' => $user->lastName(),
+    			'contactEmail' => $user->contactEmail(),
+    			'email' => $user->email(),
+    			'avatar' => $user->avatar(),
+    			'belongsToSchool' => $user->belongsToSchool(),
+    			'belongsToSchool' => $user->belongsToSchool(),
+    			'schoolEmail' => $user->googleEmail(),
+    			'role' => $user->role(),
+    	];
+    	
+    	$results = array();
+    	$pages = null;
+    	
+    	if (empty($request->input('q')) == false) {
+    		$term = $request->input('q');
+    		
+    		$proposition_results = Proposition::join('users', 'users.id', '=', 'propositions.proposer_id')
+    			->where('propositions.propositionSort', 'LIKE', "%$term%")
+    			->orWhere('propositions.propositionLong', 'LIKE', "%$term%")
+    			->orWhere(DB::raw("CONCAT(`users`.`firstName`, ' ', `users`.`lastName`)"), 'LIKE', "%$term%")
+    			->where('propositions.status', '=', 1)
+    			->paginate(5);
+    		
+    		$pages = $proposition_results->lastPage();
+    		
+    		$propositionFactory = new PropositionFactory();
+    		
+    		foreach ($proposition_results->items() as $proposition) {
+    			$results[$proposition->propositionId()] = [
+    					'id' => $proposition->propositionId(),
+    					'propositionSort' => $proposition->propositionSort(),
+    					'proposer' => $proposition->proposerId(),
+    					'propositionCreationDate' => $proposition->date_created(),
+    					'deadline' => $proposition->deadline(),
+    					'statusId' => $proposition->status(),
+    					'ending_in' => Carbon::now()->diffInDays(Carbon::createFromTimestamp(strtotime($proposition->deadline())), false),
+    					'upvotes' => $propositionFactory->getUpvotes($proposition->propositionId()),
+    					'downvotes' => $propositionFactory->getDownvotes($proposition->propositionId()),
+    					'comments' => $propositionFactory->getCommentsCount($proposition->propositionId()),
+    					'marker' => $propositionFactory->getMarker($proposition->propositionId()),
+    			];
+    		}
+    	}
+    	
+    	return view('search', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser, 'results' => $results, 'pages' => $pages]);
     }
     
 }

@@ -19,10 +19,16 @@
 	         		<ul class="nav navbar-nav">
 	            		<li class="@if(Route::current()->getName() == 'propositions') active @endif"><a href="{{ route('propositions') }}">{{ Lang::get('messages.navigation.home') }}</a></li>
 	          		</ul>
+	          		
+	          		<form class="navbar-form navbar-left" role="search" method="get" action="{{ route('search') }}">
+				    	<div class="form-group">
+				      		<input name="q" type="text" @if (isset($_GET["q"]) == true) @if ($_GET["q"] !== null) value="{{ $_GET["q"] }}" @endif @endif class="form-control" placeholder="🔍 Search" autocomplete="off">
+				        </div>
+				    </form>
 	          
 	          		<ul class="nav navbar-nav navbar-right">
 						<li>
-						<a href="{{ route('profile.propositions.create') }}" class="btn btn-teal"><i class="glyphicon glyphicon-pencil"></i> {{Lang::get('messages.navigation.create_proposition')}}</a></li>
+						<a href="{{ route('profile.propositions.create') }}" class="btn btn-teal"><i class="glyphicon glyphicon-pencil"></i><span class="hidden-sm"> {{Lang::get('messages.navigation.create_proposition')}}</span></a></li>
 	            		<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img alt="profile picture of {{ $user['fullName'] }}" src="{{ $user['avatar'] }}" class="profile-picture-navbar img-circle"> {{ $user['fullName'] }}<span class="caret"></span></a>
 		              		<ul class="dropdown-menu" role="menu">
 		                		<li><a href="{{ route('profile.propositions') }}">{{Lang::get('messages.navigation.propositions')}}</a></li>
