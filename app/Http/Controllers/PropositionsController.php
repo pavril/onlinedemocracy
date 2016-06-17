@@ -139,6 +139,52 @@ class PropositionsController extends Controller
     	
     	return view('propositions_new', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser, 'propositions' => $viewPropositions, 'expiredPropositions' => $expiredPropositions, 'endingSoonPropositions' => $endingSoonPropositions, 'votedPropositions' => $votedPropositions]);
     }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    
+    public function tag($tag)
+    {
+    	\App::setLocale(Auth::user()->language());
+    	$user = Auth::user();
+    	$viewUser = [
+    			'fullName' => $user->firstName() . " " . $user->lastName(),
+    			'firstName' => $user->firstName(),
+    			'lastName' => $user->lastName(),
+    			'contactEmail' => $user->contactEmail(),
+    			'email' => $user->email(),
+    			'avatar' => $user->avatar(),
+    			'belongsToSchool' => $user->belongsToSchool(),
+    			'belongsToSchool' => $user->belongsToSchool(),
+    			'schoolEmail' => $user->googleEmail(),
+    			'role' => $user->role(),
+    	];
+    	
+    	$propositionFactory = new PropositionFactory();
+    	$tagId = with(new TagsFactory())->getTagByString($tag)->id();
+    	
+    	foreach (with(new TagsFactory())->getAproovedPropositionsByTagId($tagId) as $proposition) {
+    		$resultPropositions[$proposition->propositionId()] = [
+    				'id' => $proposition->propositionId(),
+    				'propositionSort' => $proposition->propositionSort(),
+    				'proposer' => $proposition->proposerId(),
+    				'propositionCreationDate' => $proposition->date_created(),
+    				'userHasVoted' => $propositionFactory->getUserVoteStatus($proposition->propositionId(), $user->userId()),
+    				'deadline' => $proposition->deadline(),
+    				'statusId' => $proposition->status(),
+    				'ending_in' => Carbon::now()->diffInDays(Carbon::createFromTimestamp(strtotime($proposition->deadline())), false),
+    				'upvotes' => $propositionFactory->getUpvotes($proposition->propositionId()),
+    				'downvotes' => $propositionFactory->getDownvotes($proposition->propositionId()),
+    				'comments' => $propositionFactory->getCommentsCount($proposition->propositionId()),
+    				'marker' => $propositionFactory->getMarker($proposition->propositionId()),
+    		];
+    	}
+    	
+    	return view('tag', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser, 'propositions' => $resultPropositions, 'tag' => $tag]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -162,7 +208,11 @@ class PropositionsController extends Controller
     			'schoolEmail' => $user->googleEmail(),
     			'role' => $user->role(), 
     	];
-    	return view('create_proposition_new', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser]);
+    	foreach (with(new TagsFactory())->getAllTags() as $tag) {
+    		$tags[$tag->id()] = $tag->content();
+    	}
+    	
+    	return view('create_proposition_new', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser, 'tags' => $tags]);
     }
 
     /**
@@ -190,24 +240,6 @@ class PropositionsController extends Controller
     		 
     		if ($user->belongsToSchool() == true) {
     			
-    			
-    			/* PROCESS: 
-    			 * 
-    			 * - GET TAGS ENTERED IN EACH FIELD
-    			 * - GROUP ALL TAGS (DELETE DUPLICATES)
-    			 * - ADD NEW TAGS IN DATABASE
-    			 * - ASSIGN TAGS TO PROPOSITION (USING RELATION TABLE)
-    			 * 
-    			 */
-    			
-    			/*
-    			 * TODO: 
-    			 * 
-    			 * - create a relation table connecting tags with propositions
-    			 * 
-    			 */
-    		    			
-    			
     			$deadlineId = $request->input('deadline');	// Deadlines: 1=2weeks, 2=1month, 3=2months
     			
     			switch ($deadlineId) {
@@ -229,24 +261,16 @@ class PropositionsController extends Controller
     					"deadline" => $deadline,
     			]);
     			
-    			preg_match_all('/#([^\s]+)/', $request->input('proposition_sort'), $matches);
+    			preg_match_all("/#([a-zA-Z0-9_]+)/", $request->input('proposition_sort') . " " . $request->input('proposition_long'), $matches);
+    			
     			$tagsOnHeader = array_unique($matches[1]);
-    			 
-//     			echo "<pre>";
     			
     			$tagFactory = new TagsFactory();
     			foreach($tagsOnHeader as $tagString)
     			{
     				$tag = $tagFactory->findOrCreate($tagString);
     				$proposition->addTag($tag);
-    				
-    				//     				$hashtag = new Hashtag();
-    				//     				$hashtag->image_id = $photo->id;
-    				//     				$hashtag->hashtag = $tag;
-    				//     				$hashtag->save();
-//     				var_dump($tagString);
     			}
-//     			echo "</pre>";
     			
     			 
     			return redirect()->route('profile.propositions');
@@ -304,6 +328,7 @@ class PropositionsController extends Controller
     			'pinterest' => Share::load(route('proposition', [$viewProposition['propositionId']]), $viewProposition['propositionSort'])->pinterest(),
     	];
     	
+    	
     	$viewComments = array();
     	
     	foreach ($propositionFactory->getComments($id) as $comment) {
@@ -325,6 +350,12 @@ class PropositionsController extends Controller
     	
     	$viewProposition['commentsCount'] = count($viewComments);
     	
+    	
+    	$viewTags = array();
+    	foreach (with(new TagsFactory())->getTagsByPropositionId($proposition->propositionId()) as $tag) {
+    		$viewTags[$tag->id()] = $tag->content();
+    	}
+    	
     	if (Auth::check()) {
 			\App::setLocale(Auth::user()->language());
 	    	$user = Auth::user();
@@ -336,7 +367,7 @@ class PropositionsController extends Controller
 	    			'userHasVoted' => $propositionFactory->getUserVoteStatus($id, $user->userId()),
 	    	];
 	    	
-	    	return view('proposition_new', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser, 'proposition' => $viewProposition, 'votes' => $viewVotes, 'comments' => $viewComments,'shareLinks' => $viewShareLinks]);
+	    	return view('proposition_new', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser, 'proposition' => $viewProposition, 'votes' => $viewVotes, 'comments' => $viewComments,'shareLinks' => $viewShareLinks, 'tags' => $viewTags]);
     	} else {
     		return view('proposition_public', ['proposition' => $viewProposition, 'votes' => $viewVotes, 'comments' => $viewComments,'shareLinks' => $viewShareLinks]);
     	}

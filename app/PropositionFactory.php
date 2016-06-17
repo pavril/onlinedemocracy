@@ -16,7 +16,7 @@ use \App\Marker;
 class PropositionFactory extends Model {
 	
 	public function getAllPropositions() {
-		return Proposition::all()->orderBy('created_at', 'desc');
+		return Proposition::all()->orderBy('created_at', 'desc')->get();
 	}
 	
 	public function getAcceptedPropositions() {

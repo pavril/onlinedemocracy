@@ -53,6 +53,20 @@
 		$(function () {
 		  $('[data-toggle="tooltip"]').tooltip()
 		})
+		
+		hashtag_regexp = /#([a-zA-Z0-9_]+)/g;
+		function linkHashtags(text) {
+			$link = "{{ route('tag', ['to_replace']) }}";
+		    return text.replace(
+		        hashtag_regexp,
+		        '<a class="hashtag" href="'+$link.replace('to_replace', '$1')+'">#$1</a>'
+		    );
+		}
+		$(document).ready( function() {
+			$('.linkHashtags').each(function() {
+			    $(this).html(linkHashtags($(this).html()));
+			});
+		});
 	    </script>
 	    @yield('footer_scripts')
 	</body>

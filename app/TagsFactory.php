@@ -21,17 +21,38 @@ class TagsFactory {
 	
 	
 	public function getTagByString($tagString) {
-		return Tags::where('content', '=', $tagString);
+		return Tags::where('content', '=', $tagString)->first();
 	}
 	
 	public function getAllTags() {
-		return Tags::all()->orderBy('created_at', 'desc');
+		return Tags::orderBy('created_at', 'desc')->get();
+	}
+	
+	public function searchTag($term) {
+		if (isset($term)) {
+			$results = Tags::where('content', 'LIKE', "%$term%")->get();
+		} else {
+			$results = $this->getAllTags();
+		}
+		return $results;
 	}
 	
 	public function getTagsByPropositionId($propositionId) {	
 		 return Tags::join('propositions_tags', 'propositions_tags.tag_id', '=', 'tags.id')
 		 	->join('propositions', 'propositions.propositionId', '=', 'propositions_tags.proposition_id')
-			->where('propositions.propositionId', '=', $propositionId);
+			->where('propositions.propositionId', '=', $propositionId)->get();
+	}
+	
+	public function getPropositionsByTagId($tagId) {
+		return Proposition::join('propositions_tags', 'propositions_tags.proposition_id', '=', 'propositions.propositionId')
+		->join('tags', 'tags.id', '=', 'propositions_tags.tag_id')
+		->where('tags.id', '=', $tagId)->get();
+	}
+	
+	public function getAproovedPropositionsByTagId($tagId) {
+		return Proposition::join('propositions_tags', 'propositions_tags.proposition_id', '=', 'propositions.propositionId')
+		->join('tags', 'tags.id', '=', 'propositions_tags.tag_id')
+		->where('tags.id', '=', $tagId)->where('propositions.status', '=', 1)->get();
 	}
 	
 	public function getFlaggedPropositionsExeptUsers($id) {

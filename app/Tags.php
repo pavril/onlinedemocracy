@@ -30,11 +30,11 @@ class Tags extends Model implements AuthenticatableContract
     }
     
     public function content () {
-    	return $this->attributes['proposition'];
+    	return $this->attributes['content'];
     }
     
-    public function setContent () {
-    	return $this->attributes['proposition'];
+    public function setContent ($content) {
+    	return $this->attributes['content'] = $content;
     }
     
     public function created_at () {
