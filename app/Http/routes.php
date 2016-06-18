@@ -48,13 +48,14 @@ Route::get('/profile/unlink',['middleware' => 'auth','uses' => 'ProfileControlle
 
 //Propositions routes
 Route::get('/home', ['middleware' => 'auth','as' => 'propositions','uses' => 'PropositionsController@index']);
+Route::get('/search', ['middleware' => 'auth','as' => 'search','uses' => 'PropositionsController@search']);
+Route::get('/archived', ['middleware' => 'auth','as' => 'archived','uses' => 'PropositionsController@archived']);
 Route::get('/proposition/{id}', ['as' => 'proposition','uses' => 'PropositionsController@show']);
 Route::post('/proposition/comment', ['middleware' => 'auth', 'as' => 'comment', 'uses' => 'PropositionsController@comment']);
 Route::get('/proposition/comment/delete/{commentId}', ['middleware' => 'auth', 'as' => 'comment.delete', 'uses' => 'PropositionsController@delete_comment']);
 Route::get('/proposition/{id}/upvote', ['middleware' => 'auth', 'as' => 'upvote', 'uses' => 'PropositionsController@upvote']);
 Route::get('/proposition/{id}/downvote', ['middleware' => 'auth', 'as' => 'downvote', 'uses' => 'PropositionsController@downvote']);
 Route::get('/proposition/{id}/flag/{flag_type}', ['middleware' => 'auth', 'as' => 'flag', 'uses' => 'PropositionsController@flag']);
-Route::get('/search', ['middleware' => 'auth','as' => 'search','uses' => 'PropositionsController@search']);
 
 Route::post('/proposition/{id}/marker/create', ['middleware' => 'auth', 'as' => 'marker.create', 'uses' => 'PropositionsController@create_marker']);
 Route::post('/proposition/{id}/marker/edit', ['middleware' => 'auth', 'as' => 'marker.edit', 'uses' => 'PropositionsController@edit_marker']);

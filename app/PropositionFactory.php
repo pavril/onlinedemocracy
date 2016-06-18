@@ -12,6 +12,7 @@ use \App\User;
 use \App\Comments;
 use \App\Flags;
 use \App\Marker;
+use Carbon\Carbon;
 
 class PropositionFactory extends Model {
 	
@@ -21,6 +22,14 @@ class PropositionFactory extends Model {
 	
 	public function getAcceptedPropositions() {
 		return Proposition::whereStatus(1)->orderBy('created_at', 'desc')->get();
+	}
+	
+	public function getAcceptedPropositionsExeptExpired() {
+		return Proposition::whereStatus(1)->where('deadline', '>=', Carbon::today()->toDateString())->orderBy('created_at', 'desc')->get();
+	}
+	
+	public function getAcceptedPropositionsOnlyExpired() {
+		return Proposition::whereStatus(1)->where('deadline', '<', Carbon::today()->toDateString())->orderBy('created_at', 'desc')->get();
 	}
 	
 	public function getQueuedPropositions() {

@@ -55,33 +55,16 @@ class PropositionsController extends Controller
     	
     	$propositionFactory = new PropositionFactory();
     	$viewPropositions = array();
-    	$expiredPropositions = array();
     	$endingSoonPropositions = array();
     	$votedPropositions = array();
     	
-    	foreach ($propositionFactory->getAcceptedPropositions() as $proposition) {
+    	
+    	foreach ($propositionFactory->getAcceptedPropositionsExeptExpired() as $proposition) {
     		
     		$userHasVoted = $propositionFactory->getUserVoteStatus($proposition->propositionId(), $user->userId());
     		$daysLeft = Carbon::now()->diffInDays(Carbon::createFromTimestamp(strtotime($proposition->deadline())), false);
     		
-    		if ($daysLeft <= 0) {
-    			//Expired propositions
-    			$expiredPropositions[$proposition->propositionId()] = [
-    					'id' => $proposition->propositionId(),
-    					'propositionSort' => $proposition->propositionSort(),
-    					'proposer' => $proposition->proposerId(),
-    					'propositionCreationDate' => $proposition->date_created(),
-    					'userHasVoted' => $userHasVoted,
-    					'deadline' => $proposition->deadline(),
-    					'statusId' => $proposition->status(),
-    					'ending_in' => $daysLeft,
-    					'upvotes' => $propositionFactory->getUpvotes($proposition->propositionId()),
-    					'downvotes' => $propositionFactory->getDownvotes($proposition->propositionId()),
-    					'comments' => $propositionFactory->getCommentsCount($proposition->propositionId()),
-    					'marker' => $propositionFactory->getMarker($proposition->propositionId()),
-    			];
-    			
-    		} elseif (($daysLeft <= 5) AND ($daysLeft >= 0)) {
+    		if (($daysLeft <= 5) AND ($daysLeft >= 0)) {
     			//Ending soon (5 days left)
     			$endingSoonPropositions[$proposition->propositionId()] = [
     					'id' => $proposition->propositionId(),
@@ -137,7 +120,48 @@ class PropositionsController extends Controller
     		
     	}
     	
-    	return view('propositions_new', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser, 'propositions' => $viewPropositions, 'expiredPropositions' => $expiredPropositions, 'endingSoonPropositions' => $endingSoonPropositions, 'votedPropositions' => $votedPropositions]);
+    	return view('propositions_new', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser, 'propositions' => $viewPropositions, 'endingSoonPropositions' => $endingSoonPropositions, 'votedPropositions' => $votedPropositions]);
+    }
+    
+    public function archived()
+    {
+    	\App::setLocale(Auth::user()->language());
+    	$user = Auth::user();
+    	$viewUser = [
+    			'fullName' => $user->firstName() . " " . $user->lastName(),
+    			'firstName' => $user->firstName(),
+    			'lastName' => $user->lastName(),
+    			'contactEmail' => $user->contactEmail(),
+    			'email' => $user->email(),
+    			'avatar' => $user->avatar(),
+    			'belongsToSchool' => $user->belongsToSchool(),
+    			'belongsToSchool' => $user->belongsToSchool(),
+    			'schoolEmail' => $user->googleEmail(),
+    			'role' => $user->role(),
+    	];
+    	
+    	$propositionFactory = new PropositionFactory();
+    	$expiredPropositions = array();
+    	
+    	foreach ($propositionFactory->getAcceptedPropositionsOnlyExpired() as $proposition) {
+    	
+    		$expiredPropositions[$proposition->propositionId()] = [
+    				'id' => $proposition->propositionId(),
+    				'propositionSort' => $proposition->propositionSort(),
+    				'proposer' => $proposition->proposerId(),
+    				'propositionCreationDate' => $proposition->date_created(),
+    				'deadline' => $proposition->deadline(),
+    				'statusId' => $proposition->status(),
+    				'ending_in' => Carbon::now()->diffInDays(Carbon::createFromTimestamp(strtotime($proposition->deadline())), false),
+    				'upvotes' => $propositionFactory->getUpvotes($proposition->propositionId()),
+    				'downvotes' => $propositionFactory->getDownvotes($proposition->propositionId()),
+    				'comments' => $propositionFactory->getCommentsCount($proposition->propositionId()),
+    				'marker' => $propositionFactory->getMarker($proposition->propositionId()),
+    		];
+    		
+    	}
+    	
+    	return view('archived', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser, 'expiredPropositions' => $expiredPropositions]);
     }
     
     

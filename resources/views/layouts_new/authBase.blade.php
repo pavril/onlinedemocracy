@@ -18,7 +18,7 @@
         		<div class="collapse navbar-collapse" id="topFixedNavbar1">
 	         		<ul class="nav navbar-nav">
 	            		<li class="@if(Route::current()->getName() == 'propositions') active @endif"><a href="{{ route('propositions') }}">{{ Lang::get('messages.navigation.home') }}</a></li>
-	          			
+	          			<li class="@if(Route::current()->getName() == 'archived') active @endif"><a href="{{ route('archived') }}">{{ Lang::get('messages.navigation.archived') }}</a></li>
 	          		</ul>
 	          		
 	          		<form class="navbar-form navbar-left" role="search" method="get" action="{{ route('search') }}">
