@@ -124,8 +124,7 @@
         		@if ($comments ==! 0)
         			@foreach ($comments as $comment)
                 	<div class="comment">
-<!--                     	<img src="{{ $comment['commenter']['avatar'] }}" class="profile-picture"> -->
-                        <small class="name"><strong>{{ $comment['commenter']['fullName'] }}</strong></small>
+                        <small class="name"><strong><img class="img-circle text-sized-picture" src="{{ $comment['commenter']['avatar'] }}"> {{ $comment['commenter']['fullName'] }}</strong></small>
                         <small class="pull-right text-muted">{{ $comment['date_created'] }}</small>
                         <p>{{ $comment['commentBody'] }}</p>
                     </div>

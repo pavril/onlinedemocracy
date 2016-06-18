@@ -111,6 +111,10 @@
           <a href="{{ route('downvote', $proposition['propositionId']) }}" class="btn btn-danger"><i class="fa fa-thumbs-o-down"></i> {{ Lang::get('messages.proposition.voting.actions.downvote') }}</a>
         </div>
 		@else
+		<div class="btn-group btn-group-justified section">
+          <a href="#" class="btn btn-success" disabled><i class="fa fa-thumbs-o-up"></i> {{ Lang::get('messages.proposition.voting.actions.upvote') }}</a>
+          <a href="#" class="btn btn-danger" disabled><i class="fa fa-thumbs-o-down"></i> {{ Lang::get('messages.proposition.voting.actions.downvote') }}</a>
+        </div>
 		<p class="text-primary text-center"><small>{{Lang::get('messages.proposition.voting.link')}}</small></p>
 		<div class="btn-group btn-group-justified section">
 			<a href="{{ route('getLinkAuth') }}" class="btn btn-info">{{ Lang::get('messages.profile.account.school_link_actions.link_now') }}</a>
@@ -131,7 +135,7 @@
             </div>
         </div>
         
-        @if ($proposition['ending_in'] > 0)
+        @if (($proposition['ending_in'] > 0))
         <div class="section">
         	<button class="btn btn-white btn-block" type="button" data-toggle="collapse" data-target="#comment" aria-expanded="false" aria-controls="comment">{{ Lang::get('messages.proposition.voting.actions.comment') }}</button>
         </div>
@@ -146,7 +150,7 @@
 	              			</div>
 			                <input type="hidden" name="propositionId" value="{{ $proposition['propositionId'] }}"/>
 							{!! csrf_field() !!}
-							<input class="btn btn-primary" type="submit" value="{{ Lang::get('messages.proposition.voting.actions.post_comment') }}" /> <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#comment" aria-expanded="false" aria-controls="comment">{{Lang::get('messages.proposition.comments.cancel')}}</button>
+							<input class="btn btn-primary" type="submit" value="{{ Lang::get('messages.proposition.voting.actions.post_comment') }}" @if ($user['belongsToSchool'] == false) disabled="disabled" @endif/> <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#comment" aria-expanded="false" aria-controls="comment">{{Lang::get('messages.proposition.comments.cancel')}}</button>
 		                	</form>
         			</div>
         		</div>
@@ -160,15 +164,14 @@
         		@if ($comments ==! 0)
         			@foreach ($comments as $comment)
                 	<div class="comment">
-<!--                     	<img src="{{ $comment['commenter']['avatar'] }}" class="profile-picture"> -->
-                        <small class="name"><strong>{{ $comment['commenter']['fullName'] }}</strong></small>
+                        <small class="name"><strong><img class="img-circle text-sized-picture" src="{{ $comment['commenter']['avatar'] }}"> {{ $comment['commenter']['fullName'] }}</strong></small>
                         <small class="pull-right text-muted">@if ($comment['commenter']['id'] == $user['userId']) <a href="{{ route('comment.delete', ['comment' => $comment['commentId']]) }}" class="text-muted">{{ Lang::get('messages.proposition.comments.delete') }}</a> - @endif {{ $comment['date_created'] }}</small>
                         <p>{{ $comment['commentBody'] }}</p>
                     </div>
                 	@endforeach
                 @else
 	            	<div class="caption">
-	                	<small class="text-muted">{{Lang::get('messages.proposition.comments.no_comments')}} @if ($proposition['ending_in'] >= 0) {{Lang::get('messages.proposition.comments.no_comments_part2')}} <a href="#comment" type="button" data-toggle="collapse" data-target="#comment" aria-expanded="false" aria-controls="comment">{{Lang::get('messages.proposition.comments.add')}}</a>@endif .</small>
+	                	<small class="text-muted">{{Lang::get('messages.proposition.comments.no_comments')}} @if ($proposition['ending_in'] >= 0 or $user['belongsToSchool'] == true) {{Lang::get('messages.proposition.comments.no_comments_part2')}} <a href="#comment" type="button" data-toggle="collapse" data-target="#comment" aria-expanded="false" aria-controls="comment">{{Lang::get('messages.proposition.comments.add')}}</a>@endif .</small>
 	                </div>
                 @endif
                 

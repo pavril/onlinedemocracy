@@ -354,7 +354,7 @@ textarea.input-proposition {
 small .text-sized-picture {
 	height: 17px;
 	width: 17px;
-    vertical-align: top;
+    vertical-align: text-bottom;
     margin: 0 !important;
     margin-right: 5px;
     display: inline !important;
