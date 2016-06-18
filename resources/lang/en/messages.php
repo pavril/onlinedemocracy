@@ -216,6 +216,14 @@ return [
 				
 		],
 		
+		'search' => [
+				'search' => "🔍 Search",
+				'tip' => "Search for suggestions by description, author name or even hashtag!",
+
+				'no_results_title' => "No results",
+				'no_results_subtitle' => "Your search query didn't return any results.",
+		],
+		
 		'session' => [
 				"login" => [
 						'wrong_pass' => 'Wrong password',
@@ -286,6 +294,7 @@ return [
 		'navigation' => [
 				'nav_toggle' => "Toggle navigation",
 				'home' => "Home",
+				'archived' => "Archived",
 				'create_proposition' => "Create proposition",
 				'propositions' => "My propositions",
 				'profile' => "Profile",

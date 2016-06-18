@@ -9,7 +9,7 @@
 		<div class="col-md-8 col-md-offset-2">
 			
 			<form class="form-horizontal" method="get">
-				<input name="q" type="text" @if (isset($_GET["q"]) == true) @if ($_GET["q"] !== null) value="{{ $_GET["q"] }}" @endif @endif class="form-control input-lg" placeholder="🔍 Search" style="text-align: center; margin-top: 20px; margin-bottom: 60px;" autocomplete="off">
+				<input name="q" type="text" @if (isset($_GET["q"]) == true) @if ($_GET["q"] !== null) value="{{ $_GET["q"] }}" @endif @endif class="form-control input-lg" placeholder="{{ Lang::get('messages.search.search') }}" style="text-align: center; margin-top: 20px; margin-bottom: 60px;" autocomplete="off">
 			</form>
 			
 			<div>
@@ -17,8 +17,8 @@
 			@if (empty($_GET["q"]) == false)
 			
 				@if (count($results) == 0)
-					<h3 class="text-center">No results</h3>
-					<p class="text-center">Your search query did not return any results.</p>
+					<h3 class="text-center">{{ Lang::get('messages.search.no_results_title') }}</h3>
+					<p class="text-center">{{ Lang::get('messages.search.no_results_subtitle') }}</p>
 				@else
 				@foreach ($results as $proposition)
 				<a class="thumbnail" href="{{ route('proposition', [$proposition['id']]) }}">
@@ -44,10 +44,10 @@
 				@endif
 				
 			@else
-			<p class="text-center lead">Search for suggestions by description, author name or even tags!</p>
+			<p class="text-center lead">{{ Lang::get('messages.search.tip') }}</p>
         	@endif
         	@else
-			<p class="text-center lead">Search for suggestions by description, author name or even tags!</p>
+			<p class="text-center lead">{{ Lang::get('messages.search.tip') }}</p>
         	@endif
         	
 			</div>

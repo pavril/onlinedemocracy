@@ -213,6 +213,14 @@ return [
 				
 		],
 		
+		'search' => [
+				'search' => "🔍 Recherche",
+				'tip' => "Rechercher toutes les propositions par description, nom de l'auteur ou même par hashtag!",
+				
+				'no_results_title' => "Aucun résultat",
+				'no_results_subtitle' => "Votre recherche n'a retourné aucun résultat.",
+		],
+		
 		'session' => [
 				"login" => [
 						'wrong_pass' => 'Mauvais mot de passe',
@@ -283,6 +291,7 @@ return [
 		'navigation' => [
 				'nav_toggle' => "Toggle navigation",
 				'home' => "Accueil",
+				'archived' => "Archivé",
 				'create_proposition' => "Créer proposition",
 				'propositions' => "Mes propositions",
 				'profile' => "Profil",

@@ -3,9 +3,10 @@
 /* CSS Document */
 
 *, *:before, *:after {box-sizing:  border-box !important;}
+
 body {
 	position: relative;
-	font-family: "soleil", 'Asap', "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-family: "soleil", 'Asap', "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .material-icons {
 	font-size: inherit;
@@ -432,6 +433,13 @@ fieldset[disabled] .btn-teal.active {
 .btn-teal .badge {
   color: #008080;
   background-color: #fff;
+}
+.navbar-form {
+	margin-top: 13px;
+    margin-bottom: 13px;
+}
+.navbar-form input {
+	height: 34px;
 }
 
 /* Landscape phones and portrait tablets */
