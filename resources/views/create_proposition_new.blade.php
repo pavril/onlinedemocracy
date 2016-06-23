@@ -9,6 +9,16 @@
 <div class="container" id="main">
   	<div class="row m-scene ">
   	  <div class="col-md-8 col-md-offset-2 scene_element scene_element--fadein">
+  	  
+  	  	@if (count($errors) > 0)<div class="alert alert-danger">
+	      	<p class="text-center">{{Lang::get('messages.profile.create_proposition.errors')}}</p>
+	      	<p><ul>
+	      	@foreach ($errors->all() as $error)
+	      		<li>{{ $error }}</li>
+	      	@endforeach
+	      	</ul></p>
+	      </div>@endif
+  	  
       
         <div class="section">
         	
@@ -105,9 +115,6 @@
       {!! csrf_field() !!}
       </form>
       
-      @if (count($errors) > 0)<div class="alert alert-danger"><p class="text-center">{{Lang::get('messages.profile.create_proposition.errors')}}</p></div>@endif
-     
-        
       </div>
 	</div>
 </div>
@@ -195,7 +202,7 @@ $(document).ready( function() {
 
 function updateStep(stenNum) {
 	$('#step1, #step2, #step3, #step4').hide();
-	$('#step' + stenNum).show();
+	$('#step' + stenNum).show();		
 	if (maxStep <= stenNum) {
 		maxStep = stenNum;
 		updateProgressBarFromArray(updateProgress(stenNum, 1));
@@ -203,6 +210,7 @@ function updateStep(stenNum) {
 }
 
 function updateProgress(stepNum, state) {
+
 	var progressBar = getProgressNum();
 	for (i = 1; i < stepNum; i++) {
 		progressBar[i] = 2;

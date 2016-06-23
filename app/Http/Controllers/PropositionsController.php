@@ -203,7 +203,7 @@ class PropositionsController extends Controller
     	$user = Auth::user();
     	 
     	$validator = Validator::make($request->all(), [
-    			'proposition_sort' => 'required||max:140',
+    			'proposition_sort' => 'required|max:140',
     			'proposition_long' => 'min:10',
     			'deadline' => 'required|between:1,3',
     	]);
@@ -237,17 +237,13 @@ class PropositionsController extends Controller
     					"deadline" => $deadline,
     			]);
     			
+    			// Register new tags
     			preg_match_all("/#([a-zA-Z0-9_]+)/", $request->input('proposition_sort') . " " . $request->input('proposition_long'), $matches);
-    			
-    			$tagsOnHeader = array_unique($matches[1]);
-    			
-    			$tagFactory = new TagsFactory();
-    			foreach($tagsOnHeader as $tagString)
+    			foreach(array_unique($matches[1]) as $tagString)
     			{
-    				$tag = $tagFactory->findOrCreate($tagString);
+    				$tag = with(new TagsFactory())->findOrCreate($tagString);
     				$proposition->addTag($tag);
     			}
-    			
     			 
     			return redirect()->route('profile.propositions');
     			
