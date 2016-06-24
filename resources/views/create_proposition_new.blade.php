@@ -17,7 +17,7 @@
 	      		<li>{{ $error }}</li>
 	      	@endforeach
 	      	</ul></p>
-	      </div>@endif
+	    </div>@endif
   	  
       
         <div class="section">
@@ -28,14 +28,14 @@
                   <div class="text-center bs-wizard-stepnum">{{ Lang::choice('messages.profile.create_proposition.step', 1, ['step' => 1]) }}</div>
                   <div class="progress no-animation"><div class="progress-bar"></div></div>
                   <a href="#" class="bs-wizard-dot step-btn" data-target-step="1"></a>
-                  <div class="bs-wizard-info text-center @if ($errors->has('proposition_sort')) text-danger @endif">{{Lang::get('messages.profile.create_proposition.proposition_sort')}}</div>
+                  <div class="bs-wizard-info text-center @if ($errors->has('proposition')) text-danger @endif">{{Lang::get('messages.profile.create_proposition.proposition_sort')}}</div>
                 </div>
                 
                 <div id="progress-2" class="col-xs-3 bs-wizard-step disabled">
                   <div class="text-center bs-wizard-stepnum">{{ Lang::choice('messages.profile.create_proposition.step', 2, ['step' => 2]) }}</div>
                   <div class="progress no-animation"><div class="progress-bar"></div></div>
                   <a href="#" class="bs-wizard-dot step-btn" data-target-step="2"></a>
-                  <div class="bs-wizard-info text-center @if ($errors->has('proposition_long')) text-danger @endif">{{Lang::get('messages.profile.create_proposition.proposition_long')}}</div>
+                  <div class="bs-wizard-info text-center @if ($errors->has('proposition_description')) text-danger @endif">{{Lang::get('messages.profile.create_proposition.proposition_long')}}</div>
                 </div>
                 
                 <div id="progress-3" class="col-xs-3 bs-wizard-step disabled">
@@ -58,7 +58,7 @@
     <form method="post" action="{{ route('profile.propositions.store') }}">
       <div id="step1">	
   	    <div class="proposition section">
-            <textarea name="proposition_sort" id="preview_heading_entry" class="form-control input-lg input-proposition" rows="4" placeholder="{{Lang::get('messages.profile.create_proposition.proposition_sort')}}">{{ old('proposition_sort') }}</textarea>
+            <textarea name="proposition" id="preview_heading_entry" class="form-control input-lg input-proposition" rows="4" placeholder="{{Lang::get('messages.profile.create_proposition.proposition_sort')}}">{{ old('proposition') }}</textarea>
         </div>
         
         <div class="btn-group btn-group-justified section">
@@ -68,7 +68,7 @@
       
       <div id="step2">
       	<div class="proposition section">
-            <textarea name="proposition_long" id="preview_subheading_entry" class="form-control input-lg input-proposition" rows="4" placeholder="{{Lang::get('messages.profile.create_proposition.proposition_long')}}">{{ old('proposition_long') }}</textarea>
+            <textarea name="proposition_description" id="preview_subheading_entry" class="form-control input-lg input-proposition" rows="4" placeholder="{{Lang::get('messages.profile.create_proposition.proposition_long')}}">{{ old('proposition_description') }}</textarea>
         </div>
         
         <div class="btn-group btn-group-justified section">

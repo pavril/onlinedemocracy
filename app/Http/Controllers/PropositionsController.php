@@ -203,8 +203,8 @@ class PropositionsController extends Controller
     	$user = Auth::user();
     	 
     	$validator = Validator::make($request->all(), [
-    			'proposition_sort' => 'required|max:140',
-    			'proposition_long' => 'min:10',
+    			'proposition' => 'required|max:140',
+    			'proposition_description' => 'min:10',
     			'deadline' => 'required|between:1,3',
     	]);
     	
@@ -232,13 +232,13 @@ class PropositionsController extends Controller
     			
     			$proposition = Proposition::create([
     					"proposer_id" => $user->userId(),
-    					"propositionSort" => $request->input('proposition_sort'),
-    					"propositionLong" => $request->input('proposition_long'),
+    					"propositionSort" => $request->input('proposition'),
+    					"propositionLong" => $request->input('proposition_description'),
     					"deadline" => $deadline,
     			]);
     			
     			// Register new tags
-    			preg_match_all("/#([a-zA-Z0-9_]+)/", $request->input('proposition_sort') . " " . $request->input('proposition_long'), $matches);
+    			preg_match_all("/#([a-zA-Z0-9_]+)/", $request->input('proposition') . " " . $request->input('proposition_description'), $matches);
     			foreach(array_unique($matches[1]) as $tagString)
     			{
     				$tag = with(new TagsFactory())->findOrCreate($tagString);
@@ -572,10 +572,10 @@ class PropositionsController extends Controller
     		$term = $request->input('q');
     		
     		$proposition_results = Proposition::join('users', 'users.id', '=', 'propositions.proposer_id')
-    			->where('propositions.propositionSort', 'LIKE', "%$term%")
-    			->orWhere('propositions.propositionLong', 'LIKE', "%$term%")
-    			->orWhere(DB::raw("CONCAT(`users`.`firstName`, ' ', `users`.`lastName`)"), 'LIKE', "%$term%")
     			->where('propositions.status', '=', 1)
+				->where('propositions.propositionSort', 'LIKE', "%$term%")
+    			->orwhere('propositions.propositionLong', 'LIKE', "%$term%")
+    			->orWhere(DB::raw("CONCAT(`users`.`firstName`, ' ', `users`.`lastName`)"), 'LIKE', "%$term%")
     			->orderBy('propositions.created_at', 'desc')
     			->paginate(5);
     		
