@@ -571,17 +571,11 @@ class PropositionsController extends Controller
     	if (empty($request->input('q')) == false) {
     		$term = $request->input('q');
     		
-    		$proposition_results = Proposition::join('users', 'users.id', '=', 'propositions.proposer_id')
-    			->where('propositions.status', '=', 1)
-				->where('propositions.propositionSort', 'LIKE', "%$term%")
-    			->orwhere('propositions.propositionLong', 'LIKE', "%$term%")
-    			->orWhere(DB::raw("CONCAT(`users`.`firstName`, ' ', `users`.`lastName`)"), 'LIKE', "%$term%")
-    			->orderBy('propositions.created_at', 'desc')
-    			->paginate(5);
+    		$propositionFactory = new PropositionFactory();
+    		
+    		$proposition_results = $propositionFactory->search($term, 5);
     		
     		$pages = $proposition_results->lastPage();
-    		
-    		$propositionFactory = new PropositionFactory();
     		
     		foreach ($proposition_results->items() as $proposition) {
     			$results[$proposition->propositionId()] = [

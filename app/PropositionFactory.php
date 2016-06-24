@@ -32,6 +32,16 @@ class PropositionFactory extends Model {
 		return Proposition::whereStatus(1)->where('deadline', '<', Carbon::today()->toDateString())->orderBy('created_at', 'desc')->get();
 	}
 	
+	public function search($term, $pagination) {
+		return Proposition::join('users', 'users.id', '=', 'propositions.proposer_id')
+    			->where('propositions.status', '=', 1)
+				->where('propositions.propositionSort', 'LIKE', "%$term%")
+    			->orwhere('propositions.propositionLong', 'LIKE', "%$term%")
+    			->orWhere(DB::raw("CONCAT(`users`.`firstName`, ' ', `users`.`lastName`)"), 'LIKE', "%$term%")
+    			->orderBy('propositions.created_at', 'desc')
+    			->paginate($pagination);
+	}
+	
 	public function getQueuedPropositions() {
 		return Proposition::whereStatus(2)->orderBy('deadline', 'asc')->get();
 	}
