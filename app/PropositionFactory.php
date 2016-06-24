@@ -33,13 +33,18 @@ class PropositionFactory extends Model {
 	}
 	
 	public function search($term, $pagination) {
-		return Proposition::join('users', 'users.id', '=', 'propositions.proposer_id')
-    			->where('propositions.status', '=', 1)
-				->where('propositions.propositionSort', 'LIKE', "%$term%")
-    			->orwhere('propositions.propositionLong', 'LIKE', "%$term%")
-    			->orWhere(DB::raw("CONCAT(`users`.`firstName`, ' ', `users`.`lastName`)"), 'LIKE', "%$term%")
-    			->orderBy('propositions.created_at', 'desc')
-    			->paginate($pagination);
+
+		$query = Proposition::join('users', 'users.id', '=', 'propositions.proposer_id')
+		->where(function($query) use ($term) {
+		    $query->orwhere('propositions.propositionLong', 'LIKE', "$term%");
+			$query->orwhere('propositions.propositionSort', 'LIKE', "$term%");
+    		$query->orWhere(DB::raw("CONCAT(`users`.`firstName`, ' ', `users`.`lastName`)"), 'LIKE', "$term%");
+		})
+		->where('propositions.status', '=', 1)
+    	->orderBy('propositions.created_at', 'desc')
+		->paginate($pagination);
+		
+		return $query;
 	}
 	
 	public function getQueuedPropositions() {
