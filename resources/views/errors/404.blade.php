@@ -1,48 +1,49 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Not found.</title>
+@extends('layouts_new.guestBase')
 
-        <link href="//fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+@section('title', '404 - Not found')
 
-        <style>
-            html, body {
-                height: 100%;
-            }
+@section('content')
 
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                color: #B0BEC5;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
+	<style>
+	html, body {
+		height: 100%;
+	}
 
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
+	body {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		display: table;
+	}
 
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
+	.container {
+		text-align: center;
+		display: table-cell;
+		vertical-align: middle;
+	}
 
-            .title {
-                font-size: 72px;
-                margin-bottom: 40px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Not found.</div>
-                <div>The page you are looking for was not found.</div>
-            </div>
-        </div>
-    </body>
-</html>
+	.content {
+		text-align: center;
+		display: inline-block;
+	}
+	img {
+		width: 100px;
+		height: 100px;
+		margin-bottom: 50px;
+	}
+	</style>
+	
+	<div class="container">
+		
+		<img src="{{ asset('img/logo.svg') }}" alt="DirectDemocracy logo">
+		<h1 class="text-center"><strong>404</strong> - Not found.</h1>
+		
+		<form class="col-md-6 col-md-offset-3" role="search" method="get" action="{{ route('search') }}" style="margin-top: 30px;">
+			<div class="form-group">
+				<input name="q" type="text" class="form-control text-center input-lg" placeholder="🔍 Try searching instead" autocomplete="off">
+			</div>
+		</form>
+		
+	</div>
+
+@stop

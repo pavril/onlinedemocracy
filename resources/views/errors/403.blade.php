@@ -1,47 +1,43 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Unauthorized action.</title>
+@extends('layouts_new.guestBase')
 
-        <link href="//fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+@section('title', '403 - Unauthorized action')
 
-        <style>
-            html, body {
-                height: 100%;
-            }
+@section('content')
 
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                color: #B0BEC5;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
+	<style>
+	html, body {
+		height: 100%;
+	}
 
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
+	body {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		display: table;
+	}
 
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
+	.container {
+		text-align: center;
+		display: table-cell;
+		vertical-align: middle;
+	}
 
-            .title {
-                font-size: 72px;
-                margin-bottom: 40px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Unauthorized action.</div>
-            </div>
-        </div>
-    </body>
-</html>
+	.content {
+		text-align: center;
+		display: inline-block;
+	}
+	img {
+		width: 100px;
+		height: 100px;
+		margin-bottom: 50px;
+	}
+	</style>
+	
+	<div class="container">
+		
+		<img src="{{ asset('img/logo.svg') }}" alt="DirectDemocracy logo">
+		<h1 class="text-center"><strong>403</strong> - Unauthorized action.</h1>
+		
+	</div>
+
+@stop

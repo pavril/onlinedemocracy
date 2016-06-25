@@ -1,48 +1,44 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Be right back.</title>
+@extends('layouts_new.guestBase')
 
-        <link href="//fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-        
-        <style>
-            html, body {
-                height: 100%;
-            }
+@section('title', 'Down for maintenance')
 
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                color: #B0BEC5;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
+@section('content')
 
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
+	<style>
+	html, body {
+		height: 100%;
+	}
 
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
+	body {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		display: table;
+	}
 
-            .title {
-                font-size: 72px;
-                margin-bottom: 40px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Be right back.</div>
-                <div>DirectDemocracy is down for scheduled maintenance.</div>
-            </div>
-        </div>
-    </body>
-</html>
+	.container {
+		text-align: center;
+		display: table-cell;
+		vertical-align: middle;
+	}
+
+	.content {
+		text-align: center;
+		display: inline-block;
+	}
+	img {
+		width: 100px;
+		height: 100px;
+		margin-bottom: 50px;
+	}
+	</style>
+	
+	<div class="container">
+		
+		<img src="{{ asset('img/logo.svg') }}" alt="DirectDemocracy logo">
+		<h1 class="text-center">Be right back.</h1>
+		<p class="lead text-center">The service is currently down due scheduled maintenance.</p>
+		
+	</div>
+
+@stop
