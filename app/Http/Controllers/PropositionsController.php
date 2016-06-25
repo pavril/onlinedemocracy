@@ -267,6 +267,10 @@ class PropositionsController extends Controller
     	
     	$proposition = $propositionFactory->getProposition($id);
     	
+    	if ($proposition == null) {
+    		abort(404);
+    	}
+    	
     	if ($proposition->status() !== Proposition::ACCEPTED) {
     		abort(404);
     	}
@@ -362,11 +366,7 @@ class PropositionsController extends Controller
     	
 	    	if ($user->belongsToSchool() == true) {
 	    		
-	    		Comments::create([
-	    				"commenter_id" => $user->userId(),
-	    				"proposition_id" => $request->input('propositionId'),
-	    				"body" => $request->input('commentBody'),
-	    		]);
+	    		with(new CommentFactory())->createComment($user->userId(), $request->input('propositionId'), $request->input('commentBody'));
 	    		
 	    		return redirect()->route('proposition', $request->input('propositionId'));
 	    	} else {
@@ -404,12 +404,9 @@ class PropositionsController extends Controller
 	    		
 	    	
 	    	if ($propositionFactory->getUserVoteStatus($id, $user->userId()) == false) {
-	    		Votes::create([
-	    				"proposition_id" => $id,
-	    				"vote_user" => $user->userId(),
-	    				"vote_value" => 1,
-	    				"vote_school_email" => $user->googleEmail(),
-	    		]);
+	    		
+	    		$propositionFactory->upvote($id, $user->userId(), $user->googleEmail());
+	    		
 	    		return redirect()->route('proposition', $id);
 	    	} else {
 	    		abort(403, trans('messages.unauthorized'));
@@ -429,12 +426,9 @@ class PropositionsController extends Controller
     	}
     	 
     	if ($propositionFactory->getUserVoteStatus($id, $user->userId()) == false) {
-    		Votes::create([
-    				"proposition_id" => $id,
-    				"vote_user" => $user->userId(),
-    				"vote_value" => 0,
-	    			"vote_school_email" => $user->googleEmail(),
-    		]);
+    		
+    		$propositionFactory->downvote($id, $user->userId(), $user->googleEmail());
+    		
     		return redirect()->route('proposition', $id);
     	} else {
     		abort(403, trans('messages.unauthorized'));
@@ -451,10 +445,7 @@ class PropositionsController extends Controller
     public function flag($id, $flag_type) {
 		\App::setLocale(Auth::user()->language());
         if ($flag_type == 1 OR $flag_type == 3) {
-        	Flags::create([
-        			"type" => $flag_type,
-        			"proposition" => $id,
-        	]);
+        	with(new PropositionFactory())->flag($flag_type, $id);
         	return redirect()->back()->with('status', trans('messages.proposition.flagged'));
         } else {
         	abort(404);
@@ -485,12 +476,7 @@ class PropositionsController extends Controller
 	    		 
 	    	} else {
 	
-	    		Marker::create([
-	    				"marker_id" => $request->input('type'),
-	    				"marker_text" => $request->input('message'),
-	    				"proposition_id" => $id,
-	    		]);
-	    		
+	    		with(new PropositionFactory())->createMarker($request->input('type'), $request->input('message'), $id);
 				return 'success';
 	    		 
 	    	}

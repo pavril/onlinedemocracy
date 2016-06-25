@@ -36,9 +36,9 @@ class PropositionFactory extends Model {
 
 		$query = Proposition::join('users', 'users.id', '=', 'propositions.proposer_id')
 		->where(function($query) use ($term) {
-		    $query->orwhere('propositions.propositionLong', 'LIKE', "$term%");
-			$query->orwhere('propositions.propositionSort', 'LIKE', "$term%");
-    		$query->orWhere(DB::raw("CONCAT(`users`.`firstName`, ' ', `users`.`lastName`)"), 'LIKE', "$term%");
+		    $query->orwhere('propositions.propositionLong', 'LIKE', "%$term%");
+			$query->orwhere('propositions.propositionSort', 'LIKE', "%$term%");
+    		$query->orWhere(DB::raw("CONCAT(`users`.`firstName`, ' ', `users`.`lastName`)"), 'LIKE', "%$term%");
 		})
 		->where('propositions.status', '=', 1)
     	->orderBy('propositions.created_at', 'desc')
@@ -105,6 +105,16 @@ class PropositionFactory extends Model {
 		return $userHasVoted;
 	}
 	
+	public function upvote($propositionId, $userId, $schoolEmail) {
+		
+		return Votes::create([
+				"proposition_id" => $propositionId,
+				"vote_user" => $userId,
+				"vote_value" => 1,
+				"vote_school_email" => $schoolEmail,
+		]);
+	}
+	
 	public function getUpvotes($id) {
 		$proposition = Proposition::find($id);
 		$upvotes = 0;
@@ -118,6 +128,16 @@ class PropositionFactory extends Model {
 		}
 	
 		return $upvotesSum;
+	}
+	
+	public function downvote($propositionId, $userId, $schoolEmail) {
+	
+		return Votes::create([
+				"proposition_id" => $propositionId,
+				"vote_user" => $userId,
+				"vote_value" => 0,
+				"vote_school_email" => $schoolEmail,
+		]);
 	}
 	
 	public function getDownvotes($id) {
@@ -141,6 +161,21 @@ class PropositionFactory extends Model {
 	
 	public function getCommentsCount($id) {
 		return Comments::wherePropositionId($id)->count();
+	}
+	
+	public function flag($type, $id) {
+		return Flags::create([
+				"type" => $type,
+				"proposition" => $id,
+		]);
+	}
+	
+	public function createMarker($type, $body, $propositionId) {
+		return Marker::create([
+				"marker_id" => $type,
+				"marker_text" => $body,
+				"proposition_id" => $propositionId,
+		]);
 	}
 	
 	public function getMarker($id) {

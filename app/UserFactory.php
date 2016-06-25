@@ -43,4 +43,14 @@ class UserFactory extends Model {
     	return true;
 	}
 	
+	public function createUser($firstName, $lastName, $email, $avatar_url, $password) {
+		return User::create([
+				"firstName" => $firstName,
+				"lastName" => $lastName,
+				"avatar" => $avatar_url,
+				"email" => $email,
+				"password" => \Hash::make($password),
+		]);
+	}
+	
 }

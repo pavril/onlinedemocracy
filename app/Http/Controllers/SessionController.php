@@ -74,13 +74,7 @@ class SessionController extends Controller
     		return redirect()->back()->withInput($request->except('password', 'password_confirm'))->withErrors($validator->errors());
     	} else {
     		
-    		User::create([
-    				"firstName" => $request->input("first_name"),
-    				"lastName" => $request->input("last_name"),
-    				"avatar" => null,
-    				"email" => $request->input("email"),
-    				"password" => \Hash::make($request->input("password")),
-    		]);
+    		with(new UserFactory())->createUser($request->input("first_name"), $request->input("last_name"), $request->input("email"), null, $request->input("password"));
     		
     		return redirect()->route('login');
     	}
