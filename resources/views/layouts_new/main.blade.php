@@ -13,7 +13,7 @@
 	    <meta property="fb:admins" content="100002828091107" />
     
         <link href="{{ asset('css_new/bootstrap.css') }}" rel="stylesheet" type="text/css">
-        <link href="https://bootswatch.com/sandstone/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css_new/sandstone.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css_new/font-awesome.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css_new/app.css') }}" rel="stylesheet" type="text/css">
         

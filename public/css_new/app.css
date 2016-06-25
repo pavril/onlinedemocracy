@@ -1,4 +1,3 @@
-@import url(https://fonts.googleapis.com/css?family=Asap:400,700);
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 /* CSS Document */
 
@@ -6,7 +5,7 @@
 
 body {
 	position: relative;
-	font-family: "soleil", 'Asap', "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: 'soleil', 'Proxima Nova', 'Montserrat', "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .material-icons {
 	font-size: inherit;
@@ -208,7 +207,8 @@ a.thumbnail:hover .caption {
 	margin-top: 15px;
 }
 .profile-picture {
-	width: 35%;
+	height: 80px;
+	width: 80px;
 	display: block;
 	margin: auto;
 }
