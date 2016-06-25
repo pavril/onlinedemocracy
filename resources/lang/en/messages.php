@@ -144,7 +144,7 @@ return [
 						'new_confirm' => 'Confirm password',
 						'enter_new_confirm' => 'Re-enter your new password',
 						'submit' => 'Update password',
-						'updated' => "Your password was updated successfully",
+						'updated' => "Your password was successfully updated",
 						'wrong' => "Wrong password"
 				],
 				'create_proposition' => [
@@ -161,6 +161,7 @@ return [
 						'more' => "Read more in Terms & Services",
 						'errors' => "You have several errors, please check each step before posting your proposition.",
 						'inactive' => "Oh snap! Your account isn't active.",
+						'success' => "Your proposition was successfully created!",
 				],
 				'propositions' => [
 						'go_to' => "Go to proposition",

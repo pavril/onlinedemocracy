@@ -245,7 +245,7 @@ class PropositionsController extends Controller
     				$proposition->addTag($tag);
     			}
     			 
-    			return redirect()->route('profile.propositions');
+    			return redirect()->route('profile.propositions')->with('status', trans('messages.profile.create_proposition.success'));
     			
     		} else {
     			abort(403, trans('messages.unauthorized'));

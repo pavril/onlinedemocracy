@@ -48,6 +48,15 @@
         </div>
         
         <div class="col-md-9" id="account_form">
+        	
+        	@if (session('status'))
+			<div class="form-group form-group-sm">
+				<div class="alert alert-success">
+			    	{{ session('status') }}
+				</div>
+			</div>
+			@endif
+        
        		@yield('form')
         </div>
 	</div>

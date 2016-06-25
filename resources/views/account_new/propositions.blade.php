@@ -4,8 +4,6 @@
 
 @section('form')
 
-<a href="{{ route('profile.propositions.create') }}" class="btn btn-primary margin-bottom">{{ Lang::get('messages.profile.create_proposition.create_proposition') }}</a>
-            
 <div class="panel-group" id="propositions" role="tablist" aria-multiselectable="true" aria-expanded="true">
       
 @foreach ($propositions as $proposition)
