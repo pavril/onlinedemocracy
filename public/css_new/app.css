@@ -442,6 +442,42 @@ fieldset[disabled] .btn-teal.active {
 	height: 34px;
 }
 
+
+/* Secondary navigation bar */
+.navbar-secondary.navbar-fixed-top {
+    top: 61px;
+    z-index: 1020;
+}
+.navbar-secondary {
+	background: #607d8b;
+	border-color: #607D8B;
+}
+.navbar-brand img.profile-picture-navbar {
+	height: auto;
+}
+.navbar-secondary .navbar-collapse {
+	border: none;
+}
+.navbar-secondary .navbar-toggle:hover, .navbar-secondary .navbar-toggle:focus, .navbar-secondary .navbar-nav>.active>a, .navbar-secondary .navbar-nav>.active>a:hover, .navbar-secondary .navbar-nav>.active>a:focus {
+	background: #546e7a;
+	border-radius: 5px;
+}
+.navbar-secondary .navbar-toggle .icon-bar {
+	background-color: #90A4AE;
+}
+.navbar-secondary .navbar-nav>li>a {
+    color: #cfd8dc;
+}
+.navbar-secondary .navbar-nav>li>a strong {
+	color: #fff;
+	margin: 0 -10px;
+}
+.navbar-secondary .navbar-brand {
+	font-size: 16px;
+}
+
+
+
 /* Landscape phones and portrait tablets */
 @media (max-width: 767px) {
 	.proposition h1 {
