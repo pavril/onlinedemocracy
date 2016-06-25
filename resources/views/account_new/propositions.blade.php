@@ -6,6 +6,15 @@
 
 <div class="panel-group" id="propositions" role="tablist" aria-multiselectable="true" aria-expanded="true">
       
+@if (count($propositions) == 0)
+	
+	<h3>{{ Lang::get('messages.profile.create_proposition.begining') }}</h3>
+	<p class="lead">{{ Lang::get('messages.profile.create_proposition.description') }}</p>
+	<br>
+	<p><a href="http://localhost:82/account/propositions/create" class="btn btn-teal btn-lg"><i class="glyphicon glyphicon-pencil"></i> {{ Lang::get('messages.profile.create_proposition.begining_btn') }}</a></p>
+	
+@endif
+
 @foreach ($propositions as $proposition)
 <div class="panel panel-default">
 	<div class="panel-heading" role="tab" id="heading{{ $proposition['id'] }}">

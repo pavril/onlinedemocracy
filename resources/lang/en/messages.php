@@ -149,7 +149,7 @@ return [
 				],
 				'create_proposition' => [
 						'step' => "Step :step",
-						'create_proposition' => "Create proposition",
+						'create_proposition' => "Post a proposition",
 						'proposition_sort' => "Write your proposition",
 						'proposition_long' => "Describe your idea (optional)",
 						'deadline' => "Pick a deadline",
@@ -162,6 +162,10 @@ return [
 						'errors' => "You have several errors, please check each step before posting your proposition.",
 						'inactive' => "Oh snap! Your account isn't active.",
 						'success' => "Your proposition was successfully created!",
+						
+						'begining' => "You haven't posted anything yet, let's start now!",
+						'description' => "Propositions are suggestions you can make concerning your school life. It can be from an idea for the cafeteria to an educational issue.",
+						'begining_btn' => "Post your first proposition",
 				],
 				'propositions' => [
 						'go_to' => "Go to proposition",
@@ -296,7 +300,7 @@ return [
 				'nav_toggle' => "Toggle navigation",
 				'home' => "Home",
 				'archived' => "Archived",
-				'create_proposition' => "Create proposition",
+				'create_proposition' => "Post a proposition",
 				'propositions' => "My propositions",
 				'profile' => "Profile",
 				'language' => "Language",
