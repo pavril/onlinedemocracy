@@ -178,6 +178,13 @@ return [
 								'upvotes' => "{1} :votes upvote|{0} :votes upvotes|[2,Inf] :votes upvotes",
 								'downvotes' => "{1} :votes downvote|{0} :votes downvotes|[2,Inf] :votes downvotes",
 						],
+						'actions' => "Actions:",
+						'edit' => "Edit",
+						'delete' => "Delete",
+						'edit_proposition' => 'Edit proposition',
+						'deadline' => "{1} Ending in :days day|{0} Ending in :days days|[2,Inf] Ending in :days days",
+						'deadline_fixed' => "You cannot change the deadline",
+						'updated' => "Your proposition was successfully updated!",
 				],
 				'logout' => "Logout",
 		],
@@ -295,6 +302,7 @@ return [
 		],
 		
 		'unauthorized' => "Unauthorized action.",
+		'close' => "Close",
 		
 		'navigation' => [
 				'nav_toggle' => "Toggle navigation",

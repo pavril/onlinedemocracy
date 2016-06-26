@@ -159,6 +159,11 @@ return [
 						'more' => "Lire plus sur les conditions d'utilisation",
 						'errors' => "Il y a plusieurs erreur, vérifies chaque étape avant de soumettre ta proposition.",
 						'inactive' => "Zut ! Ton compte n'est pas encore actif.",
+						'success' => "Ta proposition a été créée avec succès!",
+						
+						'begining' => "Tu n'as pas encore crée des propositions. Tu peux y aller maintenant!",
+						'description' => "",
+						'begining_btn' => "Écris ta première proposition",
 				],
 				'propositions' => [
 						'go_to' => "Aller à la proposition",
@@ -171,6 +176,13 @@ return [
 								'upvotes' => "{0} Pas de vote pour|[1,Inf] :votes pour",
 								'downvotes' => "{0} Pas de vote contre|[1,Inf] :votes contre",
 						],
+						'actions' => "Actions:",
+						'edit' => "Modifier",
+						'delete' => "Supprimer",
+						'edit_proposition' => 'Modifier une proposition',
+						'deadline' => "{1} Expire dans :days jour|{0} Expire aujourd'hui|[2,Inf] Expire dans :days jours",
+						'deadline_fixed' => "Vous ne pouvez pas changer la date d'expiration",
+						'updated' => "Ta proposition a été modifiée avec succès!",
 				],
 				'logout' => "Déconnexion",
 		],
@@ -287,6 +299,7 @@ return [
 		],
 		
 		'unauthorized' => "Action non autorisée.",
+		'close' => "Fermer",
 		
 		'navigation' => [
 				'nav_toggle' => "Toggle navigation",

@@ -253,6 +253,56 @@ class PropositionsController extends Controller
     		 
     	}
     }
+    
+    public function update(Request $request)
+    {
+    	\App::setLocale(Auth::user()->language());
+    	$user = Auth::user();
+    	
+    	$propositionFactory = new PropositionFactory();
+    	
+    	$proposition = $propositionFactory->getProposition($request->get('propositionId'));
+    	
+    	if ($proposition->status() == 2) {
+    		
+    		$validator = Validator::make($request->all(), [
+    				'proposition' => 'required|max:140',
+    				'description' => 'min:10',
+    		]);
+    		
+    		if ($validator->fails()) {
+    			 
+    			return $validator->errors();
+    			 
+    		} else {
+    			 
+    			if ($user->belongsToSchool() == true) {
+    		
+    				// Register new tags
+    				preg_match_all("/#([a-zA-Z0-9_]+)/", $request->input('proposition') . " " . $request->input('description'), $matches);
+    				foreach(array_unique($matches[1]) as $tagString)
+    				{
+    					$tag = with(new TagsFactory())->findOrCreate($tagString);
+    					$proposition->addTag($tag);
+    				}
+    				
+    				$proposition->setPropositionSort($request->input('proposition'));
+    				$proposition->setPropositionLong($request->input('description'));
+    				
+    				$proposition->save();
+    		
+    				return 'success';
+    		
+    			} else {
+    				abort(403, trans('messages.unauthorized'));
+    			}
+    			 
+    		}
+    		
+    	} else {
+    		return trans('messages.unauthorized');
+    	}
+    }
 
     /**
      * Display the specified resource.

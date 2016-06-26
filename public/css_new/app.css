@@ -476,6 +476,16 @@ fieldset[disabled] .btn-teal.active {
 	font-size: 16px;
 }
 
+.panel-footer-gray {
+    background: rgba(120, 144, 156, 0.6);
+    color: #ECEFF1 !important;
+    margin: -1px;
+}
+.panel-footer-danger {
+	background: #d9534f;
+	color: #fff;
+}
+
 
 
 /* Landscape phones and portrait tablets */

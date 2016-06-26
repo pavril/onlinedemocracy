@@ -51,6 +51,9 @@ Route::get('/home', ['middleware' => 'auth','as' => 'propositions','uses' => 'Pr
 Route::get('/search', ['middleware' => 'auth','as' => 'search','uses' => 'PropositionsController@search']);
 Route::get('/archived', ['middleware' => 'auth','as' => 'archived','uses' => 'PropositionsController@archived']);
 Route::get('/proposition/{id}', ['as' => 'proposition','uses' => 'PropositionsController@show']);
+
+Route::post('/proposition/update', ['as' => 'proposition.update','uses' => 'PropositionsController@update']);
+
 Route::post('/proposition/comment', ['middleware' => 'auth', 'as' => 'comment', 'uses' => 'PropositionsController@comment']);
 Route::get('/proposition/comment/delete/{commentId}', ['middleware' => 'auth', 'as' => 'comment.delete', 'uses' => 'PropositionsController@delete_comment']);
 Route::get('/proposition/{id}/upvote', ['middleware' => 'auth', 'as' => 'upvote', 'uses' => 'PropositionsController@upvote']);
@@ -77,6 +80,7 @@ Route::controllers([
 
 // API routes (return JSON data)
 Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
-	Route::get('tag_search', ['as' => 'tag_search', 'uses' => 'ApiController@tag_search']);
+	Route::get('tag_search', ['as' => 'api.tag_search', 'uses' => 'ApiController@tag_search']);
+	Route::get('proposition', ['as' => 'api.proposition', 'uses' => 'ApiController@proposition']);
 });
 

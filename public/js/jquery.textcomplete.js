@@ -167,7 +167,7 @@ if (typeof jQuery === 'undefined') {
     if (!Completer.DEFAULTS) {
       Completer.DEFAULTS = {
         appendTo: $('body'),
-        zIndex: '100'
+        zIndex: '1050'
       };
     }
 
