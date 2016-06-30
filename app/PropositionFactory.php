@@ -29,7 +29,7 @@ class PropositionFactory extends Model {
 	}
 	
 	public function getAcceptedPropositionsOnlyExpired() {
-		return Proposition::whereStatus(1)->where('deadline', '<', Carbon::today()->toDateString())->orderBy('created_at', 'desc')->get();
+		return Proposition::whereStatus(1)->where('deadline', '<=', Carbon::today()->toDateString())->orderBy('created_at', 'desc')->get();
 	}
 	
 	public function deleteProposition($id) {
