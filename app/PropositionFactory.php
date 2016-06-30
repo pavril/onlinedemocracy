@@ -32,6 +32,10 @@ class PropositionFactory extends Model {
 		return Proposition::whereStatus(1)->where('deadline', '<', Carbon::today()->toDateString())->orderBy('created_at', 'desc')->get();
 	}
 	
+	public function deleteProposition($id) {
+		return Proposition::destroy($id);
+	}
+	
 	public function search($term, $pagination) {
 
 		$query = Proposition::join('users', 'users.id', '=', 'propositions.proposer_id')

@@ -64,6 +64,15 @@ class ProfileController extends Controller
     {
     	return redirect()->route('profile.main')->with('highlight', 'lang');
     }
+    
+    public function setLanguage($code) 
+    {
+    	$user = Auth::user();
+    	$user->setLanguage($code);
+    	$user->save();
+    	
+    	return redirect()->back();
+    }
 
     /**
      * Update the specified resource in storage.

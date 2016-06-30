@@ -65,6 +65,9 @@
 			@if ($proposition['statusId'] !== 2)
 			@if ($proposition['statusId'] !== 3)
 			<a href="{{ route('proposition', [$proposition['id']]) }}" class="btn btn-primary btn-sm">{{ Lang::get('messages.profile.propositions.go_to') }}</a>
+			@if ($proposition['ending_in'] <= 0)
+			<a href="#delete{{$proposition['id']}}" class="btn btn-default btn-sm" data-toggle="collapse" aria-expanded="false">{{ Lang::get('messages.profile.propositions.delete') }}</a>
+			@endif
 			@endif
 			@endif
 			
@@ -74,13 +77,22 @@
 			
 			@if ($proposition['statusId'] == 3)
 			{{ Lang::get('messages.profile.propositions.status.block_reason') }} {{ $proposition['blockReason'] }}
+			<a href="{{ route('proposition.delete', [$proposition['id']]) }}" class="btn btn-default btn-sm" >{{ Lang::get('messages.profile.propositions.delete_proposition') }}</a>
 			@endif
 		
 		</div>
 		
+		@if ($proposition['ending_in'] <= 0)
+		<div class="collapse" id="delete{{$proposition['id']}}"><div class="panel-footer panel-footer-gray panel-footer-danger">
+			<p>{{ Lang::get('messages.profile.propositions.warning_delete') }}</p>
+			<a href="{{ route('proposition.delete', [$proposition['id']]) }}" class="btn btn-danger btn-sm">{{ Lang::get('messages.profile.propositions.delete_proposition') }}</a>
+			<a href="#delete{{$proposition['id']}}" class="btn btn-default btn-sm" data-toggle="collapse" aria-expanded="false" >{{ Lang::get('messages.close') }}</a>
+		</div></div>
+		@endif
+		
 		@if ($proposition['statusId'] == 2)
 		<!-- Edit proposition modal -->
-		<div class="modal fade" id="edit{{ $proposition['id'] }}" data-edit-proposition="{{ $proposition['id'] }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal fade" id="edit{{ $proposition['id'] }}" data-edit-proposition="{{ $proposition['id'] }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
@@ -107,6 +119,7 @@
 				</form>
 		      </div>
 		      <div class="modal-footer">
+		      	<a href="{{ route('proposition.delete', [$proposition['id']]) }}" class="btn btn-danger pull-left">{{ Lang::get('messages.profile.propositions.delete_proposition') }}</a>
 		        <button type="button" class="btn btn-default" data-dismiss="modal">{{ Lang::get('messages.close') }}</button>
 		        <button type="button" class="btn btn-primary" data-form-id="editForm{{ $proposition['id'] }}" data-proposition-id="{{{ $proposition['id'] }}}">{{ Lang::get('messages.form.buttons.save') }}</button>
 		      </div>
@@ -158,6 +171,7 @@ $('[data-field="description"], [data-field="proposition"]').textcomplete([{
 <style>
 #preview_heading_entry, #preview_subheading_entry {line-height: 50px !important;}.textoverlay span {border-radius: 5px;}.dropdown-menu.textcomplete-dropdown {display: block;}
 </style>
+
 <script type="text/javascript">
 $('[data-edit-proposition]').on('show.bs.modal', function (event) {
 	  var $modal = $(this);

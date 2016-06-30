@@ -254,6 +254,7 @@ class PropositionsController extends Controller
     	}
     }
     
+    
     public function update(Request $request)
     {
     	\App::setLocale(Auth::user()->language());
@@ -301,6 +302,31 @@ class PropositionsController extends Controller
     		
     	} else {
     		return trans('messages.unauthorized');
+    	}
+    }
+    
+    public function delete($propositionId)
+    {
+    	\App::setLocale(Auth::user()->language());
+    	$user = Auth::user();
+    	
+    	$proposition = with(new PropositionFactory())->getProposition($propositionId);
+    	
+    	if (($proposition !== null) and ($proposition->proposerId() == $user->userId()) 
+    		and (($proposition->status() == 2) 
+    		or ($proposition->status() == 3) 
+   			or (Carbon::now()->diffInDays(Carbon::createFromTimestamp(strtotime($proposition->deadline())), false) < 0))) {
+    			
+    			if (with(new PropositionFactory())->deleteProposition($propositionId) == true) {
+    				
+    				return redirect()->route('profile.propositions')->with('status', trans('messages.profile.propositions.success_deleting'));
+    			} else {
+    				
+    				return redirect()->route('profile.propositions')->with('error', trans('messages.profile.propositions.error_deleting'));
+    			}
+    		
+    	} else {
+    		abort(403);
     	}
     }
 

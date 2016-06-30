@@ -36,6 +36,8 @@ Route::group(['prefix' => 'account', 'middleware' => 'auth'], function () {
 	Route::get('/propositions/create', ['as' => 'profile.propositions.create', 'uses' => 'PropositionsController@create']);
 	Route::post('/propositions/create', ['as' => 'profile.propositions.store', 'uses' => 'PropositionsController@store']);
 	Route::get('/profile/language', ['as' => 'profile.language', 'uses' => 'ProfileController@language']);
+	
+	Route::get('/profile/language/{code}', ['as' => 'profile.language.set', 'uses' => 'ProfileController@setLanguage']);
 });
 
 Route::get('/feedback', ['middleware' => 'auth', 'as' => 'feedback', 'uses' => 'MainController@feedback']);
@@ -53,6 +55,7 @@ Route::get('/archived', ['middleware' => 'auth','as' => 'archived','uses' => 'Pr
 Route::get('/proposition/{id}', ['as' => 'proposition','uses' => 'PropositionsController@show']);
 
 Route::post('/proposition/update', ['as' => 'proposition.update','uses' => 'PropositionsController@update']);
+Route::get('/proposition/delete/{propositionId}', ['as' => 'proposition.delete','uses' => 'PropositionsController@delete']);
 
 Route::post('/proposition/comment', ['middleware' => 'auth', 'as' => 'comment', 'uses' => 'PropositionsController@comment']);
 Route::get('/proposition/comment/delete/{commentId}', ['middleware' => 'auth', 'as' => 'comment.delete', 'uses' => 'PropositionsController@delete_comment']);

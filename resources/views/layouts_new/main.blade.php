@@ -69,5 +69,7 @@
 		});
 	    </script>
 	    @yield('footer_scripts')
+	    
+	    @yield('cookies')
 	</body>
 </html>

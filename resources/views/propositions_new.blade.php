@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container" id="main">
-	
+
 	@if (count($endingSoonPropositions) !== 0)
 	<h3 class="propositions-section">{{ Lang::get('messages.propositions.ending_soon') }}</h3>
 	<div class="pinBoot" id="expiring">

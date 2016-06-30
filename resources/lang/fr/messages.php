@@ -91,6 +91,8 @@ return [
 				'new_propositions' => "Nouvelles propositions",
 				'voted_propositions' => "Propositions auxquelles tu as voté",
 				'expired_propositions' => "Propositions expirées",
+				
+				'no_expired' => "Il n'y a pas de propositions expirées",
 		],
 		
 		'profile' => [
@@ -183,6 +185,17 @@ return [
 						'deadline' => "{1} Expire dans :days jour|{0} Expire aujourd'hui|[2,Inf] Expire dans :days jours",
 						'deadline_fixed' => "Vous ne pouvez pas changer la date d'expiration",
 						'updated' => "Ta proposition a été modifiée avec succès!",
+						
+						'delete_proposition' => "Supprimer la proposition",
+						'confirmation_modal' => [
+								'title' => "Es-tu sûr?",
+								'description' => "Si tu choisissis de supprimer une proposition, tous les votes et commentaires faits sur elle par d'autres utilisateurs seront perdus.",
+						],
+						
+						'success_deleting' => "Cette proposition a été supprimé avec succès!",
+						'error_deleting' => "Une erreur est survenue lors de la suppression de cette proposition!",
+						
+						'warning_delete' => "La suppression d'une proposition supprimmera également tous les votes et les commentaires faits par d'autres utilisateurs sur elle pour toujours. Es-tu sûr de vouloir la supprimer?",
 				],
 				'logout' => "Déconnexion",
 		],
@@ -300,6 +313,13 @@ return [
 		
 		'unauthorized' => "Action non autorisée.",
 		'close' => "Fermer",
+		
+		'notifications' => [
+				'available_in_en' => "DirectDemocracy is also available in",
+				'welcome_link_alert_1' => "Bienvenue à DirectDemocracy ! Pour acceder à tous les fonctionnalités de DirectDemocracy,",
+				'welcome_link_alert_2' => "lies ton compte avec l'email de ton école",
+				'welcome_link_alert_3' => "!",
+		],
 		
 		'navigation' => [
 				'nav_toggle' => "Toggle navigation",

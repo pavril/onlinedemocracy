@@ -99,6 +99,14 @@
 				</div>
 			</div>
 			@endif
+			
+			@if (session('error'))
+			<div class="form-group form-group-sm">
+				<div class="alert alert-danger">
+			    	{{ session('error') }}
+				</div>
+			</div>
+			@endif
         
        		@yield('form')
         </div>

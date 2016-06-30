@@ -48,6 +48,51 @@
     	</nav>
   	</div>
 
+	<div class="container">
+		@if ($user['belongsToSchool'] == false)
+		<div class="alert alert-info" role="alert" id="link-info" style="display: none;">
+			<button type="button" class="close" data-dismiss="alert" data-alert-box="link-info" style="margin-top: -6px;" aria-label="Close"><span aria-hidden="true"><i class="material-icons">close</i></span></button>
+			<p>{{ Lang::get('messages.notifications.welcome_link_alert_1') }} <a href="{{ route('getLinkAuth') }}" class="alert-link">{{ Lang::get('messages.notifications.welcome_link_alert_2') }}</a> {{ Lang::get('messages.notifications.welcome_link_alert_3') }}</p>
+		</div>
+		@endif
+		
+		<div class="alert alert-info" role="alert" id="lang-info" style="display: none; background-color: #607D8B;">
+			<button type="button" class="close" data-dismiss="alert" data-alert-box="link-info" style="margin-top: -6px;" aria-label="Close"><span aria-hidden="true"><i class="material-icons">close</i></span></button>
+			@if (Lang::locale() == 'en')
+			<p>{{ Lang::get('messages.notifications.available_in_fr') }} <a href="{{ route('profile.language.set', ['fr']) }}" class="alert-link">{{ Lang::get('messages.languages.fr') }}</a>!</p>
+			@else
+			<p>{{ Lang::get('messages.notifications.available_in_en') }} <a href="{{ route('profile.language.set', ['en']) }}" class="alert-link">{{ Lang::get('messages.languages.en') }}</a>!</p>
+			@endif
+		</div>
+	</div>
+	
 	@yield('content')
 </div>
 @stop()
+
+@section('cookies')
+<script type="text/javascript" src="{{ asset('js/cookie.js') }}"></script>
+<script>
+jQuery(function( $ ){
+	@if ($user['belongsToSchool'] == false)
+    $('#link-info.alert .close').click(function( e ){
+        createCookie('link-info-alert-closed',true,2);
+    });
+	@endif
+
+	$('#lang-info.alert .close, #lang-info.alert .alert-link').click(function( e ){
+    	createCookie('lang-info-alert-closed',true,365);
+	});
+});
+
+jQuery(function( $ ){
+
+	if( (readCookie('link-info-alert-closed') === 'false') || (readCookie('link-info-alert-closed') == null) ){
+        $('#link-info.alert').show();
+    }
+    if( (readCookie('lang-info-alert-closed') === 'false') || (readCookie('lang-info-alert-closed') == null) ){
+        $('#lang-info.alert').show();
+    }
+});
+</script>
+@stop

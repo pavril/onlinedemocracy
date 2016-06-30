@@ -5,8 +5,8 @@
 @section('content')
 <div class="container" id="main">
 	
-	@if (count($expiredPropositions) !== 0)
 	<h3 class="propositions-section">{{ Lang::get('messages.propositions.expired_propositions') }}</h3>
+	@if (count($expiredPropositions) !== 0)
 	<div class="pinBoot" id="expired">
 		@foreach($expiredPropositions as $proposition)
   	    	<a class="thumbnail" href="{{ route('proposition', [$proposition['id']]) }}">
@@ -22,6 +22,8 @@
         	</a>
 		@endforeach
 	</div>
+	@else
+	<p class="lead text-muted text-center">{{ Lang::get('messages.propositions.no_expired') }}</p>
 	@endif
 	
 </div>

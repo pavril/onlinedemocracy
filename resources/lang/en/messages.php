@@ -93,6 +93,8 @@ return [
 				'new_propositions' => "New propositions",
 				'voted_propositions' => "Voted propositions",
 				'expired_propositions' => "Expired propositions",
+				
+				'no_expired' => "There are no expired propositions!",
 		],
 		
 		'profile' => [
@@ -185,6 +187,17 @@ return [
 						'deadline' => "{1} Ending in :days day|{0} Ending in :days days|[2,Inf] Ending in :days days",
 						'deadline_fixed' => "You cannot change the deadline",
 						'updated' => "Your proposition was successfully updated!",
+						
+						'delete_proposition' => "Delete proposition",
+						'confirmation_modal' => [
+								'title' => "Are you sure?",
+								'description' => "If you choose to delete a proposition, all votes and comments made by other users will be lost forever.",
+						],
+						
+						'success_deleting' => "Your proposition was successfully deleted!",
+						'error_deleting' => "An error occurred while deleting this proposition!",
+						
+						'warning_delete' => "Deleting a proposition will also delete all the votes and comments made by other users on it forever. Are you sure you want to delete it?",
 				],
 				'logout' => "Logout",
 		],
@@ -303,6 +316,13 @@ return [
 		
 		'unauthorized' => "Unauthorized action.",
 		'close' => "Close",
+
+		'notifications' => [
+				'available_in_fr' => "DirectDemocracy est aussi disponible en",
+				'welcome_link_alert_1' => "Welcome to DirectDemocracy! You need to",
+				'welcome_link_alert_2' => "connect your account with your school email",
+				'welcome_link_alert_3' => "to unlock all the features of DirectDemocracy!",
+		],
 		
 		'navigation' => [
 				'nav_toggle' => "Toggle navigation",
