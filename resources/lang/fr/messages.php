@@ -93,6 +93,9 @@ return [
 				'expired_propositions' => "Propositions expirées",
 				
 				'no_expired' => "Il n'y a pas de propositions expirées",
+				
+				'no_active' => "Zut ! Il n'y a pas de propositions actives !",
+				'no_active_desc' => "Toutes les propositions sont expirés. Lorsqu'une proposition dépasse sa date limite, elle est archivée et personne ne peut plus voter ou commenter.",
 		],
 		
 		'profile' => [

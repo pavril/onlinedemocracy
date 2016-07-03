@@ -95,6 +95,9 @@ return [
 				'expired_propositions' => "Expired propositions",
 				
 				'no_expired' => "There are no expired propositions!",
+				
+				'no_active' => "Oups! There are no active propositions!",
+				'no_active_desc' => "It appears that all propositions are archived. When a proposition deadline is passed, the proposition is archived and people cannot vote or comment anymore.",
 		],
 		
 		'profile' => [
