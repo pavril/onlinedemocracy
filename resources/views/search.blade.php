@@ -30,7 +30,7 @@
 			          		 @endif
 			          		{{{ $proposition['propositionSort'] }}} @else {{{ $proposition['propositionSort'] }}} @endif</p>
 		       			<small class="text-muted">{{ Lang::choice('messages.proposition.voting.stats.upvotes', $proposition['upvotes'], ['votes' => $proposition['upvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.downvotes', $proposition['downvotes'], ['votes' => $proposition['downvotes']]) }} | {{ Lang::choice('messages.proposition.voting.stats.comments', $proposition['comments'], ['comments' => $proposition['comments']]) }}</small>
-		       			<small class="text-muted" style="margin-top: 10px; display: block;"><img class="img-circle text-sized-picture" src="https://graph.facebook.com/v2.5/714200482017548/picture?width=1920"> Photis Avrilionis</small>
+		       			<small class="text-muted" style="margin-top: 10px; display: block;"><img class="img-circle text-sized-picture" src="{{ $proposition['proposer']['avatar'] }}"> {{ $proposition['proposer']['fullName'] }}</small>
 		       		</div>
 	       		</a>
         		@endforeach

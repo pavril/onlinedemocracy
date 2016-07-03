@@ -640,10 +640,17 @@ class PropositionsController extends Controller
     		$pages = $proposition_results->lastPage();
     		
     		foreach ($proposition_results->items() as $proposition) {
+    			
+    			$proposer = with(new userFactory)->getUser($proposition->proposerId());
+    			
     			$results[$proposition->propositionId()] = [
     					'id' => $proposition->propositionId(),
     					'propositionSort' => $proposition->propositionSort(),
-    					'proposer' => $proposition->proposerId(),
+    					'proposer' => [
+    							'id' => $proposition->proposerId(),
+    							'fullName' => $proposer->firstName() . " " . $proposer->lastName(),
+    							'avatar' => $proposer->avatar(),
+    					],
     					'propositionCreationDate' => $proposition->date_created(),
     					'deadline' => $proposition->deadline(),
     					'statusId' => $proposition->status(),
