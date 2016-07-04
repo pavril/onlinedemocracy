@@ -195,7 +195,7 @@ return [
 								'description' => "Si tu choisissis de supprimer une proposition, tous les votes et commentaires faits sur elle par d'autres utilisateurs seront perdus.",
 						],
 						
-						'success_deleting' => "Cette proposition a été supprimé avec succès!",
+						'success_deleting' => "Cette proposition a été supprimée avec succès!",
 						'error_deleting' => "Une erreur est survenue lors de la suppression de cette proposition!",
 						
 						'warning_delete' => "La suppression d'une proposition supprimmera également tous les votes et les commentaires faits par d'autres utilisateurs sur elle pour toujours. Es-tu sûr de vouloir la supprimer?",
