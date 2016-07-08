@@ -123,7 +123,7 @@ class SessionController extends Controller
     {
     	if(!config("services.$provider")) abort('404'); //just to handle providers that doesn't exist
     
-    	return $this->socialite->with($provider)->redirect();
+    	return $this->socialite->driver($provider)->redirect();
     }
     
     public function getSocialAuthCallback($provider=null)
@@ -132,7 +132,7 @@ class SessionController extends Controller
 	    switch ($provider) {
 		    case 'facebook':
 		       	
-		    	if($socialUser = $this->socialite->with($provider)->user()){
+		    	if($socialUser = $this->socialite->driver($provider)->user()){
 		    	
 		    		$oAuthUser = User::firstOrCreate([
 		    				'email' => $socialUser->email,
@@ -142,9 +142,12 @@ class SessionController extends Controller
 		    		
 					$user = Auth::user();
 					
-		    		$user->setfirstName($socialUser->user['first_name']);
-		    		$user->setlastName($socialUser->user['last_name']);
-		    		 
+					$name = $socialUser->name;
+					
+					$parts = explode(" ", $name);
+					$user->setlastName(array_pop($parts));
+					$user->setfirstName(implode(" ", $parts));
+					
 		    		$user->setAvatar($socialUser->avatar_original);
 		    		
 		    		$user->setFacebookId($socialUser->id);
