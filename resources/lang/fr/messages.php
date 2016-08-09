@@ -17,7 +17,7 @@ return [
 				],
 				'return' => "Retour à l'application",
 				'terms' => "Conditions d'utilisation",
-				'footer' => "DirectDemocracy est développpé et maintenu par Photis Avrilionis Copyright © 2015 - 2016",
+				'footer' => "DirectDemocracy est développpé et maintenu par Photis Avrilionis. Copyright © 2015 - " . date("Y") . " Photis Avrilionis",
 		],
 
 		'proposition' => [

@@ -1,8 +1,8 @@
 @extends('layouts_new.main')
 
 @section('content_base')
-<div class="container-fluid">
-	<style>body {padding-top: 90px}</style>
+<div class="container-fluid" style="min-height:100%; position:relative;">
+	
 	<div class="container-fluid" id="navigation">
     	<nav class="navbar navbar-inverse navbar-fixed-top">
       		<div class="container">
@@ -48,6 +48,7 @@
     	</nav>
   	</div>
 
+	<div style="padding-bottom:40px; padding-top: 90px;">
 	<div class="container">
 		@if ($user['belongsToSchool'] == false)
 		<div class="alert alert-info" role="alert" id="link-info" style="display: none;">
@@ -66,7 +67,16 @@
 		</div>
 	</div>
 	
+	
 	@yield('content')
+	</div>
+	
+	<div id="footer">
+		<div class="container">
+			<p class="text-center"><small class="text-muted">{{Lang::get('messages.website.footer')}}</small></p>
+		</div>
+	</div>
+	
 </div>
 @stop()
 

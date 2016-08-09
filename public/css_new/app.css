@@ -3,10 +3,16 @@
 
 *, *:before, *:after {box-sizing:  border-box !important;}
 
+html, body {
+	margin:0;
+	padding:0;
+	height:100%;
+}
+	
 body {
-	position: relative;
 	font-family: 'soleil', 'Proxima Nova', 'Montserrat', "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
 .material-icons {
 	font-size: inherit;
 }
@@ -27,6 +33,14 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail:active {
 a.thumbnail:hover .caption {
 	text-decoration: none;
 	color: rgba(69,69,69,1.00);
+}
+
+#footer {
+	position:absolute;
+	bottom:0;
+	left: 0;
+	height: 30px;
+	margin: 0 55px 0;
 }
 
 .hide-propositions {
