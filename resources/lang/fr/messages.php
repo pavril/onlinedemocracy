@@ -236,7 +236,7 @@ return [
 				],
 				'approve' => "Approuver",
 				'block' => "Bloquer",
-				'days_left' => "{0} Dernier jour|{1} Plus qu'un jour|[2,Inf] Encore :daysleft jours",
+				'days_left' => "[-Inf,0] Expirée|{0} Dernier jour|{1} Plus qu'un jour|[2,Inf] Encore :daysleft jours",
 				'reason_placeholder' => "Raison",
 				'all_ok' => "Plus de proposition à approuver, bon travail ! :)",
 				

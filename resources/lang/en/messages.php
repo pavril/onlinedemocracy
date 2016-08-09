@@ -239,7 +239,7 @@ return [
 				],
 				'approve' => "Approve",
 				'block' => "Block",
-				'days_left' => "{1} :daysleft day left|{0} :daysleft days left|[2,Inf] :daysleft days left",
+				'days_left' => "[-Inf,0] Expired|{1} :daysleft day left|{0} :daysleft days left|[2,Inf] :daysleft days left",
 				'reason_placeholder' => "Reason",
 				'all_ok' => "No propositions left to approve, good job! :)",
 				
