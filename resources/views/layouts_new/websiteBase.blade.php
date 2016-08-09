@@ -10,9 +10,14 @@
 		padding: 10px;
 		margin: 10px;
 	}
-	.navbar .btn:hover, .navbar .btn:active, .navbar .btn:focus {
+	.navbar .btn-primary.btn:hover, .navbar .btn-primary.btn:active, .navbar .btn-primary.btn:focus {
 		color: #fff !important;
 		background: #4283C5 !important;
+	}
+	
+	.navbar .btn-success.btn:hover, .navbar .btn-success.btn:active, .navbar .btn-success.btn:focus {
+		color: #fff !important;
+		background: #79a736 !important;
 	}
 	.background-header {
 		background: #3e3f3a;
@@ -131,8 +136,12 @@
 	        <div class="collapse navbar-collapse" id="topFixedNavbar1">
 	          
 	          <ul class="nav navbar-nav navbar-right">
+	          @if (Auth::user())
+	            <li><a href="{{ route('propositions') }}" class="btn btn-success">{{Lang::get('messages.website.return')}}</a></li>
+	          @else
 				<li><a href="{{ route('login') }}">{{Lang::get('messages.session.login.submit')}}</a></li>
 				<li><a href="{{ route('auth.getSocialAuth', ['provider' => 'facebook']) }}" class="btn btn-primary">{{Lang::get('messages.session.login.use_fb_login')}}</a></li>
+	          @endif
 	          </ul>
 	        </div>
 	        <!-- /.navbar-collapse -->

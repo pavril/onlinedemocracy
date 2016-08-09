@@ -15,6 +15,7 @@ return [
 						'comment' => "Comment",
 						'comment_text' => "With DirectDemocracy, you can comment on suggestions made by other pupils and help improve your school life.",
 				],
+				'return' => "Return to the app",
 				'terms' => "Terms of service",
 				'footer' => "DirectDemocracy is developped and mantained by Photis Avrilionis. Copyright © 2015 - 2016 Photis Avrilionis.",
 		],

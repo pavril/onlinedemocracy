@@ -15,6 +15,7 @@ return [
 						'comment' => "Commenter",
 						'comment_text' => "Avec DirectDemocracy tu peux commenter les pétitions des autres élèves et aider à l'amélioration de la vie de l'école.",
 				],
+				'return' => "Retour à l'application",
 				'terms' => "Conditions d'utilisation",
 				'footer' => "DirectDemocracy est développpé et maintenu par Photis Avrilionis Copyright © 2015 - 2016",
 		],
