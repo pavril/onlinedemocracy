@@ -10,6 +10,8 @@
 	    <link rel="icon" type="image/svg+xml" href="{{ asset('img/logo.svg') }}" />
 	    <link rel="alternate icon" type="image/png" href="{{ asset('img/logo.png') }}">
 	    
+	    <link rel="apple-touch-icon-precomposed" href="{{ asset('img/app-icon.png') }}" />
+	    
 	    <meta property="fb:admins" content="100002828091107" />
     
         <link href="{{ asset('css_new/bootstrap.css') }}" rel="stylesheet" type="text/css">

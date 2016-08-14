@@ -153,9 +153,9 @@
 	@yield('content')
 	<div class="footer">
   	<div class="container">
+  		<span id="siteseal" class="pull-right"><script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=RRj7eHjJWWwIrW3RRbX7U43KBFBB1zHUYmMOs1REasBPEQc8FmhQcj3oU7HL"></script></span>
         <p><small class="text-muted"><a href="{{ route('terms') }}" class="text-muted">{{Lang::get('messages.website.terms')}}</a> | <a href="https://github.com/pavril/onlinedemocracy" target="_blank" class="text-muted">GitHub</a></small></p>
         <p><small class="text-muted">{{Lang::get('messages.website.footer')}}</small></p>
-        
 	</div>
   </div>
 @stop()
