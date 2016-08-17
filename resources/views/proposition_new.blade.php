@@ -49,7 +49,7 @@
                 
                 <div class="btn-group pull-right pull-right-left-margin">
 				  <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" data-placement="right" title="{{Lang::get('messages.proposition.flagging.flag')}}">
-				    <i class="glyphicon glyphicon-flag"></i>
+				    <i class="material-icons">flag</i>
 				  </button>
 				  <ul class="dropdown-menu">
 				    <li><a href="{{ route('flag', [$proposition['propositionId'], 1]) }}">{{Lang::get('messages.proposition.flagging.offensive')}}</a></li>
@@ -327,7 +327,7 @@ $(document).ready( function() {
 
 	$URL = "{{ route('proposition', [$proposition['propositionId']]) }}";
 	// Facebook Shares Count
-	$.getJSON( 'http://graph.facebook.com/?id=' + $URL, function( fbdata ) {
+	$.getJSON( 'https://graph.facebook.com/?id=' + $URL, function( fbdata ) {
 		$('#shares-count').text(ReplaceNumberWithCommas(fbdata.shares));
 	});
 			    

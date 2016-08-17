@@ -44,5 +44,5 @@
 @stop
 
 @section('footer_scripts')
-<script type="text/javascript" src="http://v4-alpha.getbootstrap.com/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://v4-alpha.getbootstrap.com/dist/js/bootstrap.min.js"></script>
 @stop

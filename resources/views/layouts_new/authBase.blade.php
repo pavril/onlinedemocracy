@@ -73,9 +73,12 @@
 	
 	<div id="footer">
 		<div class="container">
-			<p class="text-center"><small class="text-muted">{{Lang::get('messages.website.footer')}}</small></p>
+			<p class="text-center" style="display: none;" id="footer-app-iphone-link"><a href="#">Save on your home screen.</a></p>
+			<p class="text-center"><small><small class="text-muted">{{Lang::get('messages.website.footer')}}</small></small></p>
 		</div>
 	</div>
+	
+	@include('homescreen_link.iphone')
 	
 </div>
 @stop()
@@ -93,6 +96,10 @@ jQuery(function( $ ){
 	$('#lang-info.alert .close, #lang-info.alert .alert-link').click(function( e ){
     	createCookie('lang-info-alert-closed',true,365);
 	});
+
+	$('#open-app-icon, #close-app-iphone-introduce').click(function( e ){
+    	createCookie('app-introduce-closed',true,365);
+	});
 });
 
 jQuery(function( $ ){
@@ -103,6 +110,35 @@ jQuery(function( $ ){
     if( (readCookie('lang-info-alert-closed') === 'false') || (readCookie('lang-info-alert-closed') == null) ){
         $('#lang-info.alert').show();
     }
+    if( (readCookie('app-introduce-closed') === 'false') || (readCookie('app-introduce-closed') == null) ){
+    	if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+        	$('#app-iphone-introduce').show();
+        	
+    	}
+    }
+    if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+    	$('#footer-app-iphone-link a').show();
+    }
+});
+</script>
+
+<script>
+oldtitle = document.title;
+$('#cancel-app-icon').click(function( e ){
+	document.title = oldtitle;
+	$('#app-icon').hide();
+});
+
+$('#open-app-icon').click(function( e ){
+	document.title = 'DirectDemocracy';
+	$('#app-iphone-introduce').hide();
+	$('#app-icon').show();
+});
+$('#close-app-iphone-introduce').click(function( e ){
+	$('#app-iphone-introduce').hide();
+});
+$('#footer-app-iphone-link').click(function( e ){
+	$('#app-iphone-introduce').show();
 });
 </script>
 @stop

@@ -66,7 +66,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     
     public function avatar () {
     	if ($this->attributes['avatar'] == null) {
-    		return "http://www.gravatar.com/avatar/".md5( strtolower( trim( $this->email() ) ) )."?d=identicon&s=500";
+    		return "https://www.gravatar.com/avatar/".md5( strtolower( trim( $this->email() ) ) )."?d=identicon&s=500";
     	} else {
     		return $this->attributes['avatar'];
     	}

@@ -156,7 +156,7 @@ $(document).ready( function() {
 
 	$URL = "{{ route('proposition', [$proposition['propositionId']]) }}";
 	// Facebook Shares Count
-	$.getJSON( 'http://graph.facebook.com/?id=' + $URL, function( fbdata ) {
+	$.getJSON( 'https://graph.facebook.com/?id=' + $URL, function( fbdata ) {
 		$('#shares-count').text(ReplaceNumberWithCommas(fbdata.shares));
 	});
 				    
