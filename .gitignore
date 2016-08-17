@@ -1,0 +1,6 @@
+/.env
+/.settings/
+vendor/
+/.project
+/.DS_Store
+/.buildpath
