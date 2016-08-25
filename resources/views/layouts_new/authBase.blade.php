@@ -74,7 +74,7 @@
         @endif
             @if (isset($modAlerts["flag"]) AND $modAlerts["flag"])
                 <div class="alert alert-warning" role="alert" id="mod-flag">
-                    <p><a href="{{ route('moderator.flags') }}" class="alert-link">{{ Lang::get('messages.notifications.moderator_flag_queue')  }}</a></p>
+                    <p><a href="{{ route('moderator.handle_flags') }}" class="alert-link">{{ Lang::get('messages.notifications.moderator_flag_queue')  }}</a></p>
                 </div>
             @endif
 
