@@ -71,7 +71,7 @@ class PropositionFactory extends Model {
 		return Flags::where('proposition', [$id])->where('type', $type)->count();
 	}
 	public function getGlobalFlagCount($id) {
-		return Flags::where('status', '<', 3)->whereNotIn('proposer_id', [$id])->count();
+		return Flags::where('status', '<', 3)->join('propositions', 'flags.proposition', '=', 'propositions.propositionId')->whereNotIn('proposer_id', [$id])->count();
 	}
 	
 	
