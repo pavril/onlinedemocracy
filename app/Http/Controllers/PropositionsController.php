@@ -123,7 +123,7 @@ class PropositionsController extends Controller
 
 		
 		$modAlerts = array();
-		if($user->role() >= User::ROLE_MODERATOR) {
+		if($user->role() == User::ROLE_MODERATOR) {
 			if($propositionFactory->getQueuedCount() > 0) {
 				$modAlerts["approval"] = true;
 			}
