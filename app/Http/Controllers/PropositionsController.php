@@ -122,15 +122,10 @@ class PropositionsController extends Controller
     	}
 
 		
-		$modAlerts = array();
-		if($user->role() == User::ROLE_MODERATOR) {
-			if($propositionFactory->getQueuedCount() > 0) {
-				$modAlerts["approval"] = true;
-			}
-			if($propositionFactory->getGlobalFlagCount() > 0) {
-				$modAlerts["flag"] = true;
-			}
-		}
+		$modAlerts = array(
+			"approval" => $user->role() == User::ROLE_MODERATOR AND $propositionFactory->getQueuedPropositionsExceptUsersCount($user->userId()) > 0,
+			"flag" => $user->role() == User::ROLE_MODERATOR && $propositionFactory->getGlobalFlagCount($user->userId()) > 0
+		);
     	
     	return view('propositions_new', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser, 'propositions' => $viewPropositions, 'endingSoonPropositions' => $endingSoonPropositions, 'votedPropositions' => $votedPropositions, 'modAlerts' => $modAlerts]);
     }
