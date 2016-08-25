@@ -123,7 +123,7 @@ class PropositionsController extends Controller
 
 		
 		$modAlerts = array(
-			"approval" => $user->role() == User::ROLE_MODERATOR AND $propositionFactory->getQueuedExceptUserCount($user->userId()) > 0,
+			"approval" => $user->role() == User::ROLE_MODERATOR AND $propositionFactory->getQueuedPropositionsExceptUsersCount($user->userId()) > 0,
 			"flag" => $user->role() == User::ROLE_MODERATOR && $propositionFactory->getGlobalFlagCount($user->userId()) > 0
 		);
     	

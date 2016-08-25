@@ -57,7 +57,7 @@ class PropositionFactory extends Model {
 	public function getQueuedPropositionsExeptUsers($id) {
 		return Proposition::whereStatus(2)->whereNotIn('proposer_id', [$id])->orderBy('deadline', 'asc')->get();
 	}
-	public function getQueuedExceptUserCount($id) {
+	public function getQueuedPropositionsExceptUsersCount($id) {
 		return Proposition::whereStatus(2)->whereNotIn('proposer_id', [$id])->orderBy('deadline', 'asc')->count();
 	}
 	
