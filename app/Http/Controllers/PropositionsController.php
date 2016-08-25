@@ -57,6 +57,7 @@ class PropositionsController extends Controller
     	$viewPropositions = array();
     	$endingSoonPropositions = array();
     	$votedPropositions = array();
+		
     	
     	
     	foreach ($propositionFactory->getAcceptedPropositionsExeptExpired() as $proposition) {
@@ -119,8 +120,19 @@ class PropositionsController extends Controller
     		
     		
     	}
+
+		
+		$modAlerts = array();
+		if($user->role() >= User::ROLE_MODERATOR) {
+			if($propositionFactory->getQueuedCount() > 0) {
+				$modAlerts["approval"] = true;
+			}
+			if($propositionFactory->getGlobalFlagCount() > 0) {
+				$modAlerts["flag"] = true;
+			}
+		}
     	
-    	return view('propositions_new', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser, 'propositions' => $viewPropositions, 'endingSoonPropositions' => $endingSoonPropositions, 'votedPropositions' => $votedPropositions]);
+    	return view('propositions_new', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser, 'propositions' => $viewPropositions, 'endingSoonPropositions' => $endingSoonPropositions, 'votedPropositions' => $votedPropositions, 'modAlerts' => $modAlerts]);
     }
     
     public function archived()

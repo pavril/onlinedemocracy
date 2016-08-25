@@ -50,6 +50,10 @@ class PropositionFactory extends Model {
 		
 		return $query;
 	}
+
+	public function getQueuedCount() {
+		return Proposition::whereStatus(2)->count();
+	}
 	
 	public function getQueuedPropositions() {
 		return Proposition::whereStatus(2)->orderBy('deadline', 'asc')->get();
@@ -66,6 +70,9 @@ class PropositionFactory extends Model {
 	}
 	public function getFlagTypeCount($id, $type) {
 		return Flags::where('proposition', [$id])->where('type', $type)->count();
+	}
+	public function getGlobalFlagCount() {
+		return Flags::count();
 	}
 	
 	
