@@ -67,16 +67,22 @@
 		</div>
 
 
-		@if ($modAlerts["approval"])
-            <div class="alert alert-warning" role="alert" id="mod-approval">
-                <p><a href="{{ route('moderator.approval') }}" class="alert-link">{{ Lang::get('messages.notifications.moderator_approval_queue')  }}</a></p>
-            </div>
-        @endif
-            @if ($modAlerts["flag"])
+		@if (isset($modAlerts) == true)
+
+			@if (empty($modAlerts["approval"]) == false)
+            	<div class="alert alert-warning" role="alert" id="mod-approval">
+					<button type="button" class="close" data-dismiss="alert" data-alert-box="link-info" style="margin-top: -6px;" aria-label="Close"><span aria-hidden="true"><i class="material-icons">close</i></span></button>
+					<p><a href="{{ route('moderator.approval') }}" class="alert-link">{{ Lang::get('messages.notifications.moderator_approval_queue')  }}</a></p>
+            	</div>
+       		@endif
+            @if (empty($modAlerts["flag"]) == false)
                 <div class="alert alert-warning" role="alert" id="mod-flag">
-                    <p><a href="{{ route('moderator.handle_flags') }}" class="alert-link">{{ Lang::get('messages.notifications.moderator_flag_queue')  }}</a></p>
+                    <button type="button" class="close" data-dismiss="alert" data-alert-box="link-info" style="margin-top: -6px;" aria-label="Close"><span aria-hidden="true"><i class="material-icons">close</i></span></button>
+					<p><a href="{{ route('moderator.handle_flags') }}" class="alert-link">{{ Lang::get('messages.notifications.moderator_flag_queue')  }}</a></p>
                 </div>
             @endif
+            
+        @endif
 
     </div>
 
