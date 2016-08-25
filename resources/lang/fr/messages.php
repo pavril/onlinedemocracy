@@ -323,6 +323,8 @@ return [
 				'welcome_link_alert_1' => "Bienvenue à DirectDemocracy ! Pour acceder à tous les fonctionnalités de DirectDemocracy,",
 				'welcome_link_alert_2' => "lies ton compte avec l'email de ton école",
 				'welcome_link_alert_3' => "!",
+				'moderator_approval_queue' => "Ahoy, modérateur! Il y a des propositions en attente de votre approbation.",
+				'moderator_flag_queue' => "Ahoy, modérateur! Il y a des propositions marquées en attente de votre avis."
 		],
 		
 		'navigation' => [
