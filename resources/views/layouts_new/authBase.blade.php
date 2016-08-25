@@ -67,12 +67,12 @@
 		</div>
 
 
-		@if ($modAlerts["approval"])
+            @if (!empty($modAlerts["approval"]))
             <div class="alert alert-warning" role="alert" id="mod-approval">
                 <p><a href="{{ route('moderator.approval') }}" class="alert-link">{{ Lang::get('messages.notifications.moderator_approval_queue')  }}</a></p>
             </div>
         @endif
-            @if ($modAlerts["flag"])
+            @if (!empty($modAlerts["flag"]))
                 <div class="alert alert-warning" role="alert" id="mod-flag">
                     <p><a href="{{ route('moderator.handle_flags') }}" class="alert-link">{{ Lang::get('messages.notifications.moderator_flag_queue')  }}</a></p>
                 </div>
