@@ -57,6 +57,9 @@ class PropositionFactory extends Model {
 	public function getQueuedPropositionsExeptUsers($id) {
 		return Proposition::whereStatus(2)->whereNotIn('proposer_id', [$id])->orderBy('deadline', 'asc')->get();
 	}
+	public function getQueuedPropositionsExceptUsersCount($id) {
+		return Proposition::whereStatus(2)->whereNotIn('proposer_id', [$id])->orderBy('deadline', 'asc')->count();
+	}
 	
 	public function getFlaggedPropositionsExeptUsers($id) {
 		return Flags::where('status', '<', 3)->whereNotIn('proposer_id', [$id])->groupBy('proposition')->join('propositions', 'flags.proposition', '=', 'propositions.propositionId')->get();
@@ -66,6 +69,9 @@ class PropositionFactory extends Model {
 	}
 	public function getFlagTypeCount($id, $type) {
 		return Flags::where('proposition', [$id])->where('type', $type)->count();
+	}
+	public function getGlobalFlagCount($id) {
+		return Flags::where('status', '<', 3)->join('propositions', 'flags.proposition', '=', 'propositions.propositionId')->whereNotIn('proposer_id', [$id])->count();
 	}
 	
 	

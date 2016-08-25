@@ -326,6 +326,8 @@ return [
 				'welcome_link_alert_1' => "Welcome to DirectDemocracy! You need to",
 				'welcome_link_alert_2' => "connect your account with your school email",
 				'welcome_link_alert_3' => "to unlock all the features of DirectDemocracy!",
+				'moderator_approval_queue' => "Ahoy, moderator! There are propositions waiting for your approval.",
+				'moderator_flag_queue' => "Ahoy, moderator! There are flagged propositions waiting for your review."
 		],
 		
 		'navigation' => [
