@@ -4,7 +4,7 @@
 <style>
 @media (max-width: 767px) {
 	body {
-		padding-top: 122px;
+		padding-top: 50px;
 	}
 }
 </style>
