@@ -70,13 +70,13 @@
 		@if (isset($modAlerts) == true)
 
 			@if (empty($modAlerts["approval"]) == false)
-            	<div class="alert alert-warning" role="alert" id="mod-approval">
+            	<div class="alert alert-warning" role="alert" id="mod-approval" style="display: none;">
 					<button type="button" class="close" data-dismiss="alert" data-alert-box="link-info" style="margin-top: -6px;" aria-label="Close"><span aria-hidden="true"><i class="material-icons">close</i></span></button>
 					<p><a href="{{ route('moderator.approval') }}" class="alert-link">{{ Lang::get('messages.notifications.moderator_approval_queue')  }}</a></p>
             	</div>
        		@endif
             @if (empty($modAlerts["flag"]) == false)
-                <div class="alert alert-warning" role="alert" id="mod-flag">
+                <div class="alert alert-warning" role="alert" id="mod-flag" style="display: none;">
                     <button type="button" class="close" data-dismiss="alert" data-alert-box="link-info" style="margin-top: -6px;" aria-label="Close"><span aria-hidden="true"><i class="material-icons">close</i></span></button>
 					<p><a href="{{ route('moderator.handle_flags') }}" class="alert-link">{{ Lang::get('messages.notifications.moderator_flag_queue')  }}</a></p>
                 </div>
@@ -119,7 +119,15 @@ jQuery(function( $ ){
 	$('#open-app-icon, #close-app-iphone-introduce').click(function( e ){
     	createCookie('app-introduce-closed',true,365);
 	});
+
+	$('#mod-approval .close').click(function( e ){
+    	createCookie('mod-approval-alert',true,1);
+	});
+	$('#mod-flag .close').click(function( e ){
+    	createCookie('mod-flag-alert',true,1);
+	});
 });
+
 
 jQuery(function( $ ){
 
@@ -137,6 +145,13 @@ jQuery(function( $ ){
     }
     if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
     	$('#footer-app-iphone-link a').show();
+    }
+    
+    if( (readCookie('mod-approval-alert') === 'false') || (readCookie('mod-approval-alert') == null) ){
+        $('#mod-approval.alert').show();
+    }
+    if( (readCookie('mod-flag-alert') === 'false') || (readCookie('mod-flag-alert') == null) ){
+        $('#mod-flag.alert').show();
     }
 });
 </script>

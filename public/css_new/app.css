@@ -507,6 +507,10 @@ fieldset[disabled] .btn-teal.active {
 	.proposition h1 {
 		font-size: 30px;
 	}
+	
+	#footer {
+		display: none;
+	}
 }
 	
 /* Portrait phones and smaller */
