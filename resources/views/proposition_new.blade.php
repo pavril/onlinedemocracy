@@ -164,7 +164,7 @@
         		@if ($comments ==! 0)
         			@foreach ($comments as $comment)
                 	<div class="comment">
-                        <small class="name"><strong><img class="img-circle text-sized-picture" src="{{ $comment['commenter']['avatar'] }}"> {{ $comment['commenter']['fullName'] }}</strong></small>
+                        <small class="name"><strong><img class="img-circle text-sized-picture" src="{{ $comment['commenter']['avatar'] }}"> <a href="{{ route('search') . '?q=' . $comment['commenter']['fullName'] }}">{{ $comment['commenter']['fullName'] }}</a></strong></small>
                         <small class="pull-right text-muted">@if ($comment['commenter']['id'] == $user['userId']) <a href="{{ route('comment.delete', ['comment' => $comment['commentId']]) }}" class="text-muted">{{ Lang::get('messages.proposition.comments.delete') }}</a> - @endif {{ $comment['date_created'] }}</small>
                         <p>{{ $comment['commentBody'] }}</p>
                     </div>
