@@ -534,6 +534,10 @@ fieldset[disabled] .btn-teal.active {
 	#footer {
 		display: none;
 	}
+	
+	.comment p.meta {
+	    font-size: 14px;
+	}
 }
 	
 /* Portrait phones and smaller */
