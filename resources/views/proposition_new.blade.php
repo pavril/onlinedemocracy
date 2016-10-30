@@ -48,8 +48,8 @@
 	         	</div>
                 
                 <div class="btn-group pull-right pull-right-left-margin">
-				  <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" data-placement="right" title="{{Lang::get('messages.proposition.flagging.flag')}}">
-				    <i class="material-icons">flag</i>
+				  <button type="button" class="btn btn-default btn-text-lg btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" data-placement="right" title="{{Lang::get('messages.proposition.flagging.flag')}}">
+				    <i class="material-icons" style="transform: translateY(3px); font-size: 16px;">sentiment_dissatisfied</i>
 				  </button>
 				  <ul class="dropdown-menu">
 				    <li><a href="{{ route('flag', [$proposition['propositionId'], 1]) }}">{{Lang::get('messages.proposition.flagging.offensive')}}</a></li>
@@ -107,30 +107,30 @@
                     
 		@if ($user['belongsToSchool'] == true)
 		<div class="btn-group btn-group-justified section">
-          <a href="{{ route('upvote', $proposition['propositionId']) }}" class="btn btn-success"><i class="fa fa-thumbs-o-up"></i> {{ Lang::get('messages.proposition.voting.actions.upvote') }}</a>
-          <a href="{{ route('downvote', $proposition['propositionId']) }}" class="btn btn-danger"><i class="fa fa-thumbs-o-down"></i> {{ Lang::get('messages.proposition.voting.actions.downvote') }}</a>
+          <a href="{{ route('upvote', $proposition['propositionId']) }}" class="btn btn-success btn-text-lg"><i class="material-icons" style="vertical-align: inherit;">thumb_up</i> {{ Lang::get('messages.proposition.voting.actions.upvote') }}</a>
+          <a href="{{ route('downvote', $proposition['propositionId']) }}" class="btn btn-danger btn-text-lg"><i class="material-icons" style="vertical-align: middle;">thumb_down</i> {{ Lang::get('messages.proposition.voting.actions.downvote') }}</a>
         </div>
 		@else
 		<div class="btn-group btn-group-justified section">
-          <a href="#" class="btn btn-success" disabled><i class="fa fa-thumbs-o-up"></i> {{ Lang::get('messages.proposition.voting.actions.upvote') }}</a>
-          <a href="#" class="btn btn-danger" disabled><i class="fa fa-thumbs-o-down"></i> {{ Lang::get('messages.proposition.voting.actions.downvote') }}</a>
+          <a href="#" class="btn btn-success btn-text-lg" disabled><i class="material-icons" style="vertical-align: inherit;">thumb_up</i> {{ Lang::get('messages.proposition.voting.actions.upvote') }}</a>
+          <a href="#" class="btn btn-danger btn-text-lg" disabled><i class="material-icons" style="vertical-align: middle;">thumb_down</i> {{ Lang::get('messages.proposition.voting.actions.downvote') }}</a>
         </div>
 		<p class="text-primary text-center"><small>{{Lang::get('messages.proposition.voting.link')}}</small></p>
 		<div class="btn-group btn-group-justified section">
-			<a href="{{ route('getLinkAuth') }}" class="btn btn-info">{{ Lang::get('messages.profile.account.school_link_actions.link_now') }}</a>
+			<a href="{{ route('getLinkAuth') }}" class="btn btn-info btn-text-lg">{{ Lang::get('messages.profile.account.school_link_actions.link_now') }}</a>
 		</div>
 		@endif
 					
 		@else
 		<div class="btn-group btn-group-justified section">
-			<a href="#" class="btn btn-success" disabled>{{ Lang::get('messages.proposition.voting.already_voted') }}</a>
+			<a href="#" class="btn btn-success btn-text-lg" disabled>{{ Lang::get('messages.proposition.voting.already_voted') }}</a>
 		</div>
 		@endif
         
         <div class="section">
         	<div class="thumbnail section">
             	<div class="caption">
-                	<small class="text-muted">{{ Lang::get('messages.proposition.voting.credits') }} <a href="{{ route('search') . '?q=' . $proposition['proposer']['fullName'] }}"><img class="img-circle text-sized-picture" src="{{ $proposition['proposer']['avatar'] }}"> {{ $proposition['proposer']['fullName'] }}</a> {{ $proposition['date_created'] }}</small>
+                	<small class="text-muted" style="font-size: 90%;">{{ Lang::get('messages.proposition.voting.credits') }} <a href="{{ route('search') . '?q=' . $proposition['proposer']['fullName'] }}"><img class="img-circle text-sized-picture" src="{{ $proposition['proposer']['avatar'] }}"> {{ $proposition['proposer']['fullName'] }}</a> {{ $proposition['date_created'] }}</small>
                 </div>
             </div>
         </div>

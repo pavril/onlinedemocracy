@@ -468,6 +468,9 @@ fieldset[disabled] .btn-teal.active {
   color: #008080;
   background-color: #fff;
 }
+.btn-text-lg {
+	font-size: 13px;
+}
 .navbar-form {
 	margin-top: 13px;
     margin-bottom: 13px;
