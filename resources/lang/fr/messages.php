@@ -48,6 +48,9 @@ return [
 						'add' => "rajouter",
 						'cancel' => "Annuler",
 						'delete' => "Supprimer",
+						'like' => "J'aime",
+						'liked' => "J'aime déjà",
+						'likes_count' => "{1} :likes personne a aimé|[2,Inf] :likes personnes ont aimé",
 				],
 				'voting' => [
 						'expired' => "Cette proposition est expirée, tu ne peux plus voter",

@@ -164,9 +164,10 @@
         		@if ($comments ==! 0)
         			@foreach ($comments as $comment)
                 	<div class="comment">
-                        <small class="name"><strong><img class="img-circle text-sized-picture" src="{{ $comment['commenter']['avatar'] }}"> <a href="{{ route('search') . '?q=' . $comment['commenter']['fullName'] }}">{{ $comment['commenter']['fullName'] }}</a></strong></small>
-                        <small class="pull-right text-muted">@if ($comment['commenter']['id'] == $user['userId']) <a href="{{ route('comment.delete', ['comment' => $comment['commentId']]) }}" class="text-muted">{{ Lang::get('messages.proposition.comments.delete') }}</a> - @endif {{ $comment['date_created'] }}</small>
+                        <span class="name"><strong><img class="img-circle text-sized-picture" src="{{ $comment['commenter']['avatar'] }}"> <a href="{{ route('search') . '?q=' . $comment['commenter']['fullName'] }}">{{ $comment['commenter']['fullName'] }}</a></strong></span>
+                        <small class="pull-right text-muted" style="font-size: 90%">@if ($comment['commenter']['id'] == $user['userId']) <a href="{{ route('comment.delete', ['comment' => $comment['commentId']]) }}" class="text-muted">{{ Lang::get('messages.proposition.comments.delete') }}</a> - @endif {{ $comment['date_created'] }}</small>
                         <p>{{ $comment['commentBody'] }}</p>
+                       	<p class="meta"><a href="#" class="@if ($comment['userHasLiked'] == 1) text-primary @else text-muted @endif like" data-comment-id="{{ $comment['commentId'] }}" data-user-liked="{{ $comment['userHasLiked'] }}"><i class="material-icons">thumb_up</i> <span class="btn-inner">@if ($comment['userHasLiked'] == 1) {{Lang::get('messages.proposition.comments.liked')}} @else {{Lang::get('messages.proposition.comments.like')}} @endif</span></a> @if($comment['likes'] > 0) <span class="text-muted">&bull; {{ Lang::choice('messages.proposition.comments.likes_count', $comment['likes'], ['likes' => $comment['likes']]) }}</span> @endif </p>
                     </div>
                 	@endforeach
                 @else
@@ -281,7 +282,7 @@ $(document).ready( function() {
 		@else
 		var url = "{{ route('marker.edit', [$proposition['propositionId']]) }}";
 		@endif
-	    
+
 		$.post( url, $("#marker").serialize() )
 		  .done(function(e) {
 		    var errors = e;
@@ -329,6 +330,41 @@ $(document).ready( function() {
 	// Facebook Shares Count
 	$.getJSON( 'https://graph.facebook.com/?id=' + $URL, function( fbdata ) {
 		$('#shares-count').text(ReplaceNumberWithCommas(fbdata.shares));
+	});
+
+	$(".comment .like").click( function(e) {
+		var $button = $(this);
+		var commentId = $button.data('comment-id');
+
+		var data = {'_token': "{{ Session::token() }}", 'commentId': commentId};
+		
+		if ($(this).data('user-liked') == 0) {
+			$.post("{{ route('comment.like') }}", data)
+			.done(function(e) {
+				$button.data('user-liked', "1");
+				$button.removeClass("text-muted");
+				$button.addClass("text-primary");
+				$button.find('.btn-inner').html("{{Lang::get('messages.proposition.comments.liked')}}");
+			})
+			.fail(function(XMLHttpRequest, textStatus, errorThrown) {
+				alert(errorThrown);
+		  	});
+		} else {
+			$.post("{{ route('comment.remove_like') }}", data)
+			.done(function(e) {
+				console.log(e);
+				$button.data('user-liked',0);
+				$button.removeClass("text-primary");
+				$button.addClass("text-muted");
+				$button.find('.btn-inner').html("{{Lang::get('messages.proposition.comments.like')}}");
+			})
+			.fail(function(XMLHttpRequest, textStatus, errorThrown) {
+				alert(errorThrown);
+				console.log(XMLHttpRequest.responseText);
+		  	});
+		}
+		
+		return false;
 	});
 			    
 });

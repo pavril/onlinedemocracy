@@ -3,6 +3,7 @@ CREATE TABLE `likes` (
   `user_id` INT NOT NULL COMMENT '',
   `comment_id` INT NOT NULL COMMENT '',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`like_id`)  COMMENT '',
   UNIQUE INDEX `like_id_UNIQUE` (`like_id` ASC)  COMMENT '',
   INDEX `fk_likes_users_idx` (`user_id` ASC)  COMMENT '',

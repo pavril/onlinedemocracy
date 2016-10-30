@@ -24,6 +24,7 @@ use App\CommentFactory;
 use App\Flags;
 use App\Marker;
 use App\Tags;
+use App\Like;
 use Illuminate\Database\Eloquent\Model;
 use \Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -345,6 +346,7 @@ class PropositionsController extends Controller
      */
     public function show($id)
     {
+    	
     	$propositionFactory = new PropositionFactory();
     	$userFactory = new UserFactory();
     	
@@ -402,8 +404,14 @@ class PropositionsController extends Controller
     						'fullName' => $commentUser->firstName() . " " . $commentUser->lastName(),
     						'avatar' => $commentUser->avatar(),
     				],
+    				'likes' => $comment->likes(),
+    				'userHasLiked' => null,
     				'date_created' => Carbon::createFromTimestamp(strtotime($comment->created_at()))->diffForHumans(),
     		];
+    		
+    		if (Auth::check()) {
+    			$viewComments[$comment->commentId()]['userHasLiked'] = with(new CommentFactory())->userHasLiked($comment, Auth::user());
+    		}
     	
     	}
     	
@@ -473,6 +481,50 @@ class PropositionsController extends Controller
     		abort(403, trans('messages.unauthorized'));
     	}
     }
+    
+    public function like_comment(Request $request) {
+    	\App::setLocale(Auth::user()->language());
+    	$user = Auth::user();
+    	
+    	$validator = Validator::make($request->all(), [
+    			'commentId' => 'required',
+    	]);
+    	
+    	
+    	
+    	if ($validator->fails()) {
+    		abort(403, $validator->errors());
+    	} else {
+    		
+    		$commentsFactory = new CommentFactory();
+    		 
+    		$comment = $commentsFactory->getComment($request->input('commentId'));
+    		
+    		return $commentsFactory->likeComment($user, $comment);
+    	}
+    }
+    
+    public function remove_like_comment(Request $request) {
+    	\App::setLocale(Auth::user()->language());
+    	$user = Auth::user();
+    	 
+    	$validator = Validator::make($request->all(), [
+    			'commentId' => 'required',
+    	]);
+    	 
+    	if ($validator->fails()) {
+    		abort(403, $validator->errors());
+    	} else {
+    	 
+	    	$commentsFactory = new CommentFactory();
+	    	 
+	    	$comment = $commentsFactory->getComment($request->input('commentId'));
+	    	$like = $commentsFactory->findLikeByUserAndComment($user, $comment);
+	    	
+    		return $commentsFactory->removeLike($like);
+    	}
+    }
+    
     
     public function upvote($id) {
 		\App::setLocale(Auth::user()->language());

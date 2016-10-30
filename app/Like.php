@@ -23,19 +23,25 @@ class Like extends Model implements AuthenticatableContract
      *
      * @var array
      */
-    protected $fillable = ['likeId', 'user_id', 'comment_id', 'created_at'];
+    protected $fillable = ['like_id', 'user_id', 'comment_id', 'updated_at', 'created_at'];
+    protected $primaryKey = 'like_id';
     
-    public function id () {
-    	return $this->attributes['likeId'];
+    public function likeId () {
+    	return $this->attributes['like_id'];
     }
     
     public function userId () {
-    	return $this->attributes['userId'];
+    	return $this->attributes['user_id'];
     }
 
     public function commentId () {
-    	return $this->attributes['commentId'];
+    	return $this->attributes['comment_id'];
     }
+
+    public function updated_at () {
+    	return $this->attributes['updated_at'];
+    }
+    
     
     public function created_at () {
     	return $this->attributes['created_at'];

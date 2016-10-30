@@ -48,6 +48,9 @@ return [
 						'add' => "add a comment",
 						'cancel' => "Cancel",
 						'delete' => "Delete",
+						'like' => "Like!",
+						'liked' => "Liked",
+						'likes_count' => "{1} :likes Like|[2,Inf] :likes Likes",
 				],
 				'voting' => [
 						'expired' => "You can't vote anymore, this proposition has expired",
@@ -228,7 +231,7 @@ return [
 						'offensive_count' => "{1} :flags time flagged as offensive|{0} :flags times flagged as offensive|[2,Inf] :flags times flagged as offensive",
 						'inappropriate_count' => "{1} :flags time flagged as inappropriate|{0} :flags times flagged as inappropriate|[2,Inf] :flags times flagged as inappropriate",
 						'incomprehensible_count' => "{1} :flags time flagged as incomprehensible|{0} :flags times flagged as incomprehensible|[2,Inf] :flags times flagged as incomprehensible",
-						'avoid' => 'Unless in an emergency, avoid blocking propositins wich where flagged less than 5 times',
+						'avoid' => 'Unless in an emergency, avoid blocking propositions wich where flagged less than 5 times',
 				],
 				'for_approval' => "Queued propositions for approval",
 				'criteria' => [

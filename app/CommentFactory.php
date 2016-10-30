@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use \App\User;
 use \App\Comments;
-use \App\Likes;
+use \App\Like;
 use PhpParser\Comment;
 
 class CommentFactory extends Model {
@@ -29,17 +29,32 @@ class CommentFactory extends Model {
 		]);
 	}
 	
+	public function findLikeById($likeId) {
+		return Like::find($likeId);
+	}
+	public function findLikeByUserAndComment(User $user, Comments $comment) {
+		return Like::where('comment_id','=',$comment->commentId())->where('user_id','=',$user->userId())->get()->first();
+	}
+	
+	public function getNumberOfLikes(Comments $comment) {
+		return Like::where('comment_id','=',$comment->commentId())->count();
+	}
+	
+	public function userHasLiked(Comments $comment, User $user) {
+		return Like::where('comment_id','=',$comment->commentId())->where('user_id','=',$user->userId())->count();
+	}
+	
 	// Like comment
 	public function likeComment(User $user, Comments $comment) {
-		return Like::create([
-				"user_id" => $user->id(),
+		return Like::firstOrCreate([
+				"user_id" => $user->userId(),
 				"comment_id" => $comment->commentId(),
 		]);
 	}
 	
 	// Remove like
 	public function removeLike(Like $like) {
-		return Like::destroy($like->id());
+		return Like::destroy($like->likeId());
 	}
 	
 }

@@ -181,7 +181,7 @@ a.thumbnail:hover .caption {
 }
 .comment {
 	padding: 13px;
-    border-bottom: 1px solid #E3E3E3;
+    border-bottom: 1px solid #eae3d7;
 }
 .comment:first-child {
     border-top-left-radius: 4px;
@@ -194,12 +194,26 @@ a.thumbnail:hover .caption {
 }
 .comment p {
 	margin-bottom: 0;
-}
-.comment p:last-child {
 	margin-top: 10px;
 }
-.comment p:last-child a {
-	font-size: 10px;
+.comment p.meta {
+	border-top: 1px solid #eae5e5;
+    padding-top: 5px;
+    margin-bottom: -5px;
+    font-size: 90%;
+}
+.comment p.meta .like:hover, .comment p.meta .like:focus {
+	text-decoration: none;
+}
+.comment p.meta .like.text-muted:hover, .comment p.meta .like.text-muted:focus {
+	color: #75756c;
+}
+.comment span.btn-inner {
+	font-weight: bold;
+}
+.comment a.like .material-icons {
+	font-size: 16px;
+    vertical-align: sub;
 }
 .comment:hover {
 	background: #EFEFEF;

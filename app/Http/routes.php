@@ -58,6 +58,8 @@ Route::post('/proposition/update', ['as' => 'proposition.update','uses' => 'Prop
 Route::get('/proposition/delete/{propositionId}', ['as' => 'proposition.delete','uses' => 'PropositionsController@delete']);
 
 Route::post('/proposition/comment', ['middleware' => 'auth', 'as' => 'comment', 'uses' => 'PropositionsController@comment']);
+Route::post('/proposition/comment/like', ['middleware' => 'auth', 'as' => 'comment.like', 'uses' => 'PropositionsController@like_comment']);
+Route::post('/proposition/comment/remove_like', ['middleware' => 'auth', 'as' => 'comment.remove_like', 'uses' => 'PropositionsController@remove_like_comment']);
 Route::get('/proposition/comment/delete/{commentId}', ['middleware' => 'auth', 'as' => 'comment.delete', 'uses' => 'PropositionsController@delete_comment']);
 Route::get('/proposition/{id}/upvote', ['middleware' => 'auth', 'as' => 'upvote', 'uses' => 'PropositionsController@upvote']);
 Route::get('/proposition/{id}/downvote', ['middleware' => 'auth', 'as' => 'downvote', 'uses' => 'PropositionsController@downvote']);
