@@ -405,12 +405,14 @@ class PropositionsController extends Controller
     						'avatar' => $commentUser->avatar(),
     				],
     				'likes' => $comment->likes(),
+    				'people_likes' => null,
     				'userHasLiked' => null,
     				'date_created' => Carbon::createFromTimestamp(strtotime($comment->created_at()))->diffForHumans(),
     		];
     		
     		if (Auth::check()) {
     			$viewComments[$comment->commentId()]['userHasLiked'] = with(new CommentFactory())->userHasLiked($comment, Auth::user());
+    			$viewComments[$comment->commentId()]['people_likes'] = with(new CommentFactory())->getLikesByComment($comment);
     		}
     	
     	}

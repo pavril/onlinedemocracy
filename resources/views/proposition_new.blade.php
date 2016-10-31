@@ -26,8 +26,8 @@
 		@endif
 		
       
-      	<div class="section">
-        	<a href="{{ route('propositions') }}" class="btn btn-default btn-sm"><i class="fa fa-angle-left"></i> {{Lang::get('messages.proposition.back')}}</a>
+      	<div class="section" style="height: 32px;display: block;">
+        	<a href="{{ route('propositions') }}" class="btn btn-default btn-sm hidden-xs"><i class="fa fa-angle-left"></i> {{Lang::get('messages.proposition.back')}}</a>
             <span class="pull-right">
                 <div class="btn-group">
                   <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share"></i> {{Lang::get('messages.proposition.share.share')}} <span class="badge" id="shares-count">0</span></a>
@@ -157,8 +157,7 @@
         	</div>
         </div>
         @endif
-
-        <div class="section comments">
+        <div class="section comments" id="comments">
         	<div class="thumbnail section">
         		
         		@if ($comments ==! 0)
@@ -167,7 +166,9 @@
                         <span class="name"><strong><img class="img-circle text-sized-picture" src="{{ $comment['commenter']['avatar'] }}"> <a href="{{ route('search') . '?q=' . $comment['commenter']['fullName'] }}">{{ $comment['commenter']['fullName'] }}</a></strong></span>
                         <small class="pull-right text-muted" style="font-size: 90%">@if ($comment['commenter']['id'] == $user['userId']) <a href="{{ route('comment.delete', ['comment' => $comment['commentId']]) }}" class="text-muted">{{ Lang::get('messages.proposition.comments.delete') }}</a> - @endif {{ $comment['date_created'] }}</small>
                         <p>{{ $comment['commentBody'] }}</p>
-                       	<p class="meta"><a href="#" class="@if ($comment['userHasLiked'] == 1) text-primary @else text-muted @endif like" data-comment-id="{{ $comment['commentId'] }}" data-user-liked="{{ $comment['userHasLiked'] }}"><i class="material-icons">thumb_up</i> <span class="btn-inner">@if ($comment['userHasLiked'] == 1) {{Lang::get('messages.proposition.comments.liked')}} @else {{Lang::get('messages.proposition.comments.like')}} @endif</span></a> @if($comment['likes'] > 0) <span class="text-muted">&bull; {{ Lang::choice('messages.proposition.comments.likes_count', $comment['likes'], ['likes' => $comment['likes']]) }}</span> @endif </p>
+                       	<p class="meta"><a href="#" class="@if ($comment['userHasLiked'] == 1) text-primary @else text-muted @endif like" data-comment-id="{{ $comment['commentId'] }}" data-user-liked="{{ $comment['userHasLiked'] }}"><i class="material-icons">thumb_up</i> <span class="btn-inner">@if ($comment['userHasLiked'] == 1) {{Lang::get('messages.proposition.comments.liked')}} @else {{Lang::get('messages.proposition.comments.like')}} @endif</span></a> 
+                       		@if($comment['likes'] > 0) <span class="text-muted">&bull; 
+                       		<a href="#" onclick="return false;" class="text-muted" data-toggle="popover" data-placement="top" data-html="true" data-template='<div class="popover likes" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>' data-content=' @include('layouts_new.people_likes', ['likes' => $comment['people_likes']]) '>{{ Lang::choice('messages.proposition.comments.likes_count', $comment['likes'], ['likes' => $comment['likes']]) }}</a></span> @endif </p>
                     </div>
                 	@endforeach
                 @else

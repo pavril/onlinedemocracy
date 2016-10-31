@@ -215,9 +215,6 @@ a.thumbnail:hover .caption {
 	font-size: 16px;
     vertical-align: sub;
 }
-.comment:hover {
-	background: #EFEFEF;
-}
 .load-more {
 	text-align: center;
 }
@@ -305,7 +302,37 @@ a.thumbnail:hover .caption {
 }
 .tooltip {
 	font-family: inherit;
-} 
+}
+
+.popover.likes {
+	padding: 0;
+}
+.popover.likes .popover-content {
+	padding: 0;
+}
+.popover.likes .popover-content .list-group {
+	margin: 0;
+	padding: 0;
+	max-height: 200px;
+    overflow: hidden;
+    overflow-y: scroll;
+    border-radius: 4px;
+}
+.popover.likes .popover-content .list-group .list-group-item {
+	border: none;
+	border-top: 1px solid #efebe5;
+	padding: 8px 13px;
+	font-size: 90%;
+}
+.popover.likes .popover-content .list-group a.list-group-item:first-child{
+	border-top: none;
+}
+.popover.likes .popover-content a.list-group-item:hover, .popover.likes .popover-content button.list-group-item:hover, .popover.likes .popover-content a.list-group-item:focus, .popover.likes .popover-content button.list-group-item:focus {
+	background-color: #f9f8f7;
+}
+.popover.likes .popover-content a.list-group-item .img-circle.text-sized-picture {
+	vertical-align: text-top;
+}
 
 .btn.margin-bottom {
 	margin-bottom: 10px;

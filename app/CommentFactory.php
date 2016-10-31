@@ -32,6 +32,11 @@ class CommentFactory extends Model {
 	public function findLikeById($likeId) {
 		return Like::find($likeId);
 	}
+	
+	public function getLikesByComment(Comments $comment) {
+		return Like::where('comment_id','=',$comment->commentId())->orderBy('updated_at', 'DESC')->get();
+	}
+	
 	public function findLikeByUserAndComment(User $user, Comments $comment) {
 		return Like::where('comment_id','=',$comment->commentId())->where('user_id','=',$user->userId())->get()->first();
 	}

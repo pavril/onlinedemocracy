@@ -29,7 +29,7 @@
 
 	          		<ul class="nav navbar-nav navbar-right">
 						<li>
-						<a href="{{ route('profile.propositions.create') }}" class="btn btn-teal"><i class="glyphicon glyphicon-pencil"></i><span class="hidden-sm"> {{Lang::get('messages.navigation.create_proposition')}}</span></a></li>
+						<a href="{{ route('profile.propositions.create') }}" class="btn btn-teal"><i class="material-icons" style="font-size: 15px; vertical-align: sub;">create</i><span class="hidden-sm"> {{Lang::get('messages.navigation.create_proposition')}}</span></a></li>
 	            		<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img alt="profile picture of {{ $user['fullName'] }}" src="{{ $user['avatar'] }}" class="profile-picture-navbar img-circle"> {{ $user['fullName'] }}<span class="caret"></span></a>
 		              		<ul class="dropdown-menu" role="menu">
 		                		<li><a href="{{ route('profile.propositions') }}">{{Lang::get('messages.navigation.propositions')}}</a></li>
