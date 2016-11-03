@@ -382,13 +382,7 @@ class PropositionsController extends Controller
     			'downvotes' => $propositionFactory->getDownvotes($id),
     	];
     	
-    	$viewShareLinks = [
-    			'facebook' => Share::load(route('proposition', [$viewProposition['propositionId']]), $viewProposition['propositionSort'])->facebook(),
-    			'twitter' => Share::load(route('proposition', [$viewProposition['propositionId']]), $viewProposition['propositionSort'])->twitter(),
-    			'plus' => Share::load(route('proposition', [$viewProposition['propositionId']]), $viewProposition['propositionSort'])->gplus(),
-    			'pinterest' => Share::load(route('proposition', [$viewProposition['propositionId']]), $viewProposition['propositionSort'])->pinterest(),
-    	];
-    	
+    	$viewShareLinks = Share::load(route('proposition', [$viewProposition['propositionId']]), $viewProposition['propositionSort'])->services();
     	
     	$viewComments = array();
     	

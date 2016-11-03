@@ -323,6 +323,18 @@ return [
 		
 		'unauthorized' => "Unauthorized action.",
 		'close' => "Close",
+		
+		'emails' => [
+				'approved-proposition' => [
+						'subject' => "Your proposition was approved!",
+						'title' => "Proposition approved!",
+						'description' => "Congratulations, your proposition was approved by our moderators, now people can vote and comment on it!",
+						
+						'share' => "Share your proposition and get more votes",
+						'share-description' => "Sharing your proposition on social media can make more people vote for it. The more votes your proposition has, the more are the chances it gets discussed with the administration. We count on you!",
+						'share-btn' => "Share on Facebook",
+				],
+		],
 
 		'notifications' => [
 				'available_in_fr' => "DirectDemocracy est aussi disponible en",

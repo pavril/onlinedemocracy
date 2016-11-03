@@ -66,7 +66,7 @@ class MainController extends Controller
 			 
 			\Mail::send('emails.feedback', ['feedback' => $request->input('feedback'), 'user' => ['first' => $user->firstName(), 'last' => $user->lastName(), 'email' => $user->email(), 'id' => $user->userId()]], function($message)
 			{
-				$message->from('no-reply@directdemocracy.online', 'DirectDemocracy')->to('photis.avrilionis@yahoo.gr')->subject('Feedback Submission');;
+				$message->from('no-reply@directdemocracy.online', 'DirectDemocracy')->to('photis.avrilionis@yahoo.gr')->subject('Feedback Submission');
 			});
 		
 			return redirect()->back()->with('status', trans('messages.feedback.thanks'));

@@ -321,6 +321,18 @@ return [
 		'unauthorized' => "Action non autorisée.",
 		'close' => "Fermer",
 		
+		'emails' => [
+				'approved-proposition' => [
+						'subject' => "Ta proposition a été approuvée!",
+						'title' => "Proposition approuvée!",
+						'description' => "Félicitations, ta proposition a été approuvée par nos modérateurs, tout le monde peut maintenant voter et commenter!",
+		
+ 						'share' => "Partage ta proposition pour obtenir plus de votes",
+						'share-description' => "En partageant ta proposition sur les réseaux sociaux tu auras plus de chances que les gens y votent. Le plus de votes que tas proposition a, plus sont les chances qu'elle soit discutée avec l'administration.",
+						'share-btn' => "Partager sur Facebook",
+				],
+		],
+		
 		'notifications' => [
 				'available_in_en' => "DirectDemocracy is also available in",
 				'welcome_link_alert_1' => "Bienvenue à DirectDemocracy ! Pour acceder à tous les fonctionnalités de DirectDemocracy,",
