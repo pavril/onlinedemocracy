@@ -211,6 +211,9 @@ return [
 		
 		'feedback' => [
 				'thanks' => "Thank you for your feedback",
+				'error' => "An error occurred when submitting your feedback. Please try again later.",
+				'anonymous' => "Stay anonymous",
+				'placeholder' => "Enter your feedback",
 				'reason' => "DirectDemocracy is still in it's development phase. Feel free to tell us what you think we could improve or add! Your help is much appreciated.",
 				'feedback' => "Feedback",
 				'submit' => "Send feedback",

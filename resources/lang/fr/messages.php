@@ -209,6 +209,9 @@ return [
 		
 		'feedback' => [
 				'thanks' => "Merci pour ton avis",
+				'error' => "Une erreur s'est produite. Veuillez réessayer plus tard.",
+				'anonymous' => "Restez anonyme",
+				'placeholder' => "Saisis ton commentaire",
 				'reason' => "DirectDemocracy peut faire mieux ! N'hésites pas à nous dire ce que l'on peut améliorer ou rajouter ! Ton aide sera beaucoup appréciée.",
 				'feedback' => "Ton avis",
 				'submit' => "Donnes-nous ton avis",
