@@ -48,10 +48,13 @@ return [
 						'add' => "add a comment",
 						'cancel' => "Cancel",
 						'delete' => "Delete",
+						'like' => "Like!",
+						'liked' => "Liked",
+						'likes_count' => "{1} :likes Like|[2,Inf] :likes Likes",
 				],
 				'voting' => [
 						'expired' => "You can't vote anymore, this proposition has expired",
-						'need_to_login' => "Login/Register in order to vote and comment",
+						'need_to_login' => "Login in order to vote and comment",
 						// You need to login to make your opinion count
 						'already_voted' => "You have already voted for this proposition",
 						'already_voted_sort' => "You have voted!",
@@ -208,6 +211,9 @@ return [
 		
 		'feedback' => [
 				'thanks' => "Thank you for your feedback",
+				'error' => "An error occurred when submitting your feedback. Please try again later.",
+				'anonymous' => "Stay anonymous",
+				'placeholder' => "Enter your feedback",
 				'reason' => "DirectDemocracy is still in it's development phase. Feel free to tell us what you think we could improve or add! Your help is much appreciated.",
 				'feedback' => "Feedback",
 				'submit' => "Send feedback",
@@ -228,7 +234,7 @@ return [
 						'offensive_count' => "{1} :flags time flagged as offensive|{0} :flags times flagged as offensive|[2,Inf] :flags times flagged as offensive",
 						'inappropriate_count' => "{1} :flags time flagged as inappropriate|{0} :flags times flagged as inappropriate|[2,Inf] :flags times flagged as inappropriate",
 						'incomprehensible_count' => "{1} :flags time flagged as incomprehensible|{0} :flags times flagged as incomprehensible|[2,Inf] :flags times flagged as incomprehensible",
-						'avoid' => 'Unless in an emergency, avoid blocking propositins wich where flagged less than 5 times',
+						'avoid' => 'Unless in an emergency, avoid blocking propositions wich where flagged less than 5 times',
 				],
 				'for_approval' => "Queued propositions for approval",
 				'criteria' => [
@@ -320,6 +326,18 @@ return [
 		
 		'unauthorized' => "Unauthorized action.",
 		'close' => "Close",
+		
+		'emails' => [
+				'approved-proposition' => [
+						'subject' => "Your proposition was approved!",
+						'title' => "Proposition approved!",
+						'description' => "Congratulations, your proposition was approved by our moderators, now people can vote and comment on it!",
+						
+						'share' => "Share your proposition and get more votes",
+						'share-description' => "Sharing your proposition on social media can make more people vote for it. The more votes your proposition has, the more are the chances it gets discussed with the administration. We count on you!",
+						'share-btn' => "Share on Facebook",
+				],
+		],
 
 		'notifications' => [
 				'available_in_fr' => "DirectDemocracy est aussi disponible en",

@@ -19,6 +19,7 @@
 		display: none;
 	}
 </style>
+
 @stop
 
 @section('title', $proposition['propositionSort'])
@@ -50,7 +51,7 @@
                   <ul class="dropdown-menu" id="social_links">
                     <li><a href="{{ $shareLinks['facebook'] }}"><i class="fa fa-facebook-square"></i> {{Lang::get('messages.proposition.share.facebook')}}</a></li>
                     <li><a href="{{ $shareLinks['twitter'] }}"><i class="fa fa-twitter-square"></i> {{Lang::get('messages.proposition.share.twitter')}}</a></li>
-                    <li><a href="{{ $shareLinks['plus'] }}"><i class="fa fa-google-plus-square"></i> {{Lang::get('messages.proposition.share.gplus')}}</a></li>
+                    <li><a href="{{ $shareLinks['gplus'] }}"><i class="fa fa-google-plus-square"></i> {{Lang::get('messages.proposition.share.gplus')}}</a></li>
                     <li><a href="{{ $shareLinks['pinterest'] }}"><i class="fa fa-pinterest-square"></i> {{Lang::get('messages.proposition.share.pin')}}</a></li>
                   </ul>
                 </div>
@@ -101,11 +102,11 @@
         @else
 
 		<div class="btn-group btn-group-justified section">
-          <a href="#" class="btn btn-success" disabled><i class="fa fa-thumbs-o-up"></i> {{ Lang::get('messages.proposition.voting.actions.upvote') }}</a>
-          <a href="#" class="btn btn-danger" disabled><i class="fa fa-thumbs-o-down"></i> {{ Lang::get('messages.proposition.voting.actions.downvote') }}</a>
+          <a href="#" class="btn btn-success btn-text-lg" disabled><i class="material-icons" style="vertical-align: inherit;">thumb_up</i> {{ Lang::get('messages.proposition.voting.actions.upvote') }}</a>
+          <a href="#" class="btn btn-danger btn-text-lg" disabled><i class="material-icons" style="vertical-align: middle;">thumb_down</i> {{ Lang::get('messages.proposition.voting.actions.downvote') }}</a>
         </div>
         <div class="btn-group btn-group-justified section">
-			<a href="{{ route('login') }}" class="btn btn-info">{{ Lang::get('messages.proposition.voting.need_to_login') }}</a>
+			<a href="{{ route('login') }}" class="btn btn-info btn-text-lg">{{ Lang::get('messages.proposition.voting.need_to_login') }}</a>
 		</div>
         @endif
        
@@ -113,7 +114,7 @@
         <div class="section">
         	<div class="thumbnail section">
             	<div class="caption">
-                	<small class="text-muted">{{ Lang::get('messages.proposition.voting.credits') }} <a href="#"><img class="img-circle text-sized-picture" src="{{ $proposition['proposer']['avatar'] }}"> {{ $proposition['proposer']['fullName'] }}</a> {{ $proposition['date_created'] }}</small>
+                	<small class="text-muted" style="font-size: 90%;">{{ Lang::get('messages.proposition.voting.credits') }} <a href="#"><img class="img-circle text-sized-picture" src="{{ $proposition['proposer']['avatar'] }}"> {{ $proposition['proposer']['fullName'] }}</a> {{ $proposition['date_created'] }}</small>
                 </div>
             </div>
         </div>
@@ -170,5 +171,15 @@ function ReplaceNumberWithCommas(yourNumber) {
 	//Combines the two sections
 	return components.join(".");
 }
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-72457439-1', 'auto');
+  ga('send', 'pageview');
+
 </script>
 @stop

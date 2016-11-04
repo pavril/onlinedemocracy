@@ -58,6 +58,10 @@ class MainController extends Controller
 		 
 		if ($validator->fails()) {
 			 
+			if ($request->ajax()){
+				return response()->json($validator->errors(), 404);
+			}
+			
 			return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
 			 
 		} else {
@@ -66,9 +70,13 @@ class MainController extends Controller
 			 
 			\Mail::send('emails.feedback', ['feedback' => $request->input('feedback'), 'user' => ['first' => $user->firstName(), 'last' => $user->lastName(), 'email' => $user->email(), 'id' => $user->userId()]], function($message)
 			{
-				$message->from('no-reply@directdemocracy.online', 'DirectDemocracy')->to('photis.avrilionis@yahoo.gr')->subject('Feedback Submission');;
+				$message->from('no-reply@directdemocracy.online', 'DirectDemocracy')->to(env('FEEDBACK_EMAIL'))->subject('Feedback Submission');
 			});
 		
+			if ($request->ajax()){
+				return trans('messages.feedback.thanks');
+			}
+			
 			return redirect()->back()->with('status', trans('messages.feedback.thanks'));
 			 
 		}

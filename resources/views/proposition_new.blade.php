@@ -26,15 +26,15 @@
 		@endif
 		
       
-      	<div class="section">
-        	<a href="{{ route('propositions') }}" class="btn btn-default btn-sm"><i class="fa fa-angle-left"></i> {{Lang::get('messages.proposition.back')}}</a>
+      	<div class="section" style="height: 32px;display: block;">
+        	<a href="{{ route('propositions') }}" class="btn btn-default btn-sm hidden-xs"><i class="fa fa-angle-left"></i> {{Lang::get('messages.proposition.back')}}</a>
             <span class="pull-right">
                 <div class="btn-group">
                   <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share"></i> {{Lang::get('messages.proposition.share.share')}} <span class="badge" id="shares-count">0</span></a>
                   <ul class="dropdown-menu" id="social_links">
                     <li><a href="{{ $shareLinks['facebook'] }}"><i class="fa fa-facebook-square"></i> {{Lang::get('messages.proposition.share.facebook')}}</a></li>
                     <li><a href="{{ $shareLinks['twitter'] }}"><i class="fa fa-twitter-square"></i> {{Lang::get('messages.proposition.share.twitter')}}</a></li>
-                    <li><a href="{{ $shareLinks['plus'] }}"><i class="fa fa-google-plus-square"></i> {{Lang::get('messages.proposition.share.gplus')}}</a></li>
+                    <li><a href="{{ $shareLinks['gplus'] }}"><i class="fa fa-google-plus-square"></i> {{Lang::get('messages.proposition.share.gplus')}}</a></li>
                     <li><a href="{{ $shareLinks['pinterest'] }}"><i class="fa fa-pinterest-square"></i> {{Lang::get('messages.proposition.share.pin')}}</a></li>
                   </ul>
                 </div>
@@ -48,8 +48,8 @@
 	         	</div>
                 
                 <div class="btn-group pull-right pull-right-left-margin">
-				  <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" data-placement="right" title="{{Lang::get('messages.proposition.flagging.flag')}}">
-				    <i class="material-icons">flag</i>
+				  <button type="button" class="btn btn-default btn-text-lg btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" data-placement="right" title="{{Lang::get('messages.proposition.flagging.flag')}}">
+				    <i class="material-icons" style="transform: translateY(3px); font-size: 16px;">sentiment_dissatisfied</i>
 				  </button>
 				  <ul class="dropdown-menu">
 				    <li><a href="{{ route('flag', [$proposition['propositionId'], 1]) }}">{{Lang::get('messages.proposition.flagging.offensive')}}</a></li>
@@ -107,30 +107,30 @@
                     
 		@if ($user['belongsToSchool'] == true)
 		<div class="btn-group btn-group-justified section">
-          <a href="{{ route('upvote', $proposition['propositionId']) }}" class="btn btn-success"><i class="fa fa-thumbs-o-up"></i> {{ Lang::get('messages.proposition.voting.actions.upvote') }}</a>
-          <a href="{{ route('downvote', $proposition['propositionId']) }}" class="btn btn-danger"><i class="fa fa-thumbs-o-down"></i> {{ Lang::get('messages.proposition.voting.actions.downvote') }}</a>
+          <a href="{{ route('upvote', $proposition['propositionId']) }}" class="btn btn-success btn-text-lg"><i class="material-icons" style="vertical-align: inherit;">thumb_up</i> {{ Lang::get('messages.proposition.voting.actions.upvote') }}</a>
+          <a href="{{ route('downvote', $proposition['propositionId']) }}" class="btn btn-danger btn-text-lg"><i class="material-icons" style="vertical-align: middle;">thumb_down</i> {{ Lang::get('messages.proposition.voting.actions.downvote') }}</a>
         </div>
 		@else
 		<div class="btn-group btn-group-justified section">
-          <a href="#" class="btn btn-success" disabled><i class="fa fa-thumbs-o-up"></i> {{ Lang::get('messages.proposition.voting.actions.upvote') }}</a>
-          <a href="#" class="btn btn-danger" disabled><i class="fa fa-thumbs-o-down"></i> {{ Lang::get('messages.proposition.voting.actions.downvote') }}</a>
+          <a href="#" class="btn btn-success btn-text-lg" disabled><i class="material-icons" style="vertical-align: inherit;">thumb_up</i> {{ Lang::get('messages.proposition.voting.actions.upvote') }}</a>
+          <a href="#" class="btn btn-danger btn-text-lg" disabled><i class="material-icons" style="vertical-align: middle;">thumb_down</i> {{ Lang::get('messages.proposition.voting.actions.downvote') }}</a>
         </div>
 		<p class="text-primary text-center"><small>{{Lang::get('messages.proposition.voting.link')}}</small></p>
 		<div class="btn-group btn-group-justified section">
-			<a href="{{ route('getLinkAuth') }}" class="btn btn-info">{{ Lang::get('messages.profile.account.school_link_actions.link_now') }}</a>
+			<a href="{{ route('getLinkAuth') }}" class="btn btn-info btn-text-lg">{{ Lang::get('messages.profile.account.school_link_actions.link_now') }}</a>
 		</div>
 		@endif
 					
 		@else
 		<div class="btn-group btn-group-justified section">
-			<a href="#" class="btn btn-success" disabled>{{ Lang::get('messages.proposition.voting.already_voted') }}</a>
+			<a href="#" class="btn btn-success disabled-dark-success btn-text-lg" disabled>{{ Lang::get('messages.proposition.voting.already_voted') }}</a>
 		</div>
 		@endif
         
         <div class="section">
         	<div class="thumbnail section">
             	<div class="caption">
-                	<small class="text-muted">{{ Lang::get('messages.proposition.voting.credits') }} <a href="{{ route('search') . '?q=' . $proposition['proposer']['fullName'] }}"><img class="img-circle text-sized-picture" src="{{ $proposition['proposer']['avatar'] }}"> {{ $proposition['proposer']['fullName'] }}</a> {{ $proposition['date_created'] }}</small>
+                	<small class="text-muted" style="font-size: 90%;">{{ Lang::get('messages.proposition.voting.credits') }} <a href="{{ route('search') . '?q=' . $proposition['proposer']['fullName'] }}"><img class="img-circle text-sized-picture" src="{{ $proposition['proposer']['avatar'] }}"> {{ $proposition['proposer']['fullName'] }}</a> {{ $proposition['date_created'] }}</small>
                 </div>
             </div>
         </div>
@@ -157,16 +157,18 @@
         	</div>
         </div>
         @endif
-
-        <div class="section comments">
+        <div class="section comments" id="comments">
         	<div class="thumbnail section">
         		
         		@if ($comments ==! 0)
         			@foreach ($comments as $comment)
                 	<div class="comment">
-                        <small class="name"><strong><img class="img-circle text-sized-picture" src="{{ $comment['commenter']['avatar'] }}"> {{ $comment['commenter']['fullName'] }}</strong></small>
-                        <small class="pull-right text-muted">@if ($comment['commenter']['id'] == $user['userId']) <a href="{{ route('comment.delete', ['comment' => $comment['commentId']]) }}" class="text-muted">{{ Lang::get('messages.proposition.comments.delete') }}</a> - @endif {{ $comment['date_created'] }}</small>
+                        <span class="name"><strong><img class="img-circle text-sized-picture" src="{{ $comment['commenter']['avatar'] }}"> <a href="{{ route('search') . '?q=' . $comment['commenter']['fullName'] }}">{{ $comment['commenter']['fullName'] }}</a></strong></span>
+                        <small class="pull-right text-muted" style="font-size: 90%">@if ($comment['commenter']['id'] == $user['userId']) <a href="{{ route('comment.delete', ['comment' => $comment['commentId']]) }}" class="text-muted">{{ Lang::get('messages.proposition.comments.delete') }}</a> - @endif {{ $comment['date_created'] }}</small>
                         <p>{{ $comment['commentBody'] }}</p>
+                       	<p class="meta"><a href="#" class="@if ($comment['userHasLiked'] == 1) text-primary @else text-muted @endif like" data-comment-id="{{ $comment['commentId'] }}" data-user-liked="{{ $comment['userHasLiked'] }}"><i class="material-icons">thumb_up</i> <span class="btn-inner">@if ($comment['userHasLiked'] == 1) {{Lang::get('messages.proposition.comments.liked')}} @else {{Lang::get('messages.proposition.comments.like')}} @endif</span></a> 
+                       		@if($comment['likes'] > 0) <span class="text-muted">&bull; 
+                       		<a href="#" onclick="return false;" class="text-muted" data-toggle="popover" data-placement="top" data-html="true" data-template='<div class="popover likes" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>' data-content=' @include('layouts_new.people_likes', ['likes' => $comment['people_likes']]) '>{{ Lang::choice('messages.proposition.comments.likes_count', $comment['likes'], ['likes' => $comment['likes']]) }}</a></span> @endif </p>
                     </div>
                 	@endforeach
                 @else
@@ -281,7 +283,7 @@ $(document).ready( function() {
 		@else
 		var url = "{{ route('marker.edit', [$proposition['propositionId']]) }}";
 		@endif
-	    
+
 		$.post( url, $("#marker").serialize() )
 		  .done(function(e) {
 		    var errors = e;
@@ -329,6 +331,41 @@ $(document).ready( function() {
 	// Facebook Shares Count
 	$.getJSON( 'https://graph.facebook.com/?id=' + $URL, function( fbdata ) {
 		$('#shares-count').text(ReplaceNumberWithCommas(fbdata.shares));
+	});
+
+	$(".comment .like").click( function(e) {
+		var $button = $(this);
+		var commentId = $button.data('comment-id');
+
+		var data = {'_token': "{{ Session::token() }}", 'commentId': commentId};
+		
+		if ($(this).data('user-liked') == 0) {
+			$.post("{{ route('comment.like') }}", data)
+			.done(function(e) {
+				$button.data('user-liked', "1");
+				$button.removeClass("text-muted");
+				$button.addClass("text-primary");
+				$button.find('.btn-inner').html("{{Lang::get('messages.proposition.comments.liked')}}");
+			})
+			.fail(function(XMLHttpRequest, textStatus, errorThrown) {
+				alert(errorThrown);
+		  	});
+		} else {
+			$.post("{{ route('comment.remove_like') }}", data)
+			.done(function(e) {
+				console.log(e);
+				$button.data('user-liked',0);
+				$button.removeClass("text-primary");
+				$button.addClass("text-muted");
+				$button.find('.btn-inner').html("{{Lang::get('messages.proposition.comments.like')}}");
+			})
+			.fail(function(XMLHttpRequest, textStatus, errorThrown) {
+				alert(errorThrown);
+				console.log(XMLHttpRequest.responseText);
+		  	});
+		}
+		
+		return false;
 	});
 			    
 });

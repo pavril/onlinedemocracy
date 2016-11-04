@@ -29,7 +29,7 @@
 
 	          		<ul class="nav navbar-nav navbar-right">
 						<li>
-						<a href="{{ route('profile.propositions.create') }}" class="btn btn-teal"><i class="glyphicon glyphicon-pencil"></i><span class="hidden-sm"> {{Lang::get('messages.navigation.create_proposition')}}</span></a></li>
+						<a href="{{ route('profile.propositions.create') }}" class="btn btn-teal"><i class="material-icons" style="font-size: 15px; vertical-align: sub;">create</i><span class="hidden-sm"> {{Lang::get('messages.navigation.create_proposition')}}</span></a></li>
 	            		<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img alt="profile picture of {{ $user['fullName'] }}" src="{{ $user['avatar'] }}" class="profile-picture-navbar img-circle"> {{ $user['fullName'] }}<span class="caret"></span></a>
 		              		<ul class="dropdown-menu" role="menu">
 		                		<li><a href="{{ route('profile.propositions') }}">{{Lang::get('messages.navigation.propositions')}}</a></li>
@@ -174,5 +174,72 @@ $('#close-app-iphone-introduce').click(function( e ){
 $('#footer-app-iphone-link').click(function( e ){
 	$('#app-iphone-introduce').show();
 });
+</script>
+
+<!-- Floating feedback -->
+<div class="float-btn-feedback" style="position: fixed;bottom: 0;right: 0;text-align: right;">
+	<button style="
+    display: inline-block;
+    background: #607D8B;
+    color: #fff;
+    padding: 10px 20px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin: 0 30px;
+    border: none;
+	" data-toggle="collapse" data-target="#feedback-floating" aria-expanded="false" aria-controls="collapseExample"><i class="material-icons" style="
+	    vertical-align: sub;
+	">message</i><span> {{Lang::get('messages.feedback.feedback')}}</span></button>
+	<div class="collapse" id="feedback-floating">
+	  <div class="well" style="display: inline-block; margin: 0 30px; border-radius: 0; border-top-left-radius: 4px; background: #78909c; color: #fff; min-width: 200px; max-width: 500px; text-align: left;">
+	    
+	    <form class="form-vertical" id="floating-feedback-form" method="POST" action="{{ route('feedback.send') }}">
+			
+			<p>{{Lang::get('messages.feedback.reason')}}</p>
+			
+			<div class="alert-populate"></div>
+		 
+			<div class="form-group @if ($errors->has('feedback')) has-error @endif">
+				<textarea class="form-control" name="feedback" style="max-height: 120px;" placeholder="{{Lang::get('messages.feedback.placeholder')}}" required>{{ old('feedback') }}</textarea>
+			</div>
+			
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" name="anonymous"> {{Lang::get('messages.feedback.anonymous')}}
+				</label>
+			</div>
+			
+			{{ csrf_field() }}
+			
+			<div class="form-group">
+				<button type="submit" class="btn btn-default">{{Lang::get('messages.feedback.submit')}}</button>
+			</div>
+			
+		</form>
+		
+	  </div>
+	</div>
+</div>
+<script>
+$(function() {
+	$('#feedback-floating').on('show.bs.collapse', function () {
+		document.getElementById('floating-feedback-form').reset();
+	    $(this).find('.alert-populate').html('');
+	});
+	
+	$('form#floating-feedback-form').submit(function(event) {
+		event.preventDefault(); // Prevent the form from submitting via the browser
+		var form = $(this);
+		$.ajax({
+	      type: form.attr('method'),
+	      url: form.attr('action'),
+	      data: form.serialize()
+	    }).done(function(data) {
+		    form.find('.alert-populate').html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert" style="margin-top: -6px;" aria-label="Close"><span aria-hidden="true"><i class="material-icons">close</i></span></button> {{ Lang::get("messages.feedback.thanks") }}</div>');
+	    }).fail(function(data) {
+		    form.find('.alert-populate').html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" style="margin-top: -6px;" aria-label="Close"><span aria-hidden="true"><i class="material-icons">close</i></span></button> {{ Lang::get("messages.feedback.error") }}</div>');
+	    });
+	  });
+	});
 </script>
 @stop

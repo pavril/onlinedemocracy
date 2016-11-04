@@ -38,6 +38,10 @@ class Proposition extends Model implements AuthenticatableContract
     	return $this->attributes['proposer_id'];
     }
     
+    public function proposer () {
+    	return with(new UserFactory())->getUser($this->proposerId());
+    }
+    
     public function propositionSort () {
     	return $this->attributes['propositionSort'];
     }

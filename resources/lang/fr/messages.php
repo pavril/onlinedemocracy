@@ -48,6 +48,9 @@ return [
 						'add' => "rajouter",
 						'cancel' => "Annuler",
 						'delete' => "Supprimer",
+						'like' => "J'aime",
+						'liked' => "J'aime déjà",
+						'likes_count' => "{1} :likes personne a aimé|[2,Inf] :likes personnes ont aimé",
 				],
 				'voting' => [
 						'expired' => "Cette proposition est expirée, tu ne peux plus voter",
@@ -206,6 +209,9 @@ return [
 		
 		'feedback' => [
 				'thanks' => "Merci pour ton avis",
+				'error' => "Une erreur s'est produite. Veuillez réessayer plus tard.",
+				'anonymous' => "Restez anonyme",
+				'placeholder' => "Saisis ton commentaire",
 				'reason' => "DirectDemocracy peut faire mieux ! N'hésites pas à nous dire ce que l'on peut améliorer ou rajouter ! Ton aide sera beaucoup appréciée.",
 				'feedback' => "Ton avis",
 				'submit' => "Donnes-nous ton avis",
@@ -317,6 +323,18 @@ return [
 		
 		'unauthorized' => "Action non autorisée.",
 		'close' => "Fermer",
+		
+		'emails' => [
+				'approved-proposition' => [
+						'subject' => "Ta proposition a été approuvée!",
+						'title' => "Proposition approuvée!",
+						'description' => "Félicitations, ta proposition a été approuvée par nos modérateurs, tout le monde peut maintenant voter et commenter!",
+		
+ 						'share' => "Partage ta proposition pour obtenir plus de votes",
+						'share-description' => "En partageant ta proposition sur les réseaux sociaux tu auras plus de chances que les gens y votent. Le plus de votes que tas proposition a, plus sont les chances qu'elle soit discutée avec l'administration.",
+						'share-btn' => "Partager sur Facebook",
+				],
+		],
 		
 		'notifications' => [
 				'available_in_en' => "DirectDemocracy is also available in",

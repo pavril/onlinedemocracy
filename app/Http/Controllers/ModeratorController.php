@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Laravel\Socialite\Contracts\Factory as Socialite;
+use Chencha\Share\ShareFacade as Share;
+
+use Mail;
 
 use App\User;
 use App\UserFactory;
@@ -86,6 +89,13 @@ class ModeratorController extends Controller
     	
     	$proposition->setStatus(Proposition::ACCEPTED);
     	$proposition->save();
+    	
+    	\App::setLocale($proposition->proposer()->language());
+    	Mail::send('emails.approved', ['proposition' => $proposition, 'shareLinks' => Share::load(route('proposition', [$proposition->propositionId()]), $proposition->propositionSort())->services()], function($message) use ($proposition)
+    	{
+    		$message->from('no-reply@directdemocracy.online', 'DirectDemocracy')->subject(trans('messages.emails.approved-proposition.subject'));
+    		$message->to($proposition->proposer()->email());
+    	});
     	
     	return redirect()->back();
     }

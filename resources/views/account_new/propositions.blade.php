@@ -11,7 +11,7 @@
 	<h3>{{ Lang::get('messages.profile.create_proposition.begining') }}</h3>
 	<p class="lead">{{ Lang::get('messages.profile.create_proposition.description') }}</p>
 	<br>
-	<p><a href="{{ route('profile.propositions.create') }}" class="btn btn-teal btn-lg"><i class="glyphicon glyphicon-pencil"></i> {{ Lang::get('messages.profile.create_proposition.begining_btn') }}</a></p>
+	<p><a href="{{ route('profile.propositions.create') }}" class="btn btn-teal btn-lg btn-text-lg"><i class="material-icons" style="font-size: 18px; vertical-align: sub;">create</i> {{ Lang::get('messages.profile.create_proposition.begining_btn') }}</a></p>
 	
 @endif
 

@@ -42,6 +42,10 @@ class Comments extends Model implements AuthenticatableContract
     	return $this->attributes['body'];
     }
     
+    public function likes () {
+		return with(new CommentFactory())->getNumberOfLikes($this);
+    }
+    
     public function created_at () {
     	return $this->attributes['created_at'];
     }
