@@ -123,7 +123,7 @@
 					
 		@else
 		<div class="btn-group btn-group-justified section">
-			<a href="#" class="btn btn-success btn-text-lg" disabled>{{ Lang::get('messages.proposition.voting.already_voted') }}</a>
+			<a href="#" class="btn btn-success disabled-dark-success btn-text-lg" disabled>{{ Lang::get('messages.proposition.voting.already_voted') }}</a>
 		</div>
 		@endif
         

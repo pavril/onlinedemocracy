@@ -498,6 +498,12 @@ fieldset[disabled] .btn-teal.active {
 .btn-text-lg {
 	font-size: 13px;
 }
+
+.disabled-dark-success {
+	background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
 .navbar-form {
 	margin-top: 13px;
     margin-bottom: 13px;
