@@ -45,7 +45,9 @@ Route::post('/feedback', ['middleware' => 'auth', 'as' => 'feedback.send', 'uses
 
 //School link routes
 Route::get('/profile/link',['middleware' => 'auth','uses' => 'ProfileController@getLinkAuth','as'   => 'getLinkAuth']);
+Route::get('/profile/link/msgraph',['middleware' => 'auth','uses' => 'ProfileController@getLinkAuthMsgraph','as'   => 'getLinkAuthMsgraph']);
 Route::get('/profile/link/callback',['middleware' => 'auth','uses' => 'ProfileController@getLinkAuthCallback','as'   => 'getLinkAuthCallback']);
+Route::get('/profile/link/msgraph_callback',['middleware' => 'auth','uses' => 'ProfileController@getLinkAuthCallbackMsgraph','as'   => 'getLinkAuthCallbackMsgraph']);
 Route::get('/profile/unlink',['middleware' => 'auth','uses' => 'ProfileController@unlinkGoogle','as'   => 'unlinkGoogle']);
 
 //Propositions routes

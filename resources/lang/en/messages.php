@@ -132,6 +132,7 @@ return [
 						'school_link_help' => "You need to be part of the European School of Mamer in order to vote, comment and create propositions.",
 						'school_link_actions' => [
 								'link_now' => "Link now",
+								'link_now_msgraph' => "Link now with Office 365",
 								'linked_with' => "Linked with:",
 								'unlink_now' => "Unlink",
 						],

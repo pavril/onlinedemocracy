@@ -47,4 +47,10 @@ return [
 		'redirect' => env('GOOGLE_REDIRECT'),
 	],
 
+    'graph' => [
+        'client_id'     => env('MSGRAPH_CLIENT_ID'),
+        'client_secret' => env('MSGRAPH_CLIENT_SECRET'),
+        'redirect'      => env('MSGRAPH_REDIRECT'),
+    ],
+
 ];

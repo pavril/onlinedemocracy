@@ -49,6 +49,7 @@ class ProfileController extends Controller
     			'avatar' => $user->avatar(),
     			'belongsToSchool' => $user->belongsToSchool(),
     			'schoolEmail' => $user->googleEmail(),
+                'msgraphDisplayName' => $user->msgraphDisplayName(),
     			'role' => $user->role(),
     			'lang' => $user->language(),
     			'propositionsCount' => $propositionsCount,
@@ -174,6 +175,11 @@ class ProfileController extends Controller
     {
     	return $this->socialite->with('google')->redirect();
     }
+
+    public function getLinkAuthMsgraph()
+    {
+        return $this->socialite->with('graph')->redirect();
+    }
     
     public function getLinkAuthCallback()
     {
@@ -215,6 +221,52 @@ class ProfileController extends Controller
     	} else {
     		return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.error')]);
     	}
+    }
+
+    public function getLinkAuthCallbackMsgraph()
+    {
+        if($socialUser = $this->socialite->with('graph')->user()){
+
+            $client = new \GuzzleHttp\Client();
+
+            $response = $client->request('GET', 'https://graph.microsoft.com/v1.0/me/', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $socialUser->token,
+                    'Content-Type' => 'application/json;odata.metadata=minimal;odata.streaming=true'
+                ]
+            ]);
+
+            if ($response->getStatusCode() === 200) {
+                $body = json_decode($response->getBody());
+                $school_regex = '/.+\(LUX-S[1-7][A-Z]+\)/'; // TODO: change LUX to MAM when done testing
+
+                $id = $body->id;
+                $displayName = $body->displayName;
+
+                if (preg_match($school_regex, $displayName)) {
+                    $userFactory = new UserFactory();
+
+                    if($userFactory->msgraphIdIsTaken($id)) {
+                        return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.already_linked')]);
+                    } else {
+                        $user = Auth::user();
+
+                        $user->setMsgraphId($id);
+                        $user->setMsgraphDisplayName($displayName);
+                        $user->setBelongsToSchool(true);
+
+                        $user->save();
+
+                        return redirect()->route('profile.main');
+                    }
+                } else {
+                    return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.error')]);
+                }
+            }
+
+        } else {
+            return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.error')]);
+        }
     }
     
     public function unlinkGoogle()

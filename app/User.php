@@ -27,7 +27,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['id', 'email', 'password', 'firstName', 'lastName', 'contactEmail', 'avatar', 'facebookId', 'googleId', 'roleId', 'languageCode', 'googleEmail', 'belongsToSchool'];
+    protected $fillable = ['id', 'email', 'password', 'firstName', 'lastName', 'contactEmail', 'avatar', 'facebookId', 'googleId', 'roleId', 'languageCode', 'googleEmail', 'belongsToSchool', 'msgraphId', 'msgraphDisplayName'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -145,6 +145,22 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     	} else {
     		return false;
     	}
+    }
+
+    public function msgraphId () {
+        return $this->attributes['facebookId'];
+    }
+
+    public function setMsgraphId($msgraphId) {
+        return $this->attributes['msgraphId'] = $msgraphId;
+    }
+
+    public function msgraphDisplayName () {
+        return $this->attributes['msgraphDisplayName'];
+    }
+
+    public function setMsgraphDisplayName($msgraphDisplayName) {
+        return $this->attributes['msgraphDisplayName'] = $msgraphDisplayName;
     }
     
 }

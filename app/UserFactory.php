@@ -42,6 +42,10 @@ class UserFactory extends Model {
     	
     	return true;
 	}
+
+	public function msgraphIdIsTaken($id) {
+	    return User::where('msgraphId', '=', $id)->count() == 1;
+    }
 	
 	public function createUser($firstName, $lastName, $email, $avatar_url, $password) {
 		return User::create([
