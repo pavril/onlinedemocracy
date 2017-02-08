@@ -126,7 +126,7 @@
 			<h1>{{Lang::get('messages.profile.create_proposition.inactive')}}</h1>
 			<p class="lead">{{ Lang::get('messages.profile.account.school_link_help') }}</p>
 			<br/>
-			<a href="{{ route('getLinkAuth') }}" class="btn btn-lg btn-info btn-block">{{ Lang::get('messages.profile.account.school_link_actions.link_now') }}</a>
+			<a href="{{ route('getLinkAuthMsgraph') }}" class="btn btn-lg btn-info btn-block">{{ Lang::get('messages.profile.account.school_link_actions.link_now') }}</a>
 		</div>
 	</div>
 </div>

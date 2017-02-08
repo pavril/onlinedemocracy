@@ -117,7 +117,7 @@
         </div>
 		<p class="text-primary text-center"><small>{{Lang::get('messages.proposition.voting.link')}}</small></p>
 		<div class="btn-group btn-group-justified section">
-			<a href="{{ route('getLinkAuth') }}" class="btn btn-info btn-text-lg">{{ Lang::get('messages.profile.account.school_link_actions.link_now') }}</a>
+			<a href="{{ route('getLinkAuthMsgraph') }}" class="btn btn-info btn-text-lg">{{ Lang::get('messages.profile.account.school_link_actions.link_now') }}</a>
 		</div>
 		@endif
 					
