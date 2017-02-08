@@ -238,7 +238,7 @@ class ProfileController extends Controller
 
             if ($response->getStatusCode() === 200) {
                 $body = json_decode($response->getBody());
-                $school_regex = '/.+\(LUX-S[1-7][A-Z]+\)/'; // TODO: change LUX to MAM when done testing
+                $school_regex = '/.+\(MAM-S[1-7][A-Z]+\)/'; // TODO: change LUX to MAM when done testing
 
                 $id = $body->id;
                 $displayName = $body->displayName;
@@ -262,7 +262,7 @@ class ProfileController extends Controller
                         return redirect()->route('profile.main');
                     }
                 } else {
-                    return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.error')]);
+                    return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.not_valid_name')]);
                 }
             }
 

@@ -139,6 +139,7 @@ return [
 						'school_link_messages' => [
 								"already_linked" => "This email is already linked with another account",
 								"not_valid_email" => "This is not a school email, your email should end by @eursc-mamer.lu",
+                                "not_valid_name" => "It seems like you are not from the European School of Mamer. If this is a mistake, please contact us.",
 								"error" => "Link error",
 								"unlinked" => "Unlinked successfully"
 						],
