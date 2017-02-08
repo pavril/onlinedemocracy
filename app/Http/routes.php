@@ -50,6 +50,8 @@ Route::get('/profile/link/callback',['middleware' => 'auth','uses' => 'ProfileCo
 Route::get('/profile/link/msgraph_callback',['middleware' => 'auth','uses' => 'ProfileController@getLinkAuthCallbackMsgraph','as'   => 'getLinkAuthCallbackMsgraph']);
 Route::get('/profile/unlink',['middleware' => 'auth','uses' => 'ProfileController@unlinkGoogle','as'   => 'unlinkGoogle']);
 
+Route::get('/profile/relink', ['middleware' => 'auth','uses' => 'ProfileController@relink','as' => 'relink']);
+
 //Propositions routes
 Route::get('/home', ['middleware' => 'auth','as' => 'propositions','uses' => 'PropositionsController@index']);
 Route::get('/search', ['middleware' => 'auth','as' => 'search','uses' => 'PropositionsController@search']);

@@ -251,6 +251,8 @@ class ProfileController extends Controller
                     } else {
                         $user = Auth::user();
 
+                        $user->setGoogleId(null);
+                        $user->setGoogleEmail(null);
                         $user->setMsgraphId($id);
                         $user->setMsgraphDisplayName($displayName);
                         $user->setBelongsToSchool(true);
@@ -268,6 +270,16 @@ class ProfileController extends Controller
             return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.error')]);
         }
     }
+
+    public function unlinkMsgraph()
+    {
+        $user = Auth::user();
+        $userFactory = new UserFactory();
+
+        $userFactory->unlinkGoogleAccount($user->userId());
+
+        return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.unlinked')]);
+    }
     
     public function unlinkGoogle()
     {
@@ -277,6 +289,27 @@ class ProfileController extends Controller
     	$userFactory->unlinkGoogleAccount($user->userId());
     	
     	return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.unlinked')]);
+    }
+
+    public function relink()
+    {
+        $user = Auth::user();
+
+        $viewUser = [
+            'fullName' => $user->firstName() . " " . $user->lastName(),
+            'firstName' => $user->firstName(),
+            'lastName' => $user->lastName(),
+            'contactEmail' => $user->contactEmail(),
+            'email' => $user->email(),
+            'avatar' => $user->avatar(),
+            'belongsToSchool' => $user->belongsToSchool(),
+            'schoolEmail' => $user->googleEmail(),
+            'msgraphDisplayName' => $user->msgraphDisplayName(),
+            'role' => $user->role(),
+            'lang' => $user->language(),
+        ];
+
+        return view('account_new.relink', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser]);
     }
     
     public function password()

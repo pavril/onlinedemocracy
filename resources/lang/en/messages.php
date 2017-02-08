@@ -145,6 +145,9 @@ return [
 						'propositionsCount' => "{1} :propositions proposition|{0} :propositions propositions|[2,Inf] :propositions propositions",
 						'school_link_info' => "You need to be part of the European School of Mamer in order to vote, comment and make propositions or suggestions.",
 						'save' => "Save",
+                        'relink' => [
+                            'heading' => 'Please relink your account with Office 365 to fully use DirectDemocracy'
+                        ]
 				],
 				'password' => [
 						'old' => 'Old password',

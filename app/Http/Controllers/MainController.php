@@ -17,8 +17,13 @@ class MainController extends Controller
 {
 	
 	public function home() {
-		if (Auth::check()) { 
-			return redirect()->route('propositions');
+		if (Auth::check()) {
+		    $user = Auth::user();
+		    if ($user->belongsToSchool() and !$user->isMsgraphLinked($user->id)) {
+		        return redirect()->route('relink');
+            } else {
+                return redirect()->route('propositions');
+            }
 		} else {
 			return view('guest.home');
 		}

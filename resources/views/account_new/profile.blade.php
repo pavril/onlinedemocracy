@@ -55,7 +55,6 @@
 		<div class="col-sm-10">
 			
 			@if ($user['belongsToSchool'] == false)
-			<a href="{{ route('getLinkAuth') }}" class="btn btn-info btn-sm btn-block">{{ Lang::get('messages.profile.account.school_link_actions.link_now') }}</a>
 			<a href="{{ route('getLinkAuthMsgraph') }}" class="btn btn-info btn-sm btn-block">{{ Lang::get('messages.profile.account.school_link_actions.link_now_msgraph') }}</a>
 			@else
 			<p  style="color: #333;">{{ Lang::get('messages.profile.account.school_link_actions.linked_with') }} <strong>{{ $user['schoolEmail'] or $user['msgraphDisplayName'] }}</strong> <a class="btn btn-sm btn-danger" href="{{ route('unlinkGoogle') }}">{{ Lang::get('messages.profile.account.school_link_actions.unlink_now') }}</a></p>

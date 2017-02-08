@@ -147,8 +147,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     	}
     }
 
-    public function msgraphId () {
-        return $this->attributes['facebookId'];
+    public function msgraphId() {
+        return $this->attributes['msgraphId'];
     }
 
     public function setMsgraphId($msgraphId) {
@@ -161,6 +161,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function setMsgraphDisplayName($msgraphDisplayName) {
         return $this->attributes['msgraphDisplayName'] = $msgraphDisplayName;
+    }
+
+    public function isMsgraphLinked() {
+        return $this->attributes['msgraphId'] != null;
     }
     
 }
