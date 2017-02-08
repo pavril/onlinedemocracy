@@ -238,7 +238,7 @@ class ProfileController extends Controller
 
             if ($response->getStatusCode() === 200) {
                 $body = json_decode($response->getBody());
-                $school_regex = '/.+\(MAM-S[1-7][A-Z]+\)/'; // TODO: change LUX to MAM when done testing
+                $school_regex = '/.+\(MAM-S[1-7][A-Z]+\)/';
 
                 $id = $body->id;
                 $displayName = $body->displayName;
