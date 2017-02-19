@@ -174,7 +174,7 @@ class ProfileController extends Controller
 
     public function getLinkAuthMsgraph()
     {
-        return $this->socialite->with('graph')->scopes(['User.Read', 'Mail.Send'])->redirect();
+        return $this->socialite->with('graph')->scopes(['User.Read'])->redirect();
     }
 
     public function getLinkAuthCallbackMsgraph()
