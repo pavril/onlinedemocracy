@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 use Auth;
@@ -170,64 +171,17 @@ class ProfileController extends Controller
     {
         //
     }
-    
-    public function getLinkAuth()
-    {
-    	return $this->socialite->with('google')->redirect();
-    }
 
     public function getLinkAuthMsgraph()
     {
-        return $this->socialite->with('graph')->redirect();
-    }
-    
-    public function getLinkAuthCallback()
-    {
-    	if($socialUser = $this->socialite->with('google')->user()){
-    			
-    		if (isset($socialUser->user['domain'])) {
-    
-    			$domain = $socialUser->user['domain'];
-    			 
-    			if ($domain === "eursc-mamer.lu") {
-    
-    				$id = $socialUser->id;
-    				$email = $socialUser->email;
-    				
-    				$userFactory = new UserFactory();
-    				
-    				if ($userFactory->schoolEmailIsTaken($email) == true) {
-    					return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.already_linked')]);
-    				} else {
-    					$user = Auth::user();
-    						
-    					$user->setGoogleId($id);
-    					$user->setGoogleEmail($email);
-    						
-    					$user->setBelongsToSchool(true);
-    						
-    					$user->save();
-
-    					return redirect()->route('profile.main');
-    				}
-    				
-    			} else {
-    				return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.not_valid_email')]);
-    			}
-    
-    		} else {
-    			return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.not_valid_email')]);
-    		}
-    	} else {
-    		return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.error')]);
-    	}
+        return $this->socialite->with('graph')->scopes(['User.Read', 'Mail.Send'])->redirect();
     }
 
     public function getLinkAuthCallbackMsgraph()
     {
         if($socialUser = $this->socialite->with('graph')->user()){
 
-            $client = new \GuzzleHttp\Client();
+            $client = new Client();
 
             $response = $client->request('GET', 'https://graph.microsoft.com/v1.0/me/', [
                 'headers' => [
@@ -279,16 +233,6 @@ class ProfileController extends Controller
         $userFactory->unlinkGoogleAccount($user->userId());
 
         return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.unlinked')]);
-    }
-    
-    public function unlinkGoogle()
-    {
-    	$user = Auth::user();
-    	$userFactory = new UserFactory();
-    	
-    	$userFactory->unlinkGoogleAccount($user->userId());
-    	
-    	return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.unlinked')]);
     }
 
     public function relink()

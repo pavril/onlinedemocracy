@@ -44,11 +44,10 @@ Route::get('/feedback', ['middleware' => 'auth', 'as' => 'feedback', 'uses' => '
 Route::post('/feedback', ['middleware' => 'auth', 'as' => 'feedback.send', 'uses' => 'MainController@feedback_send']);
 
 //School link routes
-Route::get('/profile/link',['middleware' => 'auth','uses' => 'ProfileController@getLinkAuth','as'   => 'getLinkAuth']);
+Route::get('/profile/link',['middleware' => 'auth','uses' => 'ProfileController@getLinkAuthMsgraoh','as'   => 'getLinkAuthMsgraph']);
 Route::get('/profile/link/msgraph',['middleware' => 'auth','uses' => 'ProfileController@getLinkAuthMsgraph','as'   => 'getLinkAuthMsgraph']);
-Route::get('/profile/link/callback',['middleware' => 'auth','uses' => 'ProfileController@getLinkAuthCallback','as'   => 'getLinkAuthCallback']);
 Route::get('/profile/link/msgraph_callback',['middleware' => 'auth','uses' => 'ProfileController@getLinkAuthCallbackMsgraph','as'   => 'getLinkAuthCallbackMsgraph']);
-Route::get('/profile/unlink',['middleware' => 'auth','uses' => 'ProfileController@unlinkGoogle','as'   => 'unlinkGoogle']);
+Route::get('/profile/unlink',['middleware' => 'auth','uses' => 'ProfileController@unlinkGoogleMsgraph','as'   => 'unlinkMsgraph']);
 
 Route::get('/profile/relink', ['middleware' => 'auth','uses' => 'ProfileController@relink','as' => 'relink']);
 
