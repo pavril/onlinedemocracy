@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 use Auth;
@@ -49,6 +50,7 @@ class ProfileController extends Controller
     			'avatar' => $user->avatar(),
     			'belongsToSchool' => $user->belongsToSchool(),
     			'schoolEmail' => $user->googleEmail(),
+                'msgraphDisplayName' => $user->msgraphDisplayName(),
     			'role' => $user->role(),
     			'lang' => $user->language(),
     			'propositionsCount' => $propositionsCount,
@@ -169,62 +171,89 @@ class ProfileController extends Controller
     {
         //
     }
-    
-    public function getLinkAuth()
-    {
-    	return $this->socialite->with('google')->redirect();
-    }
-    
-    public function getLinkAuthCallback()
-    {
-    	if($socialUser = $this->socialite->with('google')->user()){
-    			
-    		if (isset($socialUser->user['domain'])) {
-    
-    			$domain = $socialUser->user['domain'];
-    			 
-    			if ($domain === "eursc-mamer.lu") {
-    
-    				$id = $socialUser->id;
-    				$email = $socialUser->email;
-    				
-    				$userFactory = new UserFactory();
-    				
-    				if ($userFactory->schoolEmailIsTaken($email) == true) {
-    					return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.already_linked')]);
-    				} else {
-    					$user = Auth::user();
-    						
-    					$user->setGoogleId($id);
-    					$user->setGoogleEmail($email);
-    						
-    					$user->setBelongsToSchool(true);
-    						
-    					$user->save();
 
-    					return redirect()->route('profile.main');
-    				}
-    				
-    			} else {
-    				return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.not_valid_email')]);
-    			}
-    
-    		} else {
-    			return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.not_valid_email')]);
-    		}
-    	} else {
-    		return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.error')]);
-    	}
-    }
-    
-    public function unlinkGoogle()
+    public function getLinkAuthMsgraph()
     {
-    	$user = Auth::user();
-    	$userFactory = new UserFactory();
-    	
-    	$userFactory->unlinkGoogleAccount($user->userId());
-    	
-    	return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.unlinked')]);
+        return $this->socialite->with('graph')->scopes(['User.Read'])->redirect();
+    }
+
+    public function getLinkAuthCallbackMsgraph()
+    {
+        if($socialUser = $this->socialite->with('graph')->user()){
+
+            $client = new Client();
+
+            $response = $client->request('GET', 'https://graph.microsoft.com/v1.0/me/', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $socialUser->token,
+                    'Content-Type' => 'application/json;odata.metadata=minimal;odata.streaming=true'
+                ]
+            ]);
+
+            if ($response->getStatusCode() === 200) {
+                $body = json_decode($response->getBody());
+                $school_regex = '/.+\(MAM-S[1-7][A-Z]+\)/';
+
+                $id = $body->id;
+                $displayName = $body->displayName;
+
+                if (preg_match($school_regex, $displayName)) {
+                    $userFactory = new UserFactory();
+
+                    if($userFactory->msgraphIdIsTaken($id)) {
+                        return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.already_linked')]);
+                    } else {
+                        $user = Auth::user();
+
+                        $user->setGoogleId(null);
+                        $user->setGoogleEmail(null);
+                        $user->setMsgraphId($id);
+                        $user->setMsgraphDisplayName($displayName);
+                        $user->setBelongsToSchool(true);
+
+                        $user->save();
+
+                        return redirect()->route('profile.main');
+                    }
+                } else {
+                    return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.not_valid_name')]);
+                }
+            }
+
+        } else {
+            return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.error')]);
+        }
+    }
+
+    public function unlinkMsgraph()
+    {
+        $user = Auth::user();
+        $userFactory = new UserFactory();
+
+        $userFactory->unlinkGoogleAccount($user->userId());
+
+        return redirect()->route('profile.main')->withErrors(['linkState' => trans('messages.profile.account.school_link_messages.unlinked')]);
+    }
+
+    public function relink()
+    {
+        $user = Auth::user();
+
+        $viewUser = [
+            'fullName' => $user->firstName() . " " . $user->lastName(),
+            'firstName' => $user->firstName(),
+            'lastName' => $user->lastName(),
+            'contactEmail' => $user->contactEmail(),
+            'email' => $user->email(),
+            'avatar' => $user->avatar(),
+            'belongsToSchool' => $user->belongsToSchool(),
+            'schoolEmail' => $user->googleEmail(),
+            'msgraphDisplayName' => $user->msgraphDisplayName(),
+            'role' => $user->role(),
+            'lang' => $user->language(),
+        ];
+
+        return view('account_new.relink', ['fullName' => $user->firstName() . " " . $user->lastName(), 'user' => $viewUser]);
     }
     
     public function password()

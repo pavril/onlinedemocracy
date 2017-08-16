@@ -42,6 +42,28 @@ class UserFactory extends Model {
     	
     	return true;
 	}
+
+	public function unlinkMsgraph($userId) {
+        $user = User::find($userId);
+
+        $user->setMsgraphId(null);
+        $user->setMsgraphDisplayName(null);
+
+        $user->setBelongsToSchool(false);
+
+        $user->save();
+
+        return true;
+    }
+
+	public function msgraphIdIsTaken($id) {
+	    return User::where('msgraphId', '=', $id)->count() == 1;
+    }
+
+    public function isUserMsgraphLinked($id) {
+        $user = User::find($id);
+        return $user->msgraphId() == null;
+    }
 	
 	public function createUser($firstName, $lastName, $email, $avatar_url, $password) {
 		return User::create([

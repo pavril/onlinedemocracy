@@ -53,7 +53,7 @@
 		@if ($user['belongsToSchool'] == false)
 		<div class="alert alert-info" role="alert" id="link-info" style="display: none;">
 			<button type="button" class="close" data-dismiss="alert" data-alert-box="link-info" style="margin-top: -6px;" aria-label="Close"><span aria-hidden="true"><i class="material-icons">close</i></span></button>
-			<p>{{ Lang::get('messages.notifications.welcome_link_alert_1') }} <a href="{{ route('getLinkAuth') }}" class="alert-link">{{ Lang::get('messages.notifications.welcome_link_alert_2') }}</a> {{ Lang::get('messages.notifications.welcome_link_alert_3') }}</p>
+			<p>{{ Lang::get('messages.notifications.welcome_link_alert_1') }} <a href="{{ route('getLinkAuthMsgraph') }}" class="alert-link">{{ Lang::get('messages.notifications.welcome_link_alert_2') }}</a> {{ Lang::get('messages.notifications.welcome_link_alert_3') }}</p>
 		</div>
 		@endif
 
